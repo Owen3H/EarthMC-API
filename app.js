@@ -1,12 +1,11 @@
 const express = require("express")
       app = express(),
-      emc = require("earthmc")
+      townRoutes = require("./api/routes/towns"),
+      nationRoutes = require("./api/routes/nations"),
+      residentRoutes = require("./api/routes/residents")
 
-app.use(async (req, res, next) => 
-{
-    var towns = await emc.getTowns().then(towns => { return towns })
-
-    res.status(200).json(towns)
-})
+app.use("/towns", townRoutes)
+app.use("/nations", nationRoutes)
+app.use("/residents", residentRoutes)
 
 module.exports = app
