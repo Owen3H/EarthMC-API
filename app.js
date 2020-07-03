@@ -1,11 +1,13 @@
 const express = require("express")
       app = express(),
-      townRoutes = require("./api/routes/towns"),
-      nationRoutes = require("./api/routes/nations"),
-      residentRoutes = require("./api/routes/residents")
+      townsRoute = require("./api/routes/towns"),
+      nationsRoute = require("./api/routes/nations"),
+      residentsRoute = require("./api/routes/residents"),
+      serverInfoRoute = require("./api/routes/serverInfo")
 
-app.use("/towns", townRoutes)
-app.use("/nations", nationRoutes)
-app.use("/residents", residentRoutes)
+app.use("/towns", townsRoute)
+app.use("/nations", nationsRoute)
+app.use("/residents", residentsRoute)
+app.use("/serverinfo", serverInfoRoute)
 
 module.exports = app
