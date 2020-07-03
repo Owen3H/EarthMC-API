@@ -14,15 +14,28 @@ app.use("/serverinfo", serverInfoRoute)
 // Error handling
 app.use((req, res, next) => 
 {
-      const error = new Error('Not found!')
-      error.status = 404
-      next(error)
+      var date = new Date()
+
+      res.json({
+            "timestamp": date.getTime(),
+            "status": 404,
+            "error": "Endpoint Error",
+            "message": "Not found!",
+            "path": req.path
+      })
 })
 
 app.use((error, req, res, next) => 
 {
-      res.status(error.status || 500)
-      res.json(error)
+      var date = new Date()
+
+      res.json({
+            "timestamp": date.getTime(),
+            "status": error.status || 500,
+            "error": "Internal Server Error",
+            "message": error.message,
+            "path": req.path
+      })
 })
 
 module.exports = app
