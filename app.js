@@ -3,13 +3,15 @@ const express = require("express")
       townsRoute = require("./api/routes/towns"),
       nationsRoute = require("./api/routes/nations"),
       residentsRoute = require("./api/routes/residents"),
-      serverInfoRoute = require("./api/routes/serverInfo")
+      serverInfoRoute = require("./api/routes/serverInfo"),
+      onlinePlayersRoute = require("./api/routes/onlinePlayers")
 
 // Use the routes defined in api/routes
 app.use("/towns", townsRoute)
 app.use("/nations", nationsRoute)
 app.use("/residents", residentsRoute)
 app.use("/serverinfo", serverInfoRoute)
+app.use("/onlineplayers", onlinePlayersRoute)
 
 // Error handling
 app.use((req, res, next) => 
