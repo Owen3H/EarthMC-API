@@ -11,13 +11,10 @@ router.get("/", async (req, res, next) =>
 
 router.get("/:onlinePlayer", async (req, res, next) => 
 {
-    var onlinePlayerName = req.params.onlinePlayer
-    var onlinePlayers = await emc.getOnlinePlayers().then(players => { return players })
+    var onlinePlayer = await emc.getOnlinePlayer(req.params.onlinePlayer).then(player => { return player })
 
-    var foundPlayer = onlinePlayers.find(p => p.name.toLowerCase() == onlinePlayerName.toLowerCase())
-
-    if (!foundPlayer) res.status(200).json("That player is not online or does not exist!")
-    else res.status(200).json(foundPlayer)
+    if (!onlinePlayer) res.status(200).json("That player is not online or does not exist!")
+    else res.status(200).json(onlinePlayer)
 })
 
-module.exports = router;
+module.exports = router
