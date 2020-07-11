@@ -20,4 +20,4 @@ router.get("/:nationName", async (req, res, next) =>
     else res.status(200).json(foundNation)   
 })
 
-module.exports = router;
+module.exports = router

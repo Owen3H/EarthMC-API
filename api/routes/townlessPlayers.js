@@ -4,9 +4,9 @@ const express = require("express"),
 
 router.get("/", async (req, res, next) => 
 {
-    var serverInfo = await emc.getServerInfo().then(info => { return info })
+    var townlessPlayers = await emc.getTownless().then(townless => { return townless })
 
-    res.status(200).json(serverInfo)
+    res.status(200).json(townlessPlayers)
 })
 
 module.exports = router

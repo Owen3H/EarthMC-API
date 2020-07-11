@@ -4,7 +4,8 @@ const express = require("express")
       nationsRoute = require("./api/routes/nations"),
       residentsRoute = require("./api/routes/residents"),
       serverInfoRoute = require("./api/routes/serverInfo"),
-      onlinePlayersRoute = require("./api/routes/onlinePlayers")
+      onlinePlayersRoute = require("./api/routes/onlinePlayers"),
+      townlessPlayersRoute = require("./api/routes/townlessPlayers")
 
 // Use the routes defined in api/routes
 app.use("/towns", townsRoute)
@@ -12,6 +13,7 @@ app.use("/nations", nationsRoute)
 app.use("/residents", residentsRoute)
 app.use("/serverinfo", serverInfoRoute)
 app.use("/onlineplayers", onlinePlayersRoute)
+app.use("/townlessplayers", townlessPlayersRoute)
 
 // Error handling
 app.use((req, res, next) => 
