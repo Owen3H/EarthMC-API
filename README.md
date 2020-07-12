@@ -39,5 +39,13 @@ when you get server info you will get json data that looks a bit like this
 ```json
 {"serverOnline":"bool","online":"int","max":"int","towny":"int","storming":"bool","thundering":"int","queue":"int or null"}
 ```
+## Getting townless players
+To get a list of townless players get http://earthmc-api.herokuapp.com/onlineplayers/ this will give you a list of all townless players on the server
+
+when you get a list of townless players each one will look a bit like this
+```json
+{"x":"int","y":"int","z":"int","isUnderground":"bool","nickname":"str","name":"str"}
+```
 ## Errors
 if you attempt to get data about something that doesnt exist it will return a string
+in the future it will not return a string and do something else
