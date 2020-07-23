@@ -1,43 +1,80 @@
-# EarthMC-API
- A REST API providing info on the EarthMC Minecraft server.
-## Getting town info
-To get town info get http://earthmc-api.herokuapp.com/towns/ this will give you all info about all towns on the server
-if you want info about a specific town than add the town name to the end of the url
+# EarthMC API
 
-when you get info about a town you will get json data that looks a bit like this
-```json
-{"name":"str","nation":"str","residents":"list/array","nationResidents":"list/array","area":"int","mayor":"str","pvp":"bool","mobs":"bool","public":"bool","explosion":"bool","fire":"bool","capital":"bool","x":"int","z":"int"}
-```
-## Getting nation info
-To get town info get http://earthmc-api.herokuapp.com/nations/ this will give you all info about all nations on the server
-if you want info about a specific nation than add the nation name to the end of the url
+Provides info on the EarthMC Minecraft server using node-fetch.
 
-when you get info about a nation you will get json data that looks a bit like this
-```json
-{"name":"str","residents":"list/array","towns":"list/array","king":"str","capitalName":"str","capitalX":"int","capitalZ":"int","area":"int"}
+## Prerequisites
+Install a fetch package such as [node-fetch](https://www.npmjs.com/package/node-fetch)
+```bash
+$ npm install node-fetch
 ```
-## Getting resident info
-To get town info get http://earthmc-api.herokuapp.com/residents/ this will give you all info about all residents on the server
-if you want info about a specific resident than add the resident name to the end of the url
+Require the package
+```js
+var fetch = require("node-fetch")
+```
 
-when you get info about a resident you will get json data that looks a bit like this
-```json
-{"name":"str","town":"str","nation":"str","rank":"str"}
-```
-## Getting online player info
-To get town info get http://earthmc-api.herokuapp.com/onlineplayers/ this will give you all info about all online players on the server
-if you want info about a specific player than add the player name to the end of the url
+## Example
+```js
+var town = await fetch("http://earthmc-api.herokuapp.com/towns/London").then(response => response.json()).catch(err => { return err }) 
 
-when you get info about an online player you will get json data that looks a bit like this
-```json
-{"x":"int","y":"int","z":"int","isUnderground":"bool","nickname":"str","name":"str"}
-```
-## Getting server info
-To get server info get http://earthmc-api.herokuapp.com/serverinfo
+console.log(town)
 
-when you get server info you will get json data that looks a bit like this
-```json
-{"serverOnline":"bool","online":"int","max":"int","towny":"int","storming":"bool","thundering":"int","queue":"int or null"}
+// => { area: 975, x: -352, z: -9904, name: 'TownName', nation: 'NationName', mayor: 'MayorName', residents: ['Resident', 'OtherResident', ...], pvp: false, mobs: false, public: false, explosion: false, fire: false, capital: true }
 ```
-## Errors
-if you attempt to get data about something that doesnt exist it will return a string
+
+## Routes
+<details>
+<summary>Towns</summary>
+<p>
+
+### All towns - [http://earthmc-api.herokuapp.com/towns/](http://earthmc-api.herokuapp.com/towns/)
+### Get town - [http://earthmc-api.herokuapp.com/towns/townName](http://earthmc-api.herokuapp.com/towns/London)
+</details>
+
+<details>
+<summary>Nations</summary>
+<p>
+
+### All nations - [http://earthmc-api.herokuapp.com/nations/](http://earthmc-api.herokuapp.com/nations/)
+### Get nation -[http://earthmc-api.herokuapp.com/nations/nationName](http://earthmc-api.herokuapp.com/nations/Britain)
+</details>
+
+<details>
+<summary>Residents</summary>
+<p>
+
+### All residents - [http://earthmc-api.herokuapp.com/residents/](http://earthmc-api.herokuapp.com/residents/)
+### Get resident - [http://earthmc-api.herokuapp.com/residents/residentName](http://earthmc-api.herokuapp.com/residents/Warriorrr)
+</details>
+
+<details>
+<summary>Online Players</summary>
+<p>
+
+### All online players - [http://earthmc-api.herokuapp.com/onlineplayers/](http://earthmc-api.herokuapp.com/onlineplayers/)
+### Get online player - [http://earthmc-api.herokuapp.com/onlineplayers/playerName](http://earthmc-api.herokuapp.com/onlineplayers/playerName)
+</details>
+
+<details>
+<summary>Townless Players</summary>
+<p>
+
+### [http://earthmc-api.herokuapp.com/townlessplayers](http://earthmc-api.herokuapp.com/townlessplayers)  (This is only townless players that are online)
+</details>
+
+<details>
+<summary>All Players</summary>
+<p>
+
+### This merges online players and residents 
+#### NOTE - The "town", "nation" and "rank" keys will not appear for townless players
+
+### All players - [http://earthmc-api.herokuapp.com/allplayers/](http://earthmc-api.herokuapp.com/allplayers/)
+### Get player - [http://earthmc-api.herokuapp.com/allplayers/playerName](http://earthmc-api.herokuapp.com/allplayers/playerName)
+</details>
+
+<details>
+<summary>Server Info</summary>
+<p>
+
+### [http://earthmc-api.herokuapp.com/serverinfo/](http://earthmc-api.herokuapp.com/serverinfo/)
+</details>
