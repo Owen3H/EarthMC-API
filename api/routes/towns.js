@@ -16,7 +16,7 @@ router.get("/:townName", async (req, res, next) =>
 
     var foundTown = towns.find(town => town.name.toLowerCase() == townName.toLowerCase())
 
-    if (!foundTown) res.status(200).json("That town does not exist!")
+    if (!foundTown) res.status(404).json("That town does not exist!")
     else res.status(200).json(foundTown)   
 })
 

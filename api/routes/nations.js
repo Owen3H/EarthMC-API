@@ -16,7 +16,7 @@ router.get("/:nationName", async (req, res, next) =>
 
     var foundNation = nations.find(nation => nation.name.toLowerCase() == nationName.toLowerCase())
 
-    if (!foundNation) res.status(200).json("That nation does not exist!")
+    if (!foundNation) res.status(404).json("That nation does not exist!")
     else res.status(200).json(foundNation)   
 })
 
