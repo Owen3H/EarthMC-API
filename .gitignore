@@ -41,8 +41,8 @@ build/Release
 node_modules/
 jspm_packages/
 
-# Web directory containing index file
-web/
+# # Web directory containing index file
+# web/
 
 # TypeScript v1 declaration files
 typings/
