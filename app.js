@@ -1,5 +1,6 @@
 const express = require("express")
       app = express(),
+      mainRoute = require("./api/routes/main"),
       townsRoute = require("./api/routes/towns"),
       nationsRoute = require("./api/routes/nations"),
       residentsRoute = require("./api/routes/residents"),
@@ -9,6 +10,7 @@ const express = require("express")
       allPlayersRoute = require("./api/routes/allPlayers")
 
 // Use the routes defined in api/routes
+app.use("/", mainRoute)
 app.use("/towns", townsRoute)
 app.use("/nations", nationsRoute)
 app.use("/residents", residentsRoute)
@@ -17,7 +19,7 @@ app.use("/onlineplayers", onlinePlayersRoute)
 app.use("/townlessplayers", townlessPlayersRoute)
 app.use("/allplayers", allPlayersRoute)
 
-// Error handling
+// Default not found response
 app.use((req, res, next) => 
 {
       var date = new Date()
@@ -31,6 +33,7 @@ app.use((req, res, next) =>
       })
 })
 
+// Error handling
 app.use((error, req, res, next) => 
 {
       var date = new Date()
