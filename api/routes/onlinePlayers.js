@@ -17,4 +17,11 @@ router.get("/:onlinePlayer", async (req, res, next) =>
     else res.status(200).json(onlinePlayer)
 })
 
+router.get("/:onlinePlayer/nearby/:xBlocks/:zBlocks", async (req, res, next) => 
+{
+    var nearbyPlayers = await emc.getNearby(req.params.onlinePlayer, req.params.xBlocks, req.params.zBlocks).then(players => { return players })
+
+    res.status(200).json(nearbyPlayers)
+})
+
 module.exports = router
