@@ -12,12 +12,20 @@ router.get("/", async (req, res, next) =>
 router.get("/:nationName", async (req, res, next) => 
 {
     var nationName = req.params.nationName
-    var nations = await emc.getNations().then(nations => { return nations })
+    var foundNation = await emc.getNation(nationName).then(nation => { return nation })
 
-    var foundNation = nations.find(nation => nation.name.toLowerCase() == nationName.toLowerCase())
-
-    if (!foundNation) res.status(404).json("That nation does not exist!")
-    else res.status(200).json(foundNation)   
+    if ("That nation does not exist!") res.status(404).json(foundNation)
+    else res.status(200).json(foundNation)
 })
+
+router.get("/:nationName/invitable", async (req, res, next) => 
+{
+    var nationName = req.params.nationName
+    var invitableTownsRes = await emc.getInvitableTowns(nationName, false).then(towns => { return towns })
+
+    if (invitableTownsRes == "That nation does not exist!") res.status(404).json(invitableTownsRes)
+    else res.status(200).json(invitableTownsRes)
+})
+
 
 module.exports = router
