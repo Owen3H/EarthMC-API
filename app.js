@@ -7,7 +7,8 @@ const express = require("express")
       serverInfoRoute = require("./api/routes/serverInfo"),
       onlinePlayersRoute = require("./api/routes/onlinePlayers"),
       townlessPlayersRoute = require("./api/routes/townlessPlayers"),
-      allPlayersRoute = require("./api/routes/allPlayers")
+      allPlayersRoute = require("./api/routes/allPlayers"),
+      nearbyRoute = require("./api/routes/nearby")
 
 // Use the routes defined in api/routes
 app.use("/", mainRoute)
@@ -18,6 +19,7 @@ app.use("/serverinfo", serverInfoRoute)
 app.use("/onlineplayers", onlinePlayersRoute)
 app.use("/townlessplayers", townlessPlayersRoute)
 app.use("/allplayers", allPlayersRoute)
+app.use("/nearby", nearbyRoute)
 
 // Default not found response
 app.use((req, res, next) => 
