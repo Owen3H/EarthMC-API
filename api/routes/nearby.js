@@ -15,3 +15,5 @@ router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res, next) =>
     if (!nearbyPlayers) res.status(200).json([])
     else res.status(200).json(nearbyPlayers)
 })
+
+module.exports = router
