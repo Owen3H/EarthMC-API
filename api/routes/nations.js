@@ -14,7 +14,7 @@ router.get("/:nationName", async (req, res, next) =>
     var nationName = req.params.nationName
     var foundNation = await emc.getNation(nationName).then(nation => { return nation })
 
-    if ("That nation does not exist!") res.status(404).json(foundNation)
+    if (foundNation == "That nation does not exist!") res.status(404).json(foundNation)
     else res.status(200).json(foundNation)
 })
 
