@@ -58,6 +58,7 @@ Get online player - [http://earthmc-api.herokuapp.com/onlineplayers/playerName](
 <summary>Townless Players</summary>
 <p>
 
+
 [http://earthmc-api.herokuapp.com/townlessplayers](http://earthmc-api.herokuapp.com/townlessplayers)  (This is only townless players that are online)
 </details>
 
@@ -68,8 +69,15 @@ Get online player - [http://earthmc-api.herokuapp.com/onlineplayers/playerName](
 This merges online players and residents.<br>
 **NOTE** - The "town", "nation" and "rank" keys will not appear for townless players
 
-All players - [http://earthmc-api.herokuapp.com/allplayers/](http://earthmc-api.herokuapp.com/allplayers/)
+All players - [http://earthmc-api.herokuapp.com/allplayers/](http://earthmc-api.herokuapp.com/allplayers/)<br>
 Get player - [http://earthmc-api.herokuapp.com/allplayers/playerName](http://earthmc-api.herokuapp.com/allplayers/playerName)
+</details>
+
+<details>
+<summary>Nearby</summary>
+<p>  
+Returns any players visible on the map in a radius to a certain point.<br>
+Nearby - http://earthmc-api.herokuapp.com/nearby/xPos/zPos/xRadius/zRadius
 </details>
 
 <details>
