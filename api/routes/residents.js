@@ -13,7 +13,7 @@ router.get("/:residentName", async (req, res, next) =>
 {
     var resident = await emc.getResident(req.params.residentName).then(resident => { return resident })
 
-    if (resident == "That resident does not exist!") res.status(404).json(resident)
+    if (resident.invalid) res.status(404).json(resident.message)
     else res.status(200).json(resident)
 })
 
