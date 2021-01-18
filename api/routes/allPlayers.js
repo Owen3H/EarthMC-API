@@ -12,9 +12,7 @@ router.get("/", async (req, res, next) =>
 router.get("/:playerName", async (req, res, next) => 
 {
     var playerName = req.params.playerName
-    var allPlayers = await emc.getAllPlayers().then(players => { return players })
-
-    var foundPlayer = allPlayers.find(player => player.name.toLowerCase() == playerName.toLowerCase())
+    var foundPlayer = await emc.getPlayer(playerName).then(players => { return players })
 
     if (!foundPlayer) res.status(404).json("That player does not exist!")
     else res.status(200).json(foundPlayer)   

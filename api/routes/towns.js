@@ -18,4 +18,14 @@ router.get("/:townName", async (req, res, next) =>
     else res.status(200).json(foundTown)
 })
 
-module.exports = router;
+router.get("/:townName/joinable", async (req, res, next) => 
+{
+    var townName = req.params.townName
+    var invitableNationsRes = await emc.getJoinableNations(townName).then(nations => { return nations })
+
+    if (invitableNationsRes == "That nation does not exist!") res.status(404).json(invitableNationsRes)
+    else res.status(200).json(invitableNationsRes)
+})
+
+
+module.exports = router

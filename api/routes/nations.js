@@ -27,5 +27,4 @@ router.get("/:nationName/invitable", async (req, res, next) =>
     else res.status(200).json(invitableTownsRes)
 })
 
-
 module.exports = router

@@ -8,8 +8,9 @@ const express = require("express")
       onlinePlayersRoute = require("./api/routes/onlinePlayers"),
       townlessPlayersRoute = require("./api/routes/townlessPlayers"),
       allPlayersRoute = require("./api/routes/allPlayers"),
-      nearbyRoute = require("./api/routes/nearby"),
-      eventsRoute = require("./api/routes/events")
+      nearbyPlayersRoute = require("./api/routes/nearbyPlayers"),
+      nearbyTownsRoute = require("./api/routes/nearbyTowns"),
+      nearbyNationsRoute = require("./api/routes/nearbyNations")
 
 // Use the routes defined in api/routes
 app.use("/", mainRoute)
@@ -20,8 +21,9 @@ app.use("/serverinfo", serverInfoRoute)
 app.use("/onlineplayers", onlinePlayersRoute)
 app.use("/townlessplayers", townlessPlayersRoute)
 app.use("/allplayers", allPlayersRoute)
-app.use("/nearby", nearbyRoute)
-app.use("/events", eventsRoute)
+app.use("/nearbyplayers", nearbyPlayersRoute)
+app.use("/nearbytowns", nearbyTownsRoute)
+app.use("/nearbynations", nearbyNationsRoute)
 
 // Default not found response
 app.use((req, res, next) => 
