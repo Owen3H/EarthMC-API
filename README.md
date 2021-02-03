@@ -2,7 +2,7 @@
 [![NPM Version][npm-image]][npm-url] 
 [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
-Provides info on the EarthMC Minecraft server using node-fetch.
+A REST API providing information on the EarthMC Minecraft server.
 
 ## Prerequisites
 Install a fetch package such as [node-fetch](https://www.npmjs.com/package/node-fetch)
