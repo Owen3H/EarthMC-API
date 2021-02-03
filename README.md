@@ -1,4 +1,6 @@
-# EarthMC API
+# EarthMC API 
+[![NPM Version][npm-image]][npm-url] 
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
 Provides info on the EarthMC Minecraft server using node-fetch.
 
@@ -86,3 +88,7 @@ Nearby - http://earthmc-api.herokuapp.com/nearby/xPos/zPos/xRadius/zRadius
 
 [http://earthmc-api.herokuapp.com/serverinfo/](http://earthmc-api.herokuapp.com/serverinfo/)
 </details>
+
+<!-- Markdown link & img dfn's -->
+[npm-image]: https://img.shields.io/npm/v/earthmc.svg?style=flat-square
+[npm-url]: https://www.npmjs.com/package/earthmc
