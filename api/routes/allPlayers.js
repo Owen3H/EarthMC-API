@@ -1,7 +1,8 @@
 const express = require("express"),
       router = express.Router(),
       emc = require("earthmc"),
-      cache = require("memory-cache")
+      cache = require("memory-cache"),
+      cacheTimeout = require("../..").cacheTimeout
 
 router.get("/", async (req, res, next) => 
 {
@@ -12,7 +13,7 @@ router.get("/", async (req, res, next) =>
         var allPlayers = await emc.getAllPlayers().then(players => { return players })
 
         res.status(200).json(allPlayers)
-        cache.put(req.url, allPlayers, 60 * 1000)
+        cache.put(req.url, allPlayers, cacheTimeout)
     }
 })
 
@@ -28,7 +29,7 @@ router.get("/:playerName", async (req, res, next) =>
         if (!foundPlayer) res.status(404).json("That player does not exist!")
         else {
             res.status(200).json(foundPlayer)
-            cache.put(req.url, foundPlayer, 60*1000)
+            cache.put(req.url, foundPlayer, cacheTimeout)
         }
     }
 })

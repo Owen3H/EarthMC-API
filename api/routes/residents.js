@@ -1,7 +1,8 @@
 const express = require("express"),
       router = express.Router(),
       emc = require("earthmc"),
-      cache = require("memory-cache")
+      cache = require("memory-cache"),
+      cacheTimeout = require("../..").cacheTimeout
 
 router.get("/", async (req, res, next) => 
 {
@@ -12,7 +13,7 @@ router.get("/", async (req, res, next) =>
         var residents = await emc.getResidents().then(residents => { return residents })
 
         res.status(200).json(residents)
-        cache.put(req.url, residents, 60*1000)
+        cache.put(req.url, residents, cacheTimeout)
     }
 })
 
@@ -30,13 +31,13 @@ router.get("/:residentName", async (req, res, next) =>
             cache.put(req.url, {
                 code: 404,
                 resident: "That resident does not exist!"
-            }, 60*1000)
+            }, cacheTimeout)
         } else {
             res.status(200).json(resident)
             cache.put(req.url, {
                 code: 200,
                 resident: resident
-            }, 60*1000)
+            }, cacheTimeout)
         }
     }
 })
