@@ -4,5 +4,6 @@ const http = require("http"),
       server = http.createServer(app)
       
 var cacheTimeout = 30 //seconds
-server.listen(port)
 module.exports = {cacheTimeout}
+
+server.listen(port)

@@ -13,7 +13,7 @@ router.get("/", async (req, res, next) =>
         var townlessPlayers = await emc.getTownless().then(townless => { return townless })
 
         res.status(200).json(townlessPlayers)
-        cache.put(req.url, townlessPlayers, cacheTimeout)
+        cache.put(req.url, townlessPlayers, cacheTimeout*1000)
     }
 })
 

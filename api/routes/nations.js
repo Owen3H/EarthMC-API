@@ -13,7 +13,7 @@ router.get("/", async (req, res, next) =>
         var nations = await emc.getNations().then(nations => { return nations })
 
         res.status(200).json(nations)
-        cache.put(req.url, nations, cacheTimeout)
+        cache.put(req.url, nations, cacheTimeout*1000)
     }
 })
 
@@ -31,13 +31,13 @@ router.get("/:nationName", async (req, res, next) =>
             cache.put(req.url, {
                 code: 404,
                 nation: "That nation does not exist!",
-            }, cacheTimeout)
+            }, cacheTimeout*1000)
         } else {
             res.status(200).json(foundNation)
             cache.put(req.url, {
                 code: 200,
                 nation: foundNation,
-            }, cacheTimeout)
+            }, cacheTimeout*1000)
         }
     }
 })

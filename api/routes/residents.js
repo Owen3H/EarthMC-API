@@ -13,7 +13,7 @@ router.get("/", async (req, res, next) =>
         var residents = await emc.getResidents().then(residents => { return residents })
 
         res.status(200).json(residents)
-        cache.put(req.url, residents, cacheTimeout)
+        cache.put(req.url, residents, cacheTimeout*1000)
     }
 })
 
@@ -31,13 +31,13 @@ router.get("/:residentName", async (req, res, next) =>
             cache.put(req.url, {
                 code: 404,
                 resident: "That resident does not exist!"
-            }, cacheTimeout)
+            }, cacheTimeout*1000)
         } else {
             res.status(200).json(resident)
             cache.put(req.url, {
                 code: 200,
                 resident: resident
-            }, cacheTimeout)
+            }, cacheTimeout*1000)
         }
     }
 })

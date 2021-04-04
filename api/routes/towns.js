@@ -13,7 +13,7 @@ router.get("/", async (req, res, next) =>
         var towns = await emc.getTowns().then(towns => { return towns })
 
         res.status(200).json(towns)
-        cache.put(req.url, towns, cacheTimeout)
+        cache.put(req.url, towns, cacheTimeout*1000)
     }
 })
 
@@ -31,13 +31,13 @@ router.get("/:townName", async (req, res, next) =>
             cache.put(req.url, {
                 code: 404,
                 town: "That town does not exist!"
-            }, cacheTimeout)
+            }, cacheTimeout*1000)
         } else {
             res.status(200).json(foundTown)
             cache.put(req.url, {
                 code: 200,
                 town: foundTown
-            }, cacheTimeout)
+            }, cacheTimeout*1000)
         }
     }
 })
