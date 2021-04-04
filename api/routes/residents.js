@@ -1,20 +1,44 @@
 const express = require("express"),
       router = express.Router(),
-      emc = require("earthmc")
+      emc = require("earthmc"),
+      cache = require("memory-cache")
 
 router.get("/", async (req, res, next) => 
 {
-    var residents = await emc.getResidents().then(residents => { return residents })
+    var cachedResidents = cache.get(req.url)
+    if (cachedResidents) {
+        res.status(200).json(cachedResidents)
+    } else {
+        var residents = await emc.getResidents().then(residents => { return residents })
 
-    res.status(200).json(residents)
+        res.status(200).json(residents)
+        cache.put(req.url, residents, 60*1000)
+    }
 })
 
 router.get("/:residentName", async (req, res, next) => 
 {
-    var resident = await emc.getResident(req.params.residentName).then(resident => { return resident })
+    var cachedResident = cache.get(req.url)
+    if (cachedResident) {
+        res.status(cachedResident.code).json(cachedResident.resident)
+    } else {
+        var resident = await (await emc.getResidents().then(resident => { return resident })).find(resident => resident.name.toLowerCase() == req.params.residentName.toLowerCase())
+        console.log(resident)
 
-    if (resident.name == "INVALID_RESIDENT") res.status(404).json(resident.message)
-    else res.status(200).json(resident)
+        if (!resident) {
+            res.status(404).json("That resident does not exist!")
+            cache.put(req.url, {
+                code: 404,
+                resident: "That resident does not exist!"
+            }, 60*1000)
+        } else {
+            res.status(200).json(resident)
+            cache.put(req.url, {
+                code: 200,
+                resident: resident
+            }, 60*1000)
+        }
+    }
 })
 
 module.exports = router

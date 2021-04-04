@@ -1,21 +1,44 @@
 const express = require("express"),
       router = express.Router(),
-      emc = require("earthmc")
+      emc = require("earthmc"),
+      cache = require("memory-cache")
 
 router.get("/", async (req, res, next) => 
 {
-    var towns = await emc.getTowns().then(towns => { return towns })
+    var cachedTowns = cache.get(req.url)
+    if (cachedTowns) {
+        res.status(200).json(cachedTowns)
+    } else {
+        var towns = await emc.getTowns().then(towns => { return towns })
 
-    res.status(200).json(towns)
+        res.status(200).json(towns)
+        cache.put(req.url, towns, 60*1000)
+    }
 })
 
 router.get("/:townName", async (req, res, next) => 
 {
-    var townName = req.params.townName
-    var foundTown = await emc.getTown(townName).then(town => { return town })
-
-    if (!foundTown) res.status(404).json("That town does not exist!")
-    else res.status(200).json(foundTown)
+    var cachedTown = cache.get(req.url)
+    if (cachedTown) {
+        res.status(cachedTown.code).json(cachedTown.town)
+    } else {
+        var townName = req.params.townName
+        var foundTown = await emc.getTown(townName).then(town => { return town })
+    
+        if (!foundTown) {
+            res.status(404).json("That town does not exist!")
+            cache.put(req.url, {
+                code: 404,
+                town: "That town does not exist!"
+            }, 60*1000)
+        } else {
+            res.status(200).json(foundTown)
+            cache.put(req.url, {
+                code: 200,
+                town: foundTown
+            }, 60*1000)
+        }
+    }
 })
 
 router.get("/:townName/joinable", async (req, res, next) => 
