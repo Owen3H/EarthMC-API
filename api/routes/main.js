@@ -1,7 +1,7 @@
 const express = require("express"),
       router = express.Router()
 
-router.get('/', function(res) 
+router.get('/', function(req, res) 
 {
     res.sendFile(`${process.cwd()}/web/index.html`)
 })
