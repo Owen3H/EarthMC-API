@@ -2,14 +2,14 @@ const express = require("express"),
       router = express.Router(),
       emc = require("earthmc")
 
-router.get("/", async (req, res, next) => 
+router.get("/", async (res) => 
 {
     var onlinePlayers = await emc.getOnlinePlayers(true).then(players => { return players })
 
     res.status(200).json(onlinePlayers)
 })
 
-router.get("/:onlinePlayer", async (req, res, next) => 
+router.get("/:onlinePlayer", async (req, res) => 
 {
     var onlinePlayer = await emc.getOnlinePlayer(req.params.onlinePlayer).then(player => { return player })
 

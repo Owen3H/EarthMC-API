@@ -2,7 +2,7 @@ const express = require("express"),
       router = express.Router(),
       emc = require("earthmc")
 
-router.get("/", async (req, res) => 
+router.get("/", async (res) => 
 {
     var serverInfo = await emc.getServerInfo().then(info => { return info })
 

@@ -2,7 +2,7 @@ const express = require("express"),
       router = express.Router(),
       emc = require("earthmc")
 
-router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res, next) => 
+router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) => 
 {
     var xBlocks = req.params.xBlocks
     var zBlocks = req.params.zBlocks

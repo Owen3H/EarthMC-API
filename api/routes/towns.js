@@ -7,7 +7,7 @@ var cacheTimeout = 30000
 
 router.get("/", async (req, res) => 
 {
-    var cachedTowns = cache.get(req.url)
+    var cachedTowns = cache.get('towns')
 
     if (cachedTowns) res.status(200).json(cachedTowns)
     else 
@@ -15,7 +15,7 @@ router.get("/", async (req, res) =>
         var towns = await emc.getTowns().then(towns => { return towns })
 
         res.status(200).json(towns)
-        cache.put(req.url, towns, cacheTimeout)
+        cache.put('towns', towns, cacheTimeout)
     }
 })
 
