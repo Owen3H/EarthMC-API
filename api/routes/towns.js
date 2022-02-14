@@ -3,7 +3,7 @@ const express = require("express"),
       emc = require("earthmc"),
       cache = require("memory-cache")
 
-var cacheTimeout = 30
+var cacheTimeout = 30000
 
 router.get("/", async (req, res) => 
 {
@@ -15,7 +15,7 @@ router.get("/", async (req, res) =>
         var towns = await emc.getTowns().then(towns => { return towns })
 
         res.status(200).json(towns)
-        cache.put(req.url, towns, cacheTimeout * 1000)
+        cache.put(req.url, towns, cacheTimeout)
     }
 })
 
@@ -35,7 +35,7 @@ router.get("/:townName", async (req, res) =>
             cache.put(req.url, {
                 code: 404,
                 town: "That town does not exist!"
-            }, cacheTimeout * 1000)
+            }, cacheTimeout)
         } 
         else 
         {
@@ -44,7 +44,7 @@ router.get("/:townName", async (req, res) =>
             {
                 code: 200,
                 town: foundTown
-            }, cacheTimeout * 1000)
+            }, cacheTimeout)
         }
     }
 })

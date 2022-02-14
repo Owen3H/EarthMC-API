@@ -3,7 +3,7 @@ const express = require("express"),
       emc = require("earthmc"),
       cache = require("memory-cache")
 
-var cacheTimeout = 30
+var cacheTimeout = 30000
 
 router.get("/", async (req, res) => 
 {
@@ -14,7 +14,7 @@ router.get("/", async (req, res) =>
         var townlessPlayers = await emc.getTownless().then(townless => { return townless })
 
         res.status(200).json(townlessPlayers)
-        cache.put(req.url, townlessPlayers, cacheTimeout*1000)
+        cache.put(req.url, townlessPlayers, cacheTimeout)
     }
 })
 
