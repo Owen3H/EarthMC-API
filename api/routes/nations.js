@@ -30,13 +30,13 @@ router.get("/:nationName", async (req, res) =>
         var nationName = req.params.nationName,
             foundNation = await emc.getNation(nationName).then(nation => { return nation })
     
-        if (!foundNation) 
+        if (foundNation == "That nation does not exist!") 
         {
             res.status(404).json(foundNation)
             cache.put(req.url, 
             {
                 code: 404,
-                nation: "That nation does not exist!",
+                nation: foundNation,
             }, cacheTimeout)
         } 
         else 
