@@ -9,8 +9,8 @@
   "author": "Owen77Stubbs",
   "license": "ISC",
   "dependencies": {
-    "earthmc": "^1.8.4",
-    "express": "^4.17.1",
+    "earthmc": "^1.8.5",
+    "express": "^4.17.2",
     "memory-cache": "^0.2.0"
   }
 }

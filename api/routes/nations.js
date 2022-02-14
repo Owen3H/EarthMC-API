@@ -50,7 +50,7 @@ router.get("/:nationName", async (req, res) =>
     }
 })
 
-router.get("/:nationName/invitable", async (req, res, next) => 
+router.get("/:nationName/invitable", async (req, res) => 
 {
     var nationName = req.params.nationName
     var invitableTownsRes = await emc.getInvitableTowns(nationName, false).then(towns => { return towns })

@@ -4,7 +4,7 @@ const express = require("express"),
       cache = require("memory-cache"),
       cacheTimeout = require("../..").cacheTimeout
 
-router.get("/", async (req, res, next) => 
+router.get("/", async (req, res) => 
 {
     var cachedTownless = cache.get(req.url)
     if (cachedTownless) {
@@ -13,7 +13,7 @@ router.get("/", async (req, res, next) =>
         var townlessPlayers = await emc.getTownless().then(townless => { return townless })
 
         res.status(200).json(townlessPlayers)
-        cache.put(req.url, townlessPlayers, cacheTimeout*1000)
+        cache.put(req.url, townlessPlayers, cacheTimeout*1000).catch(() => {})
     }
 })
 
