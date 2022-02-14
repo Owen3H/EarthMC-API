@@ -27,7 +27,7 @@ app.use("/nearbytowns", nearbyTownsRoute)
 app.use("/nearbynations", nearbyNationsRoute)
 
 // Default not found response
-app.use((req, res, next) => 
+app.use((req, res) => 
 {
       var date = new Date()
 
@@ -41,7 +41,7 @@ app.use((req, res, next) =>
 })
 
 // Error handling
-app.use((error, req, res, next) => 
+app.use((error, req, res) => 
 {
       var date = new Date()
 

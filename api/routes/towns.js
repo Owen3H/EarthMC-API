@@ -1,8 +1,9 @@
 const express = require("express"),
       router = express.Router(),
       emc = require("earthmc"),
-      cache = require("memory-cache"),
-      cacheTimeout = require("../..").cacheTimeout
+      cache = require("memory-cache")
+
+var cacheTimeout = 30
 
 router.get("/", async (req, res) => 
 {

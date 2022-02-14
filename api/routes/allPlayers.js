@@ -1,10 +1,11 @@
 const express = require("express"),
       router = express.Router(),
       emc = require("earthmc"),
-      cache = require("memory-cache"),
-      cacheTimeout = require("../..").cacheTimeout
+      cache = require("memory-cache")
 
-router.get("/", async (req, res, next) => 
+var cacheTimeout = 30
+
+router.get("/", async (req, res) => 
 {
     var cachedPlayers = cache.get(req.url)
     if (cachedPlayers) {
@@ -17,7 +18,7 @@ router.get("/", async (req, res, next) =>
     }
 })
 
-router.get("/:playerName", async (req, res, next) => 
+router.get("/:playerName", async (req, res) => 
 {
     var cachedPlayer = cache.get(req.url)
     if (cachedPlayer) {
