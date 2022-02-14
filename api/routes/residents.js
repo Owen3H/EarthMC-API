@@ -28,7 +28,7 @@ router.get("/:residentName", async (req, res) =>
         res.status(cachedResident.code).json(cachedResident.resident)
     else 
     {
-        var resident = await (await emc.getResidents().then(resident => { return resident })).find(resident => resident.name.toLowerCase() == req.params.residentName.toLowerCase())
+        var resident = await emc.getResident(req.params.residentName).then(resident => { return resident })
 
         if (!resident) 
         {

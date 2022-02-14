@@ -28,8 +28,7 @@ router.get("/:nationName", async (req, res) =>
     else 
     {
         var nationName = req.params.nationName,
-            nations = await emc.getNations(nationName).then(nations => { return nations }),
-            foundNation = nations.find(nation => nation.name.toLowerCase() == nationName.toLowerCase())
+            foundNation = await emc.getNation(nationName).then(nation => { return nation })
     
         if (!foundNation) 
         {

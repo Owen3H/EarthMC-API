@@ -9,7 +9,7 @@
   "author": "Owen77Stubbs",
   "license": "ISC",
   "dependencies": {
-    "earthmc": "^1.8.7",
+    "earthmc": "^1.8.8",
     "express": "^4.17.2",
     "memory-cache": "^0.2.0"
   }

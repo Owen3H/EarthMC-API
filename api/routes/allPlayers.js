@@ -24,8 +24,8 @@ router.get("/:playerName", async (req, res) =>
     if (cachedPlayer) {
         res.status(200).json(cachedPlayer)
     } else {
-        var playerName = req.params.playerName
-        var foundPlayer = await emc.getPlayer(playerName).then(players => { return players })
+        var playerName = req.params.playerName,
+        foundPlayer = await emc.getPlayer(playerName).then(player => { return player })
 
         if (!foundPlayer) res.status(404).json("That player does not exist!")
         else {
