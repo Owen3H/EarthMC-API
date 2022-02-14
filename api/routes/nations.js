@@ -39,7 +39,7 @@ router.get("/:nationName", async (req, res) =>
                 nation: foundNation,
             }, cacheTimeout)
         } 
-        else 
+        else
         {
             res.status(200).json(foundNation)
             cache.put(req.url, 
