@@ -28,9 +28,9 @@ router.get("/:residentName", async (req, res) =>
         res.status(cachedResident.code).json(cachedResident.resident)
     else 
     {
-        var resident = await emc.getResident(req.params.residentName).then(resident => { return resident })
+        var resident = await emc.getResident(req.params.residentName).then(resident => { return resident }).catch(invalidRes => { return invalidRes })
 
-        if (!resident) 
+        if (!resident)
         {
             res.status(404).json("That resident does not exist!")
             cache.put(req.url, 
@@ -41,12 +41,16 @@ router.get("/:residentName", async (req, res) =>
         } 
         else 
         {
-            res.status(200).json(resident)
-            cache.put(req.url, 
-            {
-                code: 200,
-                resident: resident
-            }, cacheTimeout)
+            if (resident.name == "INVALID_PLAYER") 
+                res.status(404).json(resident.message)
+            else {
+                res.status(200).json(resident)
+                cache.put(req.url, 
+                {
+                    code: 200,
+                    resident: resident
+                }, cacheTimeout)
+            }
         }
     }
 })
