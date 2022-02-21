@@ -8,7 +8,7 @@ router.get("/", async (req, res) =>
 
 router.get("/:onlinePlayer", async (req, res) => 
 {
-    res.redirect('onlinePlayers/' + req.params.onlinePlayer)
+    res.redirect('../onlinePlayers/' + req.params.onlinePlayer)
 })
 
 module.exports = router
