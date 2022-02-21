@@ -60,5 +60,4 @@ router.get("/:townName/joinable", async (req, res) =>
         res.status(200).json(invitableNationsRes)
 })
 
-
 module.exports = router
