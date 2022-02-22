@@ -1,42 +1,40 @@
 const express = require("express")
       app = express(),
-      mainRoute = require("./api/routes/main"),
-      authRoute = require("./api/routes/auth"),
-      townsRoute = require("./api/routes/towns"),
-      nationsRoute = require("./api/routes/nations"),
-      residentsRoute = require("./api/routes/residents"),
-      serverInfoRoute = require("./api/routes/serverInfo"),
-      onlinePlayersRoute = require("./api/routes/onlinePlayers"),
-      townlessPlayersRoute = require("./api/routes/townlessPlayers"),
-      allPlayersRoute = require("./api/routes/allPlayers"),
-      nearbyPlayersRoute = require("./api/routes/nearbyPlayers"),
-      nearbyTownsRoute = require("./api/routes/nearbyTowns"),
-      nearbyNationsRoute = require("./api/routes/nearbyNations"),
-      onlineRedirect = require("./api/routes/redirects/online"),
-      playersRedirect = require("./api/routes/redirects/players"),
-      townlessRedirect = require("./api/routes/redirects/townless")
+      mainRoute = require("./routes/main"),
+      townsRoute = require("./routes/api/towns"),
+      nationsRoute = require("./routes/api/nations"),
+      residentsRoute = require("./routes/api/residents"),
+      serverInfoRoute = require("./routes/api/serverInfo"),
+      onlinePlayersRoute = require("./routes/api/onlinePlayers"),
+      townlessPlayersRoute = require("./routes/api/townlessPlayers"),
+      allPlayersRoute = require("./routes/api/allPlayers"),
+      nearbyPlayersRoute = require("./routes/api/nearbyPlayers"),
+      nearbyTownsRoute = require("./routes/api/nearbyTowns"),
+      nearbyNationsRoute = require("./routes/api/nearbyNations"),
+      onlineRedirect = require("./routes/api/redirects/online"),
+      playersRedirect = require("./routes/api/redirects/players"),
+      townlessRedirect = require("./routes/api/redirects/townless")
 
 // Use index and auth routes.
 app.use("/", mainRoute)
-app.use("/.well-known/pki-validation/827593ADDAAF607A3E2FD65FC3FAF43E.txt", authRoute)
 
 // Use the routes defined in api/routes
-app.use("/towns", townsRoute)
-app.use("/nations", nationsRoute)
-app.use("/residents", residentsRoute)
-app.use("/serverinfo", serverInfoRoute)
-app.use("/onlineplayers", onlinePlayersRoute)
-app.use("/townlessplayers", townlessPlayersRoute)
-app.use("/allplayers", allPlayersRoute)
-app.use("/nearby", nearbyPlayersRoute)
-app.use("/nearbyplayers", nearbyPlayersRoute)
-app.use("/nearbytowns", nearbyTownsRoute)
-app.use("/nearbynations", nearbyNationsRoute)
+app.use("/api/towns", townsRoute)
+app.use("/api/nations", nationsRoute)
+app.use("/api/residents", residentsRoute)
+app.use("/api/serverinfo", serverInfoRoute)
+app.use("/api/onlineplayers", onlinePlayersRoute)
+app.use("/api/townlessplayers", townlessPlayersRoute)
+app.use("/api/allplayers", allPlayersRoute)
+app.use("/api/nearby", nearbyPlayersRoute)
+app.use("/api/nearbyplayers", nearbyPlayersRoute)
+app.use("/api/nearbytowns", nearbyTownsRoute)
+app.use("/api/nearbynations", nearbyNationsRoute)
 
 // Redirects
-app.use("/online", onlineRedirect)
-app.use("/players", playersRedirect)
-app.use("/townless", townlessRedirect)
+app.use("/api/online", onlineRedirect)
+app.use("/api/players", playersRedirect)
+app.use("/api/townless", townlessRedirect)
 
 // Default not found response
 app.use((req, res) => 
