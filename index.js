@@ -1,8 +1,7 @@
 const http = require("http"),
       https = require("https"),
       fs = require("fs"),
-      app = require("./app"),
-      port = process.env.PORT || 3001
+      app = require("./app")
       
 const authOptions = {
     cert:  fs.readFileSync('./web/auth/certificate.crt'),
@@ -23,5 +22,5 @@ app.use((req, res, next) =>
     next();
 });
 
-httpServer.listen(port)
-httpsServer.listen(port)
+httpServer.listen(80)
+httpsServer.listen(443)
