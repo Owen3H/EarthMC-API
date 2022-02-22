@@ -23,4 +23,4 @@ app.use((req, res, next) =>
 });
 
 httpServer.listen(8080)
-httpsServer.listen(process.env.PORT)
+httpsServer.listen(process.env.PORT || 5000)
