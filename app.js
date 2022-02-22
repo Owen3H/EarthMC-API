@@ -1,6 +1,7 @@
 const express = require("express")
       app = express(),
       mainRoute = require("./api/routes/main"),
+      authRoute = require("./api/routes/auth"),
       townsRoute = require("./api/routes/towns"),
       nationsRoute = require("./api/routes/nations"),
       residentsRoute = require("./api/routes/residents"),
@@ -15,8 +16,11 @@ const express = require("express")
       playersRedirect = require("./api/routes/redirects/players"),
       townlessRedirect = require("./api/routes/redirects/townless")
 
-// Use the routes defined in api/routes
+// Use index and auth routes.
 app.use("/", mainRoute)
+app.use("/.well-known/pki-validation/827593ADDAAF607A3E2FD65FC3FAF43E.txt", authRoute)
+
+// Use the routes defined in api/routes
 app.use("/towns", townsRoute)
 app.use("/nations", nationsRoute)
 app.use("/residents", residentsRoute)
