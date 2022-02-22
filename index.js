@@ -14,13 +14,11 @@ const httpServer = http.createServer(app),
 
 app.use((req, res, next) => 
 {
-    if (req.protocol === 'http') 
-    {
-        res.redirect(301, `https://${req.headers.host}${req.url}`);
-    }
-    
-    next();
-});
+    if (req.header('x-forwarded-proto') !== 'https')
+        res.redirect(`https://${req.header('host')}${req.url}`)
+    else
+        next()
+})
 
-httpServer.listen(8080)
-httpsServer.listen(process.env.PORT || 5000)
+httpServer.listen(process.env.PORT || 8080)
+httpsServer.listen(5000)
