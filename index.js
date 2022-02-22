@@ -5,9 +5,9 @@ const http = require("http"),
       port = process.env.PORT || 3001
       
 const authOptions = {
-    cert:  fs.readFileSync(__dirname + '/web/auth/certificate.crt'),
-    ca: fs.readFileSync(__dirname + '/web/auth/ca_bundle.crt'),
-    key: fs.readFileSync(__dirname + '/web/auth/private.key')
+    cert:  fs.readFileSync('./web/auth/certificate.crt'),
+    ca: fs.readFileSync('./web/auth/ca_bundle.crt'),
+    key: process.env.AUTH_KEY
  };
  
 const httpServer = http.createServer(app),
