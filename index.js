@@ -21,4 +21,4 @@ app.use((req, res, next) =>
 })
 
 httpServer.listen(process.env.PORT || 8080)
-httpsServer.listen(5000)
+httpsServer.listen(5000, 'earthmcstats.sly.io')
