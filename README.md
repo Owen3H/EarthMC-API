@@ -23,7 +23,7 @@ console.log(town)
 ### Understanding the structure
 <dl>
   <dl>Choose a domain - </dl>
-  <dd>• (shorter, no ssl) - http://earthmcstats.sly.io</dd>
+  <dd>• (shorter, no ssl) - http://earthmcstats.ddns.net</dd>
   <dd>• (longer, ssl) - https://earthmc-api.herokuapp.com</dd>
 
   <dl>Append the API version - </dl>
@@ -31,7 +31,7 @@ console.log(town)
   <dd>Chosen domain + /api/v1/</dd>
   
   <dl>Append a route from the list below</dl>
-  <dd>Full URL Example: http://earthmcstats.sly.io/api/v1/towns</dd>
+  <dd>Full URL Example: http://earthmcstats.ddns.net/api/v1/towns</dd>
 </dl>
 
 ## Routes
