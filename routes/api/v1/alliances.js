@@ -1,5 +1,3 @@
-const res = require("express/lib/response")
-
 const express = require("express"),
       router = express.Router()
 
