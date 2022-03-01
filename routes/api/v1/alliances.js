@@ -1,6 +1,7 @@
 const express = require("express"),
       router = express.Router(),
-      cache = require("memory-cache")
+      cache = require("memory-cache"),
+      cors = require('cors')
 
 var timeout = 60000
 
@@ -20,7 +21,7 @@ router.get('/', function (req, res)
     }
 })
 
-router.put('/', function (req, res) 
+router.put('/', cors(), function (req, res) 
 {
     if (req.header('AUTH_KEY') == process.env.AUTH_KEY)
     {
