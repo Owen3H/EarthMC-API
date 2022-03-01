@@ -1,5 +1,8 @@
 const express = require("express"),
-      router = express.Router()
+      router = express.Router(),
+      cache = require("memory-cache")
+
+var cacheTimeout = 30000
 
 require("dotenv").config()
 
@@ -9,7 +12,14 @@ require("dotenv").config()
 
 router.get('/', function (req, res) 
 {
-    res.status(200)
+    var cachedAlliances = cache.get('alliances')
+    res.setTimeout(cacheTimeout)
+
+    if (cachedAlliances) {
+        res.status(200).json(cachedAlliances)
+    } else {
+        res.status(200).send('No alliances found, wait for an update.')
+    }
 })
 
 router.put('/', function (req, res) 
@@ -18,7 +28,9 @@ router.put('/', function (req, res)
     {
         var alliances = req.body
 
-        res.setTimeout(60000)
+        cache.put('alliances', alliances, cacheTimeout)
+
+        res.setTimeout(cacheTimeout)
         res.status(200).json(alliances)
     }
     else res.status(404).send("PUT request unauthorized!")
