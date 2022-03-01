@@ -7,6 +7,11 @@ require("dotenv").config()
 // POST = CREATE
 // GET = READ
 
+router.get('/', function (req, res) 
+{
+    res.status(200)
+})
+
 router.put('/', function (req, res) 
 {
     if (req.header('AUTH_KEY') == process.env.AUTH_KEY)
@@ -19,4 +24,4 @@ router.put('/', function (req, res)
     else res.status(404).send("PUT request unauthorized!")
 })
 
-module.exports = router;
+module.exports = router
