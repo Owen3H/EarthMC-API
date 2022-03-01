@@ -33,7 +33,7 @@ router.put('/', function (req, res)
         cache.put('alliances', alliances, cacheTimeout)
 
         res.setTimeout(cacheTimeout)
-        res.status(200).json(alliances)
+        res.status(200).send(alliances)
     }
     else res.status(404).json("PUT request unauthorized!")
 })
