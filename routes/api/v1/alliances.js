@@ -2,7 +2,7 @@ const express = require("express"),
       router = express.Router(),
       cache = require("memory-cache")
 
-var cacheTimeout = 60000
+var timeout = 60000
 
 require("dotenv").config()
 
@@ -16,8 +16,8 @@ router.get('/', function (req, res)
 
     if (cachedAlliances) {
         res.status(200).json(cachedAlliances)
-        res.setTimeout(cacheTimeout)
-    }  
+        res.setTimeout(timeout)
+    }
 })
 
 router.put('/', function (req, res) 
@@ -26,8 +26,8 @@ router.put('/', function (req, res)
     {
         var alliances = req.body
 
-        cache.put('alliances', alliances, cacheTimeout)
-        res.status(200).json(alliances).setTimeout(cacheTimeout)
+        cache.put('alliances', alliances)
+        res.status(200).json(alliances).setTimeout(timeout)
     }
     else res.status(404).send("PUT request unauthorized!")
 })
