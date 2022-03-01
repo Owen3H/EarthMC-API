@@ -27,6 +27,7 @@ router.put('/', cors(), function (req, res)
     {
         var alliances = req.body
 
+        console.log(alliances)
         cache.put('alliances', alliances)
         res.status(200).json(alliances).setTimeout(timeout)
     }
