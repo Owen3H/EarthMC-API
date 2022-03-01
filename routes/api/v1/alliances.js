@@ -20,7 +20,7 @@ router.get('/', function (req, res)
     if (cachedAlliances) {
         res.status(200).json(cachedAlliances)
     } else {
-        res.status(200).send('No alliances found, wait for an update.')
+        res.status(200).json('No alliances found, wait for an update.')
     }
 })
 
@@ -35,7 +35,7 @@ router.put('/', function (req, res)
         res.setTimeout(cacheTimeout)
         res.status(200).json(alliances)
     }
-    else res.status(404).send("PUT request unauthorized!")
+    else res.status(404).json("PUT request unauthorized!")
 })
 
 module.exports = router
