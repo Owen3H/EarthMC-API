@@ -12,16 +12,12 @@ require("dotenv").config()
 
 router.get('/', function (req, res) 
 {
-    if (req.method == 'PUT') return
-
     var cachedAlliances = cache.get('alliances')
-    res.setTimeout(cacheTimeout)
 
     if (cachedAlliances) {
         res.status(200).json(cachedAlliances)
-    } else {
-        res.status(200).json([])
-    }
+        res.setTimeout(cacheTimeout)
+    }  
 })
 
 router.put('/', function (req, res) 
@@ -31,9 +27,7 @@ router.put('/', function (req, res)
         var alliances = req.body
 
         cache.put('alliances', alliances, cacheTimeout)
-
-        res.setTimeout(cacheTimeout)
-        res.status(200).json(alliances)
+        res.status(200).json(alliances).setTimeout(cacheTimeout)
     }
     else res.status(404).send("PUT request unauthorized!")
 })
