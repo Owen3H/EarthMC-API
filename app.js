@@ -16,6 +16,8 @@ const express = require("express")
       townlessRedirect = require("./routes/api/v1/redirects/townless"),
       alliancesRoute = require("./routes/api/v1/alliances")
 
+app.use(express.json())
+
 // Use index and auth routes.
 app.use("/", mainRoute)
 

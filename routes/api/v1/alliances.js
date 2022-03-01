@@ -19,6 +19,7 @@ router.get('/', function (req, res)
         res.status(200).json(cachedAlliances)
         res.setTimeout(timeout)
     }
+    else res.send("Alliances are not updated yet.")
 })
 
 router.put('/', cors(), function (req, res) 
