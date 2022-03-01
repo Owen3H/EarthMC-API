@@ -2,7 +2,7 @@ const express = require("express"),
       router = express.Router(),
       cache = require("memory-cache")
 
-var cacheTimeout = 30000
+var cacheTimeout = 60000
 
 require("dotenv").config()
 
@@ -12,6 +12,8 @@ require("dotenv").config()
 
 router.get('/', function (req, res) 
 {
+    if (req.method == 'PUT') return
+
     var cachedAlliances = cache.get('alliances')
     res.setTimeout(cacheTimeout)
 
