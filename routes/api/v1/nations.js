@@ -9,8 +9,7 @@ router.get("/", async (req, res) =>
 {
     var cachedNations = cache.get('nations')
 
-    if (cachedNations) 
-        res.status(200).json(cachedNations)
+    if (cachedNations) res.status(200).json(cachedNations)
     else 
     {
         var nations = await emc.getNations().then(nations => { return nations })
@@ -53,8 +52,8 @@ router.get("/:nationName", async (req, res) =>
 
 router.get("/:nationName/invitable", async (req, res) => 
 {
-    var nationName = req.params.nationName
-    var invitableTownsRes = await emc.getInvitableTowns(nationName, false).then(towns => { return towns })
+    var nationName = req.params.nationName,
+        invitableTownsRes = await emc.getInvitableTowns(nationName, false).then(towns => { return towns })
 
     if (invitableTownsRes == "That nation does not exist!") res.status(404).json(invitableTownsRes)
     else res.status(200).json(invitableTownsRes)
