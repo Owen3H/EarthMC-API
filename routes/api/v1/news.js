@@ -41,3 +41,5 @@ function send401(res)
 {
     res.status(401).send("POST request unauthorized!")
 }
+
+module.exports = router
