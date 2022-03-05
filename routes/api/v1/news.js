@@ -3,7 +3,7 @@ const express = require("express"),
       cache = require("memory-cache"),
       cors = require('cors')
 
-var timeout = 60000
+var timeout = 20000
 
 require("dotenv").config()
 
@@ -24,23 +24,6 @@ router.get("/", async (req, res) =>
     var cachedLatestNews = cache.get('news')
 
     if (cachedLatestNews) sendOk(res, cachedLatestNews)
-    else send202(res)
-})
-
-router.post("/:nationName", cors(), async (req, res) => 
-{
-    if (req.header('AUTH_KEY') == process.env.AUTH_KEY)
-    {
-
-    }
-    else send401(res)
-})
-
-router.get("/:nationName", async (req, res) => 
-{
-    var cachedNews = cache.get(req.url)
-
-    if (cachedNews) sendOk(res, cachedNews)
     else send202(res)
 })
 

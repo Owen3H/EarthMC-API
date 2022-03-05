@@ -15,6 +15,7 @@ const express = require("express")
       playersRedirect = require("./routes/api/v1/redirects/players"),
       townlessRedirect = require("./routes/api/v1/redirects/townless"),
       alliancesRoute = require("./routes/api/v1/alliances")
+      newsRoute = require("./routes/api/v1/news")
 
 app.use(express.json())
 
@@ -41,6 +42,7 @@ app.use("/api/v1/townless", townlessRedirect)
 
 // POST, PUT, DELETE restricted to EMC Stats.
 app.use("/api/v1/alliances", alliancesRoute)
+app.use("/api/v1/news", newsRoute)
 
 // Default not found response
 app.use((req, res) => 
