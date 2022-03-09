@@ -3,8 +3,6 @@ const express = require("express"),
       cache = require("memory-cache"),
       cors = require('cors')
 
-var timeout = 20000
-
 require("dotenv").config()
 
 router.post("/", cors(), async (req, res) => 
@@ -27,18 +25,15 @@ router.get("/", async (req, res) =>
     else send202(res)
 })
 
-function sendOk(res, data)
-{
-    res.status(200).json(data).setTimeout(timeout)
+function sendOk(res, data) {
+    res.status(200).json(data).setTimeout(5000)
 }
 
-function send202(res)
-{
+function send202(res) {
     res.status(202).send("No news yet, try again later.")
 }
 
-function send401(res)
-{
+function send401(res) {
     res.status(401).send("POST request unauthorized!")
 }
 
