@@ -34,7 +34,7 @@ function sendOk(res, data)
 
 function send202(res)
 {
-    res.status(202).send("Alliances being initialized, try again later.")
+    res.status(202).send("No news yet, try again later.")
 }
 
 function send401(res)
