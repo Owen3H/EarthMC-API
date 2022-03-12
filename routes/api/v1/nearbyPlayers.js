@@ -13,11 +13,11 @@ router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) =>
                                  .then(players => { return players })
                                  .catch(() => {})
     
-    if (!nearbyPlayers) sendOk([])
-    else sendOk(nearbyPlayers)
+    if (!nearbyPlayers) sendOk(res, [])
+    else sendOk(res, nearbyPlayers)
 })
 
-function sendOk(data)
+function sendOk(res, data)
 {
     res.status(200).json(data)
 }
