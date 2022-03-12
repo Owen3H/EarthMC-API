@@ -9,10 +9,17 @@ router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) =>
     if (!xBlocks) xBlocks = 500
     if (!zBlocks) zBlocks = 500
 
-    var nearbyPlayers = await emc.getNearbyPlayers(Number(req.params.xPos), Number(req.params.zPos), Number(xBlocks), Number(zBlocks)).then(players => { return players })
+    var nearbyPlayers = await emc.getNearbyPlayers(Number(req.params.xPos), Number(req.params.zPos), Number(xBlocks), Number(zBlocks))
+                                 .then(players => { return players })
+                                 .catch(() => {})
     
-    if (!nearbyPlayers) res.status(200).json([])
-    else res.status(200).json(nearbyPlayers)
+    if (!nearbyPlayers) sendOk([])
+    else sendOk(nearbyPlayers)
 })
+
+function sendOk(data)
+{
+    res.status(200).json(data)
+}
 
 module.exports = router
