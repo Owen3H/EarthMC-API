@@ -11,7 +11,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
-    "earthmc": "^1.9.3",
+    "earthmc": "^2.0.1",
     "express": "^4.17.3",
     "memory-cache": "^0.2.0"
   }
