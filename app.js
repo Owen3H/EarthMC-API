@@ -21,7 +21,6 @@ const express = require("express")
       newsRoute = require("./routes/api/v1/news")
 
 app.use(express.json())
-app.use('/static', express.static('web/static'))
 
 // Serve webpage routes.
 app.use("/", mainRoute)
