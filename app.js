@@ -48,7 +48,7 @@ app.use("/api/v1/townless", townlessRedirect)
 // POST, PUT, DELETE restricted to EMC Stats.
 app.use("/api/v1/alliances", alliancesRoute)
 app.use("/api/v1/news", newsRoute)
-app.use("/api/v1/allplayers", playersRoute)
+app.use("/api/v1/allplayers", allPlayersRoute)
 
 // Default not found response
 app.use((req, res) => 
