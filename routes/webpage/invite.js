@@ -3,11 +3,6 @@ const express = require("express"),
 
 router.get('/', function(req, res) 
 {
-    res.sendFile(`${process.cwd()}/web/index.html`)
-})
-
-router.get('/invite', function(req, res) 
-{
     res.sendFile(`${process.cwd()}/web/invite.html`)
 })
 

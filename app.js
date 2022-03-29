@@ -1,6 +1,9 @@
+// @ts-nocheck
 const express = require("express")
       app = express(),
-      mainRoute = require("./routes/main"),
+      mainRoute = require("./routes/webpage/main"),
+      inviteRoute = require("./routes/webpage/invite"),
+      mapRoute = require("./routes/webpage/map"),
       townsRoute = require("./routes/api/v1/towns"),
       nationsRoute = require("./routes/api/v1/nations"),
       residentsRoute = require("./routes/api/v1/residents"),
@@ -19,10 +22,12 @@ const express = require("express")
 
 app.use(express.json())
 
-// Use index and auth routes.
+// Serve webpage routes.
 app.use("/", mainRoute)
+app.use("/invite", inviteRoute)
+app.use("/map", mapRoute)
 
-// Use the routes defined in api/routes
+// Serve API routes.
 app.use("/api/v1/towns", townsRoute)
 app.use("/api/v1/nations", nationsRoute)
 app.use("/api/v1/residents", residentsRoute)
@@ -43,6 +48,7 @@ app.use("/api/v1/townless", townlessRedirect)
 // POST, PUT, DELETE restricted to EMC Stats.
 app.use("/api/v1/alliances", alliancesRoute)
 app.use("/api/v1/news", newsRoute)
+app.use("/api/v1/allplayers", playersRoute)
 
 // Default not found response
 app.use((req, res) => 

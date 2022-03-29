@@ -1,9 +1,21 @@
 const express = require("express"),
       router = express.Router(),
       emc = require("earthmc"),
-      cache = require("memory-cache")
-
+      cache = require("memory-cache"),
+      cors = require('cors')
+      
 var cacheTimeout = 30000
+
+router.put('/', cors(), function (req, res) 
+{
+    if (req.header('AUTH_KEY') == process.env.AUTH_KEY) {
+        var players = req.body
+
+        cache.put('players', players, cacheTimeout)
+        res.status(200).json(players).setTimeout(cacheTimeout)
+    }
+    else res.status(401).send("PUT request unauthorized!")
+})
 
 router.get("/", async (req, res) => 
 {
