@@ -4,12 +4,12 @@ const express = require("express"),
 
 router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) => 
 {
-    var xBlocks = req.params.xBlocks
-    var zBlocks = req.params.zBlocks
+    var xBlocks = Number(req.params.xBlocks)
+    var zBlocks = Number(req.params.zBlocks)
     if (!xBlocks) xBlocks = 500
     if (!zBlocks) zBlocks = 500
 
-    var nearbyTowns = await emc.getNearbyTowns(Number(req.params.xPos), Number(req.params.zPos), Number(xBlocks), Number(zBlocks)).then(towns => { return towns })
+    var nearbyTowns = await emc.getNearbyTowns(Number(req.params.xPos), Number(req.params.zPos), xBlocks, zBlocks).then(towns => { return towns })
     
     if (!nearbyTowns) res.status(200).json([])
     else res.status(200).json(nearbyTowns)

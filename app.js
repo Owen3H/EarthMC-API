@@ -17,10 +17,11 @@ const express = require("express")
       onlineRedirect = require("./routes/api/v1/redirects/online"),
       playersRedirect = require("./routes/api/v1/redirects/players"),
       townlessRedirect = require("./routes/api/v1/redirects/townless"),
-      alliancesRoute = require("./routes/api/v1/alliances")
+      alliancesRoute = require("./routes/api/v1/alliances"),
       newsRoute = require("./routes/api/v1/news")
 
 app.use(express.json())
+app.use('/static', express.static('web/static'))
 
 // Serve webpage routes.
 app.use("/", mainRoute)
