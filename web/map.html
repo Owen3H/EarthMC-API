@@ -6,17 +6,6 @@
     </title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="./static/styles.css" type="text/css">
-    <script>
-        const interval = setInterval(() =>  {
-            if (document.getElementsByClassName('playerNameSm playerNameNoHealth').length > 0) 
-            {
-                document.getElementsByClassName('compass compass_S compass_flat')[0].remove()
-                document.getElementsByClassName('largeclock timeofday')[0].remove()
-                document.getElementsByClassName('leaflet-bottom leaflet-right')[0].remove()
-                
-                clearInterval(interval)
-            }}, 1000)
-    </script>
 </head>
 <body style=" margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px;">
     <div class="container">
