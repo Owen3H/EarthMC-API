@@ -2,6 +2,8 @@ const express = require("express"),
       router = express.Router(),
       emc = require("earthmc")
 
+var timeout = 5000
+
 router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) => 
 {
     var xBlocks = Number(req.params.xBlocks)
@@ -12,7 +14,7 @@ router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) =>
     var nearbyTowns = await emc.getNearbyTowns(Number(req.params.xPos), Number(req.params.zPos), xBlocks, zBlocks).then(towns => { return towns })
     
     if (!nearbyTowns) res.status(200).json([])
-    else res.status(200).json(nearbyTowns)
+    else res.status(200).json(nearbyTowns).setTimeout(timeout)
 })
 
 module.exports = router

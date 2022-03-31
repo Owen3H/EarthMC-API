@@ -6,7 +6,7 @@ const express = require("express"),
       
 var timeout = 10000
 
-const mergeById = (a1, a2) => a1.map(itm => ({...a2.find((item) => (item.name === itm.name) && item), ...itm}));
+const mergeById = (a1, a2) => a1.map(itm => ({...a2.find((item) => (item.name === itm.name) && item), ...itm}))
 
 router.put('/', cors(), async function (req, res) 
 {
