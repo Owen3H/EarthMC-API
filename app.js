@@ -21,8 +21,8 @@ const express = require("express")
       newsRoute = require("./routes/api/v1/news")
 
 var bodyParser = require("body-parser")
-app.use(bodyParser.json({ limit: '20mb' }))
-app.use(bodyParser.urlencoded({ limit: "20mb", extended: true, parameterLimit: 50000 }))
+app.use(bodyParser.json({ limit: '40mb' }))
+app.use(bodyParser.urlencoded({ limit: "40mb", extended: true, parameterLimit: 50000 }))
 
 // Serve webpage routes.
 app.use("/", mainRoute)
