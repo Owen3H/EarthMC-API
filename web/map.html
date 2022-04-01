@@ -1,48 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<title>Minecraft Dynamic Map</title>
-<meta charset="utf-8" />
-<meta name="keywords" content="minecraft, map, dynamic" />
-<meta name="description" content="Minecraft Dynamic Map" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>
+        EMC Stats Dynmap
+    </title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="./static/styles.css" type="text/css">
+    <script>
+        var iframe = document.getElementsByClassName("responsive-iframe")
+        var doc = iframe.contentWindow.document
 
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<link rel="icon" href="https://earthmc.net/map/images/dynmap.ico" type="image/ico" />
-<script type="bcaa3d5c7eda868b7e5f4b34-text/javascript" src="https://earthmc.net/map/js/jquery-3.5.1.js?_=3.3-beta-4-617"></script>
-<link rel="stylesheet" type="text/css" href="https://earthmc.net/map/css/leaflet.css?_=3.3-beta-4-617" />
-<script type="bcaa3d5c7eda868b7e5f4b34-text/javascript" src="https://earthmc.net/map/js/leaflet.js?_=3.3-beta-4-617"></script>
+        const interval = setInterval(() => {
+        if (doc.getElementsByClassName('playerNameSm playerNameNoHealth').length > 0) 
+        {
+            doc.getElementsByClassName('compass compass_S compass_flat')[0].remove()
+            doc.getElementsByClassName('largeclock timeofday')[0].remove()
+            doc.getElementsByClassName('leaflet-bottom leaflet-right')[0].remove()
 
-<script type="bcaa3d5c7eda868b7e5f4b34-text/javascript" src="https://earthmc.net/map/js/custommarker.js?_=3.3-beta-4-617"></script>
-<script type="bcaa3d5c7eda868b7e5f4b34-text/javascript" src="https://earthmc.net/map/js/dynmaputils.js?_=3.3-beta-4-617"></script>
-<script type="bcaa3d5c7eda868b7e5f4b34-text/javascript" src="https://earthmc.net/map/js/sidebarutils.js?_=3.3-beta-4-617"></script>
-
-<link rel="stylesheet" type="text/css" href="https://earthmc.net/map/css/standalone.css?_=3.3-beta-4-617" media="screen" />
-<link rel="stylesheet" type="text/css" href="https://earthmc.net/map/css/dynmap_style.css?_=3.3-beta-4-617" media="screen" />
-
-<script type="bcaa3d5c7eda868b7e5f4b34-text/javascript" src="https://earthmc.net/map/version.js?_=3.3-beta-4-617"></script>
-<script type="bcaa3d5c7eda868b7e5f4b34-text/javascript" src="https://earthmc.net/map/js/jquery.json.js?_=3.3-beta-4-617"></script>
-<script type="bcaa3d5c7eda868b7e5f4b34-text/javascript" src="https://earthmc.net/map/js/jquery.mousewheel.js?_=3.3-beta-4-617"></script>
-<script type="bcaa3d5c7eda868b7e5f4b34-text/javascript" src="https://earthmc.net/map/js/minecraft.js?_=3.3-beta-4-617"></script>
-<script type="bcaa3d5c7eda868b7e5f4b34-text/javascript" src="https://earthmc.net/map/js/map.js?_=3.3-beta-4-617"></script>
-<script type="bcaa3d5c7eda868b7e5f4b34-text/javascript" src="https://earthmc.net/map/js/hdmap.js?_=3.3-beta-4-617"></script>
-<script type="bcaa3d5c7eda868b7e5f4b34-text/javascript" src="https://earthmc.net/map/standalone/config.js?_=3.3-beta-4-617"></script>
-<script type="bcaa3d5c7eda868b7e5f4b34-text/javascript">
-			$(document).ready(function() {
-				window.dynmap = new DynMap($.extend({
-					container: $('#mcmap')
-				}, config));
-			});
-	</script>
+            clearInterval(interval)
+        }
+    }, 1000)
+    </script>
 </head>
-<body>
-<noscript>
- For full functionality of this site it is necessary to enable JavaScript.
- Here are the <a href="http://www.enable-javascript.com/" target="_blank">
- instructions how to enable JavaScript in your web browser</a>.
-</noscript>
-<div id="mcmap"></div>
-<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="bcaa3d5c7eda868b7e5f4b34-|49" defer=""></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194" integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw==" data-cf-beacon='{"rayId":"6f53299d288373fb","version":"2021.12.0","r":1,"token":"797dd75a51c547ab8eece70da2aee298","si":100}' crossorigin="anonymous"></script>
+<body style=" margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px;">
+    <div class="container">
+        <iframe class="responsive-iframe" src="http://earthmc.net/map/"
+            height="100%" width="100%" 
+            style="border-left-width: 0px; border-top-width: 0px;border-right-width: 0px; border-bottom-width: 0px;"></iframe>
+    </div>
 </body>
 </html>
