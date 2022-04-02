@@ -15,7 +15,7 @@ router.get('/', function (req, res)
 {
     var cachedAlliances = cache.get('alliances')
 
-    if (cachedAlliances) send200(cachedAlliances)
+    if (cachedAlliances) send200(res, cachedAlliances)
     else send202(res)
 })
 
@@ -28,7 +28,7 @@ router.get('/:allianceName', function (req, res)
         let alliance = cachedAlliances.find(cur => cur.allianceName.toLowerCase() == allianceName.toLowerCase())
 
         if (!alliance) res.status(404).json("That alliance does not exist!")
-        else send200(alliance)
+        else send200(res, alliance)
     }
     else send202(res)
 })
@@ -38,7 +38,7 @@ router.get('/meganations', function (req, res)
     var cachedAlliances = cache.get('alliances'),
         meganations = cachedAlliances.filter(alliance => alliance.type == 'mega')
 
-    if (cachedAlliances) send200(meganations)
+    if (cachedAlliances) send200(res, meganations)
     else send202(res)
 })
 
@@ -47,7 +47,7 @@ router.get('/submeganations', function (req, res)
     var cachedAlliances = cache.get('alliances'),
         submeganations = cachedAlliances.filter(alliance => alliance.type == 'sub')
 
-    if (cachedAlliances) send200(submeganations)
+    if (cachedAlliances) send200(res, submeganations)
     else send202(res)
 })
 
