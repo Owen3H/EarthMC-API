@@ -25,7 +25,7 @@ router.get('/:allianceName', function (req, res)
         allianceName = req.params.allianceName
 
     if (cachedAlliances) {
-        switch(allianceName) {
+        switch(allianceName.toLowerCase()) {
             case "submeganations":
                 let submeganations = cachedAlliances.filter(alliance => alliance.type == 'sub')
                 send200(res, submeganations)
@@ -35,6 +35,11 @@ router.get('/:allianceName', function (req, res)
                 let meganations = cachedAlliances.filter(alliance => alliance.type == 'mega')
                 send200(res, meganations)
                 
+                break
+            case "normal":
+                let normal = cachedAlliances.filter(alliance => alliance.type == 'normal')
+                send200(res, normal)
+                    
                 break
             default:
                 let alliance = cachedAlliances.find(cur => cur.allianceName.toLowerCase() == allianceName.toLowerCase())
