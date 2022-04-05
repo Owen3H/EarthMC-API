@@ -1,6 +1,4 @@
-<img src="https://cdn.glitch.me/project-avatar/5bf8d5e2-f6b5-469a-9f2f-b384fa098bd2.png" width="100"> [![NPM Version][npm-image]][npm-url] 
-
-# EarthMC API 
+ # EarthMC API [![NPM Version][npm-image]][npm-url] 
 A REST API providing info about people, places and more on EarthMC.
 
 ## Basic Setup (JS Example)
