@@ -35,18 +35,16 @@ router.get("/", async (req, res) =>
 
 router.get("/:playerName", async (req, res) => 
 {
-    var cachedPlayer = cache.get(req.url)
-    if (cachedPlayer) {
-        res.status(200).json(cachedPlayer)
-    } else {
-        var playerName = req.params.playerName,
-        foundPlayer = await emc.getPlayer(playerName).then(player => { return player })
+    var cachedPlayers = cache.get('players'),
+        playerName = req.params.playerName.toLowerCase()
 
-        if (!foundPlayer) res.status(404).json("That player does not exist!")
-        else {
-            res.status(200).json(foundPlayer)
-            cache.put(req.url, foundPlayer)
-        }
+    if (cachedPlayers) {
+        var player = cachedPlayers.find(p => p.name.toLowerCase() == playerName)
+
+        if (!player) res.status(404).json("That player does not exist!")
+        else res.status(200).json(player)
+    } else {
+        res.status(202).json("Players have not been cached yet.")
     }
 })
 
