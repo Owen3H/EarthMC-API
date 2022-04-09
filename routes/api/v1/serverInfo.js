@@ -4,8 +4,9 @@ const express = require("express"),
 
 router.get("/", async (req, res) => 
 {
-    var serverInfo = await emc.getServerInfo().then(info => { return info })
+    var serverInfo = await emc.getServerInfo().then(info => { return info }).catch(() => {})
 
+    if (!serverInfo) return
     res.status(200).json(serverInfo)
 })
 

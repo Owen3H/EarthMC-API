@@ -11,7 +11,8 @@ router.get("/", async (req, res) =>
 
     if (cachedNations) res.status(200).json(cachedNations)
     else {
-        var nations = await emc.getNations().then(nations => { return nations })
+        var nations = await emc.getNations().then(nations => { return nations }).catch(() => {})
+        if (!nations) return
 
         res.status(200).json(nations)
         cache.put('nations', nations, cacheTimeout)

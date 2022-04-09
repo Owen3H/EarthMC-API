@@ -8,11 +8,11 @@ var cacheTimeout = 10000
 router.get("/", async (req, res) => 
 {
     var cachedTownless = cache.get('townless')
-    if (cachedTownless) {
-        res.status(200).json(cachedTownless)
-    } else {
-        var townlessPlayers = await emc.getTownless().then(townless => { return townless })
+    if (cachedTownless) res.status(200).json(cachedTownless)
+    else {
+        var townlessPlayers = await emc.getTownless().then(townless => { return townless }).catch(() => {})
 
+        if (!townlessPlayers) return
         res.status(200).json(townlessPlayers)
         cache.put('townless', townlessPlayers, cacheTimeout)
     }

@@ -11,8 +11,9 @@ router.get("/", async (req, res) =>
 
     if (cachedResidents) res.status(200).json(cachedResidents)
     else {
-        var residents = await emc.getResidents().then(residents => { return residents })
+        var residents = await emc.getResidents().then(residents => { return residents }).catch(() => {})
 
+        if (!residents) return 
         res.status(200).json(residents)
         cache.put('residents', residents, cacheTimeout)
     }
