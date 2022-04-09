@@ -2,7 +2,7 @@ const express = require("express"),
       router = express.Router(),
       emc = require("earthmc")
 
-var timeout = 10000
+var timeout = 30000
 
 router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) => 
 {
