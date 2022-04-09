@@ -3,7 +3,7 @@ const express = require("express"),
       emc = require("earthmc"),
       cache = require("memory-cache")
 
-var cacheTimeout = 30000
+var cacheTimeout = 10000
 
 router.get("/", async (req, res) => 
 {

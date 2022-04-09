@@ -20,14 +20,17 @@ const express = require("express")
       alliancesRoute = require("./routes/api/v1/alliances"),
       newsRoute = require("./routes/api/v1/news")
 
+const compression = require('compression')
+app.use(compression()) // Compress all routes
+
 var bodyParser = require("body-parser")
-app.use(bodyParser.json({ limit: '40mb' }))
-app.use(bodyParser.urlencoded({ limit: "40mb", extended: true, parameterLimit: 50000 }))
+app.use(bodyParser.json({ limit: '20mb' }))
+app.use(bodyParser.urlencoded({ limit: "20mb", extended: true, parameterLimit: 30000 }))
 
 // Serve webpage routes.
 app.use("/", mainRoute)
 app.use("/invite", inviteRoute)
-app.use("/map", mapRoute)
+//app.use("/map", mapRoute)
 
 // Serve API routes.
 app.use("/api/v1/towns", townsRoute)

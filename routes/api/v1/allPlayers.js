@@ -4,7 +4,7 @@ const express = require("express"),
       cache = require("memory-cache"),
       cors = require('cors')
       
-var timeout = 10000
+var timeout = 15000
 
 const mergeById = (a1, a2) => a1.map(itm => ({...a2.find((item) => (item.name === itm.name) && item), ...itm}))
 

@@ -10,8 +10,7 @@ router.get("/", async (req, res) =>
     var cachedTowns = cache.get('towns')
 
     if (cachedTowns) res.status(200).json(cachedTowns)
-    else 
-    {
+    else {
         var towns = await emc.getTowns().then(towns => { return towns })
 
         res.status(200).json(towns)
@@ -21,31 +20,16 @@ router.get("/", async (req, res) =>
 
 router.get("/:townName", async (req, res) => 
 {
-    var cachedTown = cache.get(req.url)
+    var townName = req.params.townName,
+        cachedTowns = cache.get('towns'),
+        cachedTown = cachedTowns.find(t => t.name.toLowerCase() == townName.toLowerCase())
 
-    if (cachedTown) res.status(cachedTown.code).json(cachedTown.town)
-    else 
-    {
-        var townName = req.params.townName,
-            foundTown = await emc.getTown(townName)
+    if (cachedTown) res.status(200).json(cachedTown)
+    else {
+        var foundTown = await emc.getTown(townName)
     
-        if (!foundTown) 
-        {
-            res.status(404).json("That town does not exist!")
-            cache.put(req.url, {
-                code: 404,
-                town: "That town does not exist!"
-            }, cacheTimeout)
-        } 
-        else 
-        {
-            res.status(200).json(foundTown)
-            cache.put(req.url, 
-            {
-                code: 200,
-                town: foundTown
-            }, cacheTimeout)
-        }
+        if (!foundTown) res.status(404).json("That town does not exist!")
+        else res.status(200).json(foundTown).setTimeout(10000)
     }
 })
 
@@ -54,10 +38,8 @@ router.get("/:townName/joinable", async (req, res) =>
     var townName = req.params.townName,
         invitableNationsRes = await emc.getJoinableNations(townName).then(nations => { return nations })
 
-    if (invitableNationsRes == "That nation does not exist!") 
-        res.status(404).json(invitableNationsRes)
-    else 
-        res.status(200).json(invitableNationsRes)
+    if (invitableNationsRes == "That nation does not exist!") res.status(404).json(invitableNationsRes)
+    else res.status(200).json(invitableNationsRes)
 })
 
 module.exports = router

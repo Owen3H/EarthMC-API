@@ -3,7 +3,7 @@ const express = require("express"),
       cache = require("memory-cache"),
       cors = require('cors')
 
-var timeout = 60000
+var timeout = 2 * 60 * 1000
 
 require("dotenv").config()
 
