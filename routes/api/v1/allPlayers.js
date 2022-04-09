@@ -14,6 +14,7 @@ router.put('/', cors(), async function (req, res)
         var allPlayers = await emc.getAllPlayers().then(players => { return players }),
             players = req.body
 
+        if (!allPlayers) return
         cache.put('players', mergeById(allPlayers, players))
         res.status(200).json(mergeById(allPlayers, players)).setTimeout(timeout)
     }
@@ -23,9 +24,8 @@ router.put('/', cors(), async function (req, res)
 router.get("/", async (req, res) => 
 {
     var cachedPlayers = cache.get('players')
-    if (cachedPlayers) {
-        res.status(200).json(cachedPlayers)
-    } else {
+    if (cachedPlayers) res.status(200).json(cachedPlayers)
+    else {
         var allPlayers = await emc.getAllPlayers().then(players => { return players })
 
         res.status(200).json(allPlayers)
