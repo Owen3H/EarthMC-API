@@ -21,14 +21,18 @@ router.get("/", async (req, res) =>
 router.get("/:townName", async (req, res) => 
 {
     var townName = req.params.townName,
-        cachedTowns = cache.get('towns'),
-        cachedTown = cachedTowns.find(t => t.name.toLowerCase() == townName.toLowerCase())
-
-    if (cachedTown) res.status(200).json(cachedTown)
+        cachedTowns = cache.get('towns')
+        
+    if (cachedTowns) {
+        var cachedTown = cachedTowns.find(t => t.name.toLowerCase() == townName.toLowerCase())
+        
+        if (cachedTown) res.status(200).json(cachedTown)
+        else res.status(404).json("That town does not exist!")
+    }
     else {
         var foundTown = await emc.getTown(townName)
     
-        if (!foundTown) res.status(404).json("That town does not exist!")
+        if (foundTown == "That town does not exist!") res.status(404).json(foundTown)
         else res.status(200).json(foundTown).setTimeout(10000)
     }
 })

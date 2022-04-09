@@ -21,10 +21,14 @@ router.get("/", async (req, res) =>
 router.get("/:nationName", async (req, res) => 
 {
     var nationName = req.params.nationName,
-        cachedNations = cache.get('nations'),
-        cachedNation = cachedNations.find(n => n.name.toLowerCase() == nationName.toLowerCase())
-
-    if (cachedNation) res.status(200).json(cachedNation)
+        cachedNations = cache.get('nations')
+        
+    if (cachedNations) {
+        var cachedNation = cachedNations.find(n => n.name.toLowerCase() == nationName.toLowerCase())
+        
+        if (cachedNation) res.status(200).json(cachedNation)
+        else res.status(404).json("That nation does not exist!")
+    }
     else {
         var foundNation = await emc.getNation(nationName).then(nation => { return nation })
     

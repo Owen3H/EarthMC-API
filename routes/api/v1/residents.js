@@ -21,10 +21,14 @@ router.get("/", async (req, res) =>
 router.get("/:residentName", async (req, res) => 
 {
     var residentName = req.params.residentName,
-        cachedResidents = cache.get('residents'),
-        cachedResident = cachedResidents.find(res => res.name.toLowerCase() == residentName.toLowerCase())
-
-    if (cachedResident) res.status(200).json(cachedResident)
+        cachedResidents = cache.get('residents')
+        
+    if (cachedResidents) {
+        var cachedResident = cachedResidents.find(res => res.name.toLowerCase() == residentName.toLowerCase())
+        
+        if (cachedResident) res.status(200).json(cachedResident)
+        else res.status(404).json("That resident does not exist!")
+    }
     else {
         var resident = await emc.getResident(residentName).then(resident => { return resident }).catch(invalidRes => { return invalidRes })
 
