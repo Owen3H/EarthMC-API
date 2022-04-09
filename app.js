@@ -1,6 +1,7 @@
 // @ts-nocheck
 const express = require("express")
       app = express(),
+      rateLimit = require('express-rate-limit'),
       mainRoute = require("./routes/webpage/main"),
       inviteRoute = require("./routes/webpage/invite"),
       mapRoute = require("./routes/webpage/map"),
@@ -19,6 +20,16 @@ const express = require("express")
       townlessRedirect = require("./routes/api/v1/redirects/townless"),
       alliancesRoute = require("./routes/api/v1/alliances"),
       newsRoute = require("./routes/api/v1/news")
+
+const limiter = rateLimit({
+      windowMs: 1 * 60 * 1000, // Every min
+      max: 120, // Limit each IP to 120 requests per `window`
+      standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+      legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
+      
+// Apply the rate limiting to all requests
+app.use(limiter)
 
 const compression = require('compression')
 app.use(compression()) // Compress all routes
