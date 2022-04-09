@@ -28,7 +28,7 @@ const limiter = rateLimit({
       legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
       
-// Apply the rate limiting to all requests
+app.set('trust proxy', 1);
 app.use(limiter)
 
 const compression = require('compression')
