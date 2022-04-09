@@ -11,7 +11,8 @@ router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) =>
     if (!xBlocks) xBlocks = 500
     if (!zBlocks) zBlocks = 500
 
-    var nearbyTowns = await emc.getNearbyTowns(Number(req.params.xPos), Number(req.params.zPos), xBlocks, zBlocks).then(towns => { return towns })
+    var nearbyTowns = await emc.getNearbyTowns(Number(req.params.xPos), Number(req.params.zPos), xBlocks, zBlocks)
+                               .then(towns => { return towns }).catch(() => {})
     
     if (!nearbyTowns) res.status(200).json([])
     else res.status(200).json(nearbyTowns).setTimeout(timeout)
