@@ -22,13 +22,13 @@ const express = require("express")
       newsRoute = require("./routes/api/v1/news")
 
 const limiter = rateLimit({
-      windowMs: 1 * 60 * 1000, // Every min
-      max: 120, // Limit each IP to 120 requests per `window`
+      windowMs: 5000, // Every min
+      max: 10, // Limit each IP to 120 requests per `window`
       standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
       legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
       
-app.set('trust proxy', 1);
+app.set('trust proxy')
 app.use(limiter)
 
 const compression = require('compression')
