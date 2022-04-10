@@ -22,8 +22,8 @@ const express = require("express")
       newsRoute = require("./routes/api/v1/news")
 
 const limiter = rateLimit({
-      windowMs: 5000, // Every min
-      max: 10, // Limit each IP to 120 requests per `window`
+      windowMs: 30000, // Half a min
+      max: 60, // Limit each IP to x requests per `window`
       standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
       legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })

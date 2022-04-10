@@ -11,11 +11,20 @@ router.get("/", async (req, res) =>
     if (cachedTownless) res.status(200).json(cachedTownless)
     else {
         var townlessPlayers = await emc.getTownless().then(townless => { return townless }).catch(() => {})
+        if (!canJSON(townlessPlayers)) return
 
-        if (!townlessPlayers) return
         res.status(200).json(townlessPlayers)
         cache.put('townless', townlessPlayers, cacheTimeout)
     }
 })
+
+function canJSON(value) {
+    try {
+        JSON.stringify(value);
+        return true;
+    } catch (ex) {
+        return false;
+    }
+}
 
 module.exports = router
