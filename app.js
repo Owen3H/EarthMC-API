@@ -22,23 +22,22 @@ const express = require("express")
       newsRoute = require("./routes/api/v1/news")
 
 const limiter = rateLimit({
-      windowMs: 10000, // Half a min
-      max: 20, // Limit each IP to x requests per `window`
+      windowMs: 5000, // Time (ms) until limit is reset
+      max: 10, // Limit each IP to x requests per `window`
+      message: 'You are currently rate-limited, try again in ' + windowMs/1000 + 'seconds.',
       standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
       legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
       
 app.set('trust proxy', 1)
-app.get('/ip', (req, res) => res.send(req.ip))
-
 app.use(limiter)
 
 const compression = require('compression')
 app.use(compression()) // Compress all routes
 
 var bodyParser = require("body-parser")
-app.use(bodyParser.json({ limit: '30mb' }))
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true, parameterLimit: 30000 }))
+app.use(bodyParser.json({ limit: '25mb' }))
+app.use(bodyParser.urlencoded({ limit: "25mb", extended: true, parameterLimit: 20000 }))
 
 // Serve webpage routes.
 app.use("/", mainRoute)
