@@ -21,11 +21,11 @@ const express = require("express")
       alliancesRoute = require("./routes/api/v1/alliances"),
       newsRoute = require("./routes/api/v1/news")
 
-var window = 5000
+var window = 10 * 1000
 const limiter = rateLimit({
       windowMs: window, // Time (ms) until limit is reset
-      max: 10, // Limit each IP to x requests per `window`
-      message: 'You are currently rate-limited, try again in ' + window/1000 + 'seconds.',
+      max: 24, // Limit each IP to x requests per `window`
+      message: 'You are currently rate-limited, try again in ' + window/1000 + ' seconds.',
       standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
       legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
@@ -37,8 +37,8 @@ const compression = require('compression')
 app.use(compression()) // Compress all routes
 
 var bodyParser = require("body-parser")
-app.use(bodyParser.json({ limit: '25mb' }))
-app.use(bodyParser.urlencoded({ limit: "25mb", extended: true, parameterLimit: 20000 }))
+app.use(bodyParser.json({ limit: '20mb' }))
+app.use(bodyParser.urlencoded({ limit: "20mb", extended: true, parameterLimit: 20000 }))
 
 // Serve webpage routes.
 app.use("/", mainRoute)
