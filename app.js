@@ -21,10 +21,11 @@ const express = require("express")
       alliancesRoute = require("./routes/api/v1/alliances"),
       newsRoute = require("./routes/api/v1/news")
 
+var window = 5000
 const limiter = rateLimit({
-      windowMs: 5000, // Time (ms) until limit is reset
+      windowMs: window, // Time (ms) until limit is reset
       max: 10, // Limit each IP to x requests per `window`
-      message: 'You are currently rate-limited, try again in ' + windowMs/1000 + 'seconds.',
+      message: 'You are currently rate-limited, try again in ' + window/1000 + 'seconds.',
       standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
       legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
