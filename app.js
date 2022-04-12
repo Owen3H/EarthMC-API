@@ -1,6 +1,7 @@
 // @ts-nocheck
 const scout = require("@scout_apm/scout-apm"),
-      express = require("express")
+      express = require("express"),
+      app = express()
 
 // The "main" function
 async function start() {
@@ -11,20 +12,16 @@ async function start() {
             name: process.env.SCOUT_NAME
       })
 
-      const app = express()
-
       // Enable the app-wide scout middleware
       app.use(scout.expressMiddleware())
 
-      run(app)
+      run()
 
       // Start express
       app.start()
-
-      module.exports = app
 }
 
-async function run(app) {
+async function run() {
       const rateLimit = require('express-rate-limit'),
             mainRoute = require("./routes/webpage/main"),
             inviteRoute = require("./routes/webpage/invite"),
@@ -124,3 +121,5 @@ async function run(app) {
 // If this script is executed directly, run the start function
 if (require.main === module) start()
 else console.log("Starting from elsewhere!")
+
+module.exports = app
