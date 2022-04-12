@@ -16,13 +16,13 @@ async function start() {
       // Enable the app-wide scout middleware
       app.use(scout.expressMiddleware())
 
-      run()
+      run(app)
 
       // Start express
       app.start()
 }
 
-async function run() {
+async function run(app) {
       const rateLimit = require('express-rate-limit'),
             mainRoute = require("./routes/webpage/main"),
             inviteRoute = require("./routes/webpage/invite"),
