@@ -28,7 +28,7 @@ async function start() {
       await scout.install({
             allowShutdown: true, // allow shutting down spawned scout-agent processes from this program
             monitor: true, // enable monitoring
-            name: "",
+            name: process.env.SCOUT_NAME,
             key: "",
       })
 
