@@ -9,7 +9,8 @@ async function start() {
       await scout.install({
             allowShutdown: true, // allow shutting down spawned scout-agent processes from this program
             monitor: true, // enable monitoring
-            name: process.env.SCOUT_NAME
+            name: process.env.SCOUT_NAME,
+            key: process.env.SCOUT_KEY
       })
 
       // Enable the app-wide scout middleware
@@ -120,6 +121,6 @@ async function run() {
 
 // If this script is executed directly, run the start function
 if (require.main === module) start()
-else console.log("Starting from elsewhere!")
+//else console.log("Starting from elsewhere!")
 
 module.exports = app
