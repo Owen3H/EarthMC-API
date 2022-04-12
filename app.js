@@ -28,12 +28,8 @@ async function start() {
       await scout.install({
             allowShutdown: true, // allow shutting down spawned scout-agent processes from this program
             monitor: true, // enable monitoring
-            name: process.env.SCOUT_NAME,
-            key: "",
+            name: process.env.SCOUT_NAME
       })
-
-      // Initialize your express application
-      const app = express()
 
       // Enable the app-wide scout middleware
       app.use(scout.expressMiddleware())
