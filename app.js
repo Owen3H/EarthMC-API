@@ -1,7 +1,30 @@
 // @ts-nocheck
 const scout = require("@scout_apm/scout-apm"),
       express = require("express"),
-      app = express()
+      app = express(),
+      rateLimit = require('express-rate-limit'),
+      mainRoute = require("./routes/webpage/main"),
+      inviteRoute = require("./routes/webpage/invite"),
+      mapRoute = require("./routes/webpage/map"),
+      townsRoute = require("./routes/api/v1/towns"),
+      nationsRoute = require("./routes/api/v1/nations"),
+      residentsRoute = require("./routes/api/v1/residents"),
+      serverInfoRoute = require("./routes/api/v1/serverInfo"),
+      onlinePlayersRoute = require("./routes/api/v1/onlinePlayers"),
+      townlessPlayersRoute = require("./routes/api/v1/townlessPlayers"),
+      allPlayersRoute = require("./routes/api/v1/allPlayers"),
+      nearbyPlayersRoute = require("./routes/api/v1/nearbyPlayers"),
+      nearbyTownsRoute = require("./routes/api/v1/nearbyTowns"),
+      nearbyNationsRoute = require("./routes/api/v1/nearbyNations"),
+      onlineRedirect = require("./routes/api/v1/redirects/online"),
+      playersRedirect = require("./routes/api/v1/redirects/players"),
+      townlessRedirect = require("./routes/api/v1/redirects/townless"),
+      alliancesRoute = require("./routes/api/v1/alliances"),
+      newsRoute = require("./routes/api/v1/news")
+
+// Enable the app-wide scout middleware
+app.use(scout.expressMiddleware())
+setupRoutes()
 
 // The "main" function
 async function start() {
@@ -12,37 +35,9 @@ async function start() {
             name: process.env.SCOUT_NAME,
             key: process.env.SCOUT_KEY
       })
-
-      // Enable the app-wide scout middleware
-      app.use(scout.expressMiddleware())
-
-      run()
-
-      // Start express
-      app.start()
 }
 
-async function run() {
-      const rateLimit = require('express-rate-limit'),
-            mainRoute = require("./routes/webpage/main"),
-            inviteRoute = require("./routes/webpage/invite"),
-            mapRoute = require("./routes/webpage/map"),
-            townsRoute = require("./routes/api/v1/towns"),
-            nationsRoute = require("./routes/api/v1/nations"),
-            residentsRoute = require("./routes/api/v1/residents"),
-            serverInfoRoute = require("./routes/api/v1/serverInfo"),
-            onlinePlayersRoute = require("./routes/api/v1/onlinePlayers"),
-            townlessPlayersRoute = require("./routes/api/v1/townlessPlayers"),
-            allPlayersRoute = require("./routes/api/v1/allPlayers"),
-            nearbyPlayersRoute = require("./routes/api/v1/nearbyPlayers"),
-            nearbyTownsRoute = require("./routes/api/v1/nearbyTowns"),
-            nearbyNationsRoute = require("./routes/api/v1/nearbyNations"),
-            onlineRedirect = require("./routes/api/v1/redirects/online"),
-            playersRedirect = require("./routes/api/v1/redirects/players"),
-            townlessRedirect = require("./routes/api/v1/redirects/townless"),
-            alliancesRoute = require("./routes/api/v1/alliances"),
-            newsRoute = require("./routes/api/v1/news")
-
+async function setupRoutes() {
       var window = 5 * 1000
       const limiter = rateLimit({
             windowMs: window, // Time (ms) until limit is reset
@@ -118,9 +113,5 @@ async function run() {
             })
       })
 }
-
-// If this script is executed directly, run the start function
-if (require.main === module) start()
-//else console.log("Starting from elsewhere!")
 
 module.exports = app
