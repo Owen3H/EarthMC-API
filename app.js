@@ -20,6 +20,8 @@ async function start() {
 
       // Start express
       app.start()
+
+      module.exports = app
 }
 
 async function run(app) {
@@ -122,5 +124,3 @@ async function run(app) {
 // If this script is executed directly, run the start function
 if (require.main === module) start()
 else console.log("Starting from elsewhere!")
-
-module.exports = app
