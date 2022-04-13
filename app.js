@@ -5,6 +5,7 @@ const scout = require("@scout_apm/scout-apm"),
       rateLimit = require('express-rate-limit'),
       mainRoute = require("./routes/webpage/main"),
       inviteRoute = require("./routes/webpage/invite"),
+      monitorRoute = require("./routes/webpage/monitor"),
       mapRoute = require("./routes/webpage/map"),
       townsRoute = require("./routes/api/v1/towns"),
       nationsRoute = require("./routes/api/v1/nations"),
@@ -22,20 +23,10 @@ const scout = require("@scout_apm/scout-apm"),
       alliancesRoute = require("./routes/api/v1/alliances"),
       newsRoute = require("./routes/api/v1/news")
 
+
 // Enable the app-wide scout middleware
 app.use(scout.expressMiddleware())
 setupRoutes()
-
-// The "main" function
-async function start() {
-      // Trigger the download and installation of the core-agent
-      await scout.install({
-            allowShutdown: true, // allow shutting down spawned scout-agent processes from this program
-            monitor: true, // enable monitoring
-            name: process.env.SCOUT_NAME,
-            key: process.env.SCOUT_KEY
-      })
-}
 
 async function setupRoutes() {
       var window = 5 * 1000
@@ -60,6 +51,7 @@ async function setupRoutes() {
       // Serve webpage routes.
       app.use("/", mainRoute)
       app.use("/invite", inviteRoute)
+      app.use("/monitor", monitorRoute)
       //app.use("/map", mapRoute)
 
       // Serve API routes.
