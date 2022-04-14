@@ -24,14 +24,17 @@ const scout = require("@scout_apm/scout-apm"),
       alliancesRoute = require("./routes/api/v1/alliances"),
       newsRoute = require("./routes/api/v1/news")
 
-Honeybadger.configure({ apiKey: process.env.HONEYBADGER_API_KEY })
-app.use(Honeybadger.requestHandler)
-
-app.use(scout.expressMiddleware())
-
+setupLimiter()
 setupRoutes()
+setupMonitoring()
 
-async function setupRoutes() {
+async function setupMonitoring() {
+      Honeybadger.configure({ apiKey: process.env.HONEYBADGER_API_KEY })
+      app.use(Honeybadger.requestHandler)
+      app.use(scout.expressMiddleware())
+}
+
+async function setupLimiter() {
       var window = 5 * 1000
       const limiter = rateLimit({
             windowMs: window, // Time (ms) until limit is reset
@@ -43,7 +46,9 @@ async function setupRoutes() {
             
       app.set('trust proxy', 1)
       app.use(limiter)
+}
 
+async function setupRoutes() {
       const compression = require('compression')
       app.use(compression()) // Compress all routes
 
