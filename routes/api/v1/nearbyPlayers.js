@@ -13,7 +13,7 @@ router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) =>
     if (!zBlocks) zBlocks = 500
 
     var nearbyPlayers = await emc.getNearbyPlayers(Number(req.params.xPos), Number(req.params.zPos), xBlocks, zBlocks)
-                                 .then(players => { return players }).catch(err => { Honeybadger.notify(err) })
+                                 .then(players => { return players }).catch(() => {})
     
     if (!canJSON(nearbyPlayers)) return
     if (!nearbyPlayers) sendOk(res, [])
@@ -26,10 +26,10 @@ function sendOk(res, data) {
 
 function canJSON(value) {
     try {
-        JSON.stringify(value);
-        return true;
+        JSON.stringify(value)
+        return true
     } catch (ex) {
-        return false;
+        return false
     }
 }
 
