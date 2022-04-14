@@ -3,8 +3,6 @@ const express = require("express"),
       cache = require("memory-cache"),
       cors = require('cors')
 
-require("dotenv").config()
-
 router.post("/", cors(), async (req, res) => 
 {
     if (req.header('AUTH_KEY') == process.env.AUTH_KEY)
@@ -14,15 +12,17 @@ router.post("/", cors(), async (req, res) =>
         cache.put('news', latestNews)
         sendOk(res, latestNews)
     }
-    else send401(res)
+    else res.status(401).send("POST request unauthorized!")
 })
 
 router.get("/", async (req, res) => 
 {
     var cachedLatestNews = cache.get('news')
 
-    if (cachedLatestNews) sendOk(res, cachedLatestNews)
-    else send202(res)
+    if (cachedLatestNews) 
+        return sendOk(res, cachedLatestNews)
+        
+    send202(res)
 })
 
 function sendOk(res, data) {
@@ -31,10 +31,6 @@ function sendOk(res, data) {
 
 function send202(res) {
     res.status(202).send("No news yet, try again later.")
-}
-
-function send401(res) {
-    res.status(401).send("POST request unauthorized!")
 }
 
 module.exports = router
