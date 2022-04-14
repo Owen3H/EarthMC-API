@@ -1,4 +1,5 @@
-const http = require("http"),
+const Honeybadger = require("@honeybadger-io/js"),
+      http = require("http"),
       app = require("./app"),
       scout = require("@scout_apm/scout-apm")
 
@@ -11,6 +12,8 @@ async function start() {
           name: process.env.SCOUT_NAME,
           key: process.env.SCOUT_KEY
     })
+
+    app.use(Honeybadger.errorHandler)
 
     const httpServer = http.createServer(app)
     httpServer.listen(process.env.PORT || 8080)

@@ -107,8 +107,6 @@ async function setupRoutes() {
                   "path": req.path
             })
       })
-
-      app.use(Honeybadger.errorHandler)
 }
 
 module.exports = app
