@@ -3,9 +3,7 @@ const express = require("express"),
       cache = require("memory-cache"),
       cors = require('cors')
 
-var timeout = 2 * 60 * 1000
-
-require("dotenv").config()
+var timeout = 10 * 1000
 
 // PUT = CREATE/UPDATE
 // POST = CREATE/OVERWRITE
@@ -57,7 +55,7 @@ router.put('/', cors(), function (req, res)
         var alliances = req.body
 
         cache.put('alliances', alliances)
-        res.status(200).json(alliances).setTimeout(timeout)
+        send200(res, alliances)
     }
     else res.status(401).send("PUT request unauthorized!")
 })

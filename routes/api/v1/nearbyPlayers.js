@@ -6,17 +6,17 @@ var timeout = 10000
 
 router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) => 
 {
-    var xBlocks = Number(req.params.xBlocks)
-    var zBlocks = Number(req.params.zBlocks)
+    var xPos = Number(req.params.xPos), zPos = Number(req.params.zPos)
+    if (!xPos || !zPos) return res.status(400).json([])
+
+    var xBlocks = Number(req.params.xBlocks), zBlocks = Number(req.params.zBlocks)
     if (!xBlocks) xBlocks = 500
     if (!zBlocks) zBlocks = 500
 
-    var nearbyPlayers = await emc.getNearbyPlayers(Number(req.params.xPos), Number(req.params.zPos), xBlocks, zBlocks)
-                                 .then(players => { return players }).catch(() => {})
+    var nearbyPlayers = await emc.getNearbyPlayers(xPos, zPos, xBlocks, zBlocks).then(players => { return players }).catch(() => {})      
+    if (!nearbyPlayers || !canJSON(nearbyPlayers)) return sendOk(res, [])
     
-    if (!canJSON(nearbyPlayers)) return
-    if (!nearbyPlayers) sendOk(res, [])
-    else sendOk(res, nearbyPlayers)
+    sendOk(res, nearbyPlayers)
 })
 
 function sendOk(res, data) {

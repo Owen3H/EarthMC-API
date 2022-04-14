@@ -3,7 +3,7 @@ const express = require("express"),
       emc = require("earthmc"),
       cache = require("memory-cache")
 
-var cacheTimeout = 10000
+var cacheTimeout = 30000
 
 router.get("/", async (req, res) => 
 {
@@ -11,19 +11,23 @@ router.get("/", async (req, res) =>
     if (cachedTownless) res.status(200).json(cachedTownless)
     else {
         var townlessPlayers = await emc.getTownless().then(townless => { return townless }).catch(() => {})
-        if (!canJSON(townlessPlayers)) return
+        if (!townlessPlayers || !canJSON(townlessPlayers)) return sendOk(res, [])
 
-        res.status(200).json(townlessPlayers).setTimeout(5000)
+        sendOk(res, townlessPlayers)
         cache.put('townless', townlessPlayers, cacheTimeout)
     }
 })
 
+function sendOk(res, data) {
+    res.status(200).json(data).setTimeout(5000)
+}
+
 function canJSON(value) {
     try {
-        JSON.stringify(value);
-        return true;
+        JSON.stringify(value)
+        return true
     } catch (ex) {
-        return false;
+        return false
     }
 }
 
