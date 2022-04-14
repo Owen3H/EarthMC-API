@@ -1,8 +1,9 @@
 const express = require("express"),
       router = express.Router(),
-      emc = require("earthmc")
+      emc = require("earthmc"),
+      Honeybadger = require("@honeybadger-io/js")
 
-var timeout = 30000
+var timeout = 10000
 
 router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) => 
 {
@@ -12,7 +13,7 @@ router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) =>
     if (!zBlocks) zBlocks = 500
 
     var nearbyPlayers = await emc.getNearbyPlayers(Number(req.params.xPos), Number(req.params.zPos), xBlocks, zBlocks)
-                                 .then(players => { return players }).catch(() => {})
+                                 .then(players => { return players }).catch(err => { Honeybadger.notify(err) })
     
     if (!canJSON(nearbyPlayers)) return
     if (!nearbyPlayers) sendOk(res, [])

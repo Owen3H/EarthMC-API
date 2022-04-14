@@ -1,5 +1,6 @@
 // @ts-nocheck
 const scout = require("@scout_apm/scout-apm"),
+      Honeybadger = require('@honeybadger-io/js'),
       express = require("express"),
       app = express(),
       rateLimit = require('express-rate-limit'),
@@ -23,9 +24,11 @@ const scout = require("@scout_apm/scout-apm"),
       alliancesRoute = require("./routes/api/v1/alliances"),
       newsRoute = require("./routes/api/v1/news")
 
-
-// Enable the app-wide scout middleware
 app.use(scout.expressMiddleware())
+
+Honeybadger.configure({ apiKey: process.env.HONEYBADGER_API_KEY })
+app.use(Honeybadger.requestHandler)
+
 setupRoutes()
 
 async function setupRoutes() {
@@ -104,6 +107,8 @@ async function setupRoutes() {
                   "path": req.path
             })
       })
+
+      app.use(Honeybadger.errorHandler)
 }
 
 module.exports = app
