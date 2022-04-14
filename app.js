@@ -24,10 +24,10 @@ const scout = require("@scout_apm/scout-apm"),
       alliancesRoute = require("./routes/api/v1/alliances"),
       newsRoute = require("./routes/api/v1/news")
 
-app.use(scout.expressMiddleware())
-
 Honeybadger.configure({ apiKey: process.env.HONEYBADGER_API_KEY })
 app.use(Honeybadger.requestHandler)
+
+app.use(scout.expressMiddleware())
 
 setupRoutes()
 
