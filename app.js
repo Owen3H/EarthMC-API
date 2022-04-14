@@ -25,13 +25,14 @@ const scout = require("@scout_apm/scout-apm"),
       newsRoute = require("./routes/api/v1/news")
 
 setupLimiter()
-setupRoutes()
 setupMonitoring()
+setupRoutes()
 
 async function setupMonitoring() {
+      app.use(scout.expressMiddleware())
+
       Honeybadger.configure({ apiKey: process.env.HONEYBADGER_API_KEY })
       app.use(Honeybadger.requestHandler)
-      app.use(scout.expressMiddleware())
 }
 
 async function setupLimiter() {
