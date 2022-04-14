@@ -1,7 +1,6 @@
 const express = require("express"),
       router = express.Router(),
-      emc = require("earthmc"),
-      Honeybadger = require("@honeybadger-io/js")
+      emc = require("earthmc")
 
 var timeout = 10000
 

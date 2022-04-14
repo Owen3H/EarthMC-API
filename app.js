@@ -1,6 +1,6 @@
 // @ts-nocheck
 const scout = require("@scout_apm/scout-apm"),
-      Honeybadger = require('@honeybadger-io/js'),
+      //Honeybadger = require('@honeybadger-io/js'),
       express = require("express"),
       app = express(),
       rateLimit = require('express-rate-limit'),
@@ -31,8 +31,8 @@ setupRoutes()
 async function setupMonitoring() {
       app.use(scout.expressMiddleware())
 
-      Honeybadger.configure({ apiKey: process.env.HONEYBADGER_API_KEY })
-      app.use(Honeybadger.requestHandler)
+      // Honeybadger.configure({ apiKey: process.env.HONEYBADGER_API_KEY })
+      // app.use(Honeybadger.requestHandler)
 }
 
 async function setupLimiter() {
