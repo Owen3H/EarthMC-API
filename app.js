@@ -1,6 +1,5 @@
 // @ts-nocheck
 const scout = require("@scout_apm/scout-apm"),
-      //Honeybadger = require('@honeybadger-io/js'),
       express = require("express"),
       app = express(),
       rateLimit = require('express-rate-limit'),
@@ -24,15 +23,26 @@ const scout = require("@scout_apm/scout-apm"),
       alliancesRoute = require("./routes/api/v1/alliances"),
       newsRoute = require("./routes/api/v1/news")
 
+// Leave these in this order.
 setupLimiter()
 setupMonitoring()
 setupRoutes()
+setupGC()
+
+async function setupGC() {
+      setInterval (() => {
+            let mu = process.memoryUsage()
+            print('heapTotal:',  mu.heapTotal, 'heapUsed:', mu.heapUsed)
+
+            if (mu.heapUsed > 460 * 1024 * 1024) {
+                  print('Taking out the garbage')
+                  global.gc()
+            }
+      }, 1000 * 60)
+}
 
 async function setupMonitoring() {
       app.use(scout.expressMiddleware())
-
-      // Honeybadger.configure({ apiKey: process.env.HONEYBADGER_API_KEY })
-      // app.use(Honeybadger.requestHandler)
 }
 
 async function setupLimiter() {
