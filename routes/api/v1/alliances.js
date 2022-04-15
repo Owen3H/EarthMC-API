@@ -14,7 +14,7 @@ router.get('/', function (req, res)
     var cachedAlliances = cache.get('alliances')
 
     if (cachedAlliances) send200(res, cachedAlliances)
-    else send202(res)
+    else send204(res)
 })
 
 router.get('/:allianceName', function (req, res) 
@@ -46,7 +46,7 @@ router.get('/:allianceName', function (req, res)
                 else send200(res, alliance)
         }
     }
-    else send202(res)
+    else send204(res)
 })
 
 router.put('/', cors(), function (req, res) 
@@ -64,8 +64,8 @@ function send200(res, data) {
     res.status(200).json(data).setTimeout(timeout)
 }
 
-function send202(res) {
-    res.status(202).send("Alliances are not updated yet.")
+function send204(res) {
+    res.status(202).send("Alliances have not been cached yet.")
 }
 
 module.exports = router

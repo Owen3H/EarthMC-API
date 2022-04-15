@@ -12,10 +12,10 @@ router.get("/", async (req, res) =>
     if (cachedNations) res.status(200).json(cachedNations)
     else {
         var nations = await emc.getNations().then(nations => { return nations }).catch(() => {})
-        if (!nations) return
+        if (!nations) return sendError(res)
 
-        res.status(200).json(nations)
         cache.put('nations', nations, cacheTimeout)
+        res.status(200).json(nations)
     }
 })
 
@@ -46,5 +46,9 @@ router.get("/:nationName/invitable", async (req, res) =>
     if (invitableTownsRes == "That nation does not exist!") res.status(404).json(invitableTownsRes)
     else res.status(200).json(invitableTownsRes).setTimeout(10000)
 })
+
+function sendError(res) {
+    res.status(500).json("An error occured fetching data, please try again.")
+}
 
 module.exports = router

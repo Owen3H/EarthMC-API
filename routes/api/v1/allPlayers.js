@@ -6,7 +6,7 @@ const express = require("express"),
       
 var timeout = 15000
 
-const mergeById = (a1, a2) => a1.map(itm => ({...a2.find((item) => (item.name === itm.name) && item), ...itm}))
+const mergeByName = (a1, a2) => a1.map(itm => ({...a2.find((item) => (item.name === itm.name) && item), ...itm}))
 
 router.put('/', cors(), async function (req, res) 
 {
@@ -14,9 +14,12 @@ router.put('/', cors(), async function (req, res)
         var allPlayers = await emc.getAllPlayers().then(players => { return players }),
             players = req.body
 
-        if (!allPlayers) return
-        cache.put('players', mergeById(allPlayers, players))
-        res.status(200).json(mergeById(allPlayers, players))
+        if (!allPlayers) return sendError(res)
+
+        var output = mergeByName(allPlayers, players)
+
+        cache.put('players', output)
+        res.status(200).json(output).setTimeout(timeout)
     }
     else res.status(401).send("PUT request unauthorized!")
 })
@@ -25,12 +28,7 @@ router.get("/", async (req, res) =>
 {
     var cachedPlayers = cache.get('players')
     if (cachedPlayers) res.status(200).json(cachedPlayers)
-    else {
-        var allPlayers = await emc.getAllPlayers().then(players => { return players })
-
-        res.status(200).json(allPlayers).setTimeout(timeout)
-        cache.put('players', allPlayers)
-    }
+    else res.status(204).json("Players have not been cached yet.")
 })
 
 router.get("/:playerName", async (req, res) => 
@@ -43,9 +41,12 @@ router.get("/:playerName", async (req, res) =>
 
         if (!player) res.status(404).json("That player does not exist!")
         else res.status(200).json(player).setTimeout(timeout)
-    } else {
-        res.status(202).json("Players have not been cached yet.")
-    }
+    } 
+    else res.status(204).json("Players have not been cached yet.")
 })
+
+function sendError(res) {
+    res.status(500).json("An error occured fetching data, please try again.")
+}
 
 module.exports = router

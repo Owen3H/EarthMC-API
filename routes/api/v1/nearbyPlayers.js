@@ -14,13 +14,17 @@ router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) =>
     if (!zBlocks) zBlocks = 500
 
     var nearbyPlayers = await emc.getNearbyPlayers(xPos, zPos, xBlocks, zBlocks).then(players => { return players }).catch(() => {})      
-    if (!nearbyPlayers || !canJSON(nearbyPlayers)) return sendOk(res, [])
+    if (!nearbyPlayers || !canJSON(nearbyPlayers)) return sendError(res)
     
     sendOk(res, nearbyPlayers)
 })
 
 function sendOk(res, data) {
     res.status(200).json(data).setTimeout(timeout)
+}
+
+function sendError(res) {
+    res.status(500).json("An error occured fetching data, please try again.")
 }
 
 function canJSON(value) {

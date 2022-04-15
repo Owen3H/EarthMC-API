@@ -14,9 +14,13 @@ router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) =>
     if (!zBlocks) zBlocks = 500
 
     var nearbyTowns = await emc.getNearbyTowns(xPos, zPos, xBlocks, zBlocks).then(towns => { return towns }).catch(() => {})
-    if (!nearbyTowns) return res.status(200).json([])
+    if (!nearbyTowns) return sendError(res)
    
     res.status(200).json(nearbyTowns).setTimeout(timeout)
 })
+
+function sendError(res) {
+    res.status(500).json("An error occured fetching data, please try again.")
+}
 
 module.exports = router

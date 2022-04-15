@@ -13,9 +13,10 @@ router.get("/", async (req, res) =>
     else {
         var residents = await emc.getResidents().then(residents => { return residents }).catch(() => {})
 
-        if (!residents) return 
-        res.status(200).json(residents)
+        if (!residents) return res.status(500).json("An error occured fetching data, please try again.")
+       
         cache.put('residents', residents, cacheTimeout)
+        res.status(200).json(residents)
     }
 })
 

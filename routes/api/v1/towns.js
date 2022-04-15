@@ -13,8 +13,10 @@ router.get("/", async (req, res) =>
     else {
         var towns = await emc.getTowns().then(towns => { return towns }).catch(() => {})
 
-        res.status(200).json(towns)
+        if (!towns) return sendError(res)
+
         cache.put('towns', towns, cacheTimeout)
+        res.status(200).json(towns).setTimeout(6000)
     }
 })
 
@@ -33,7 +35,7 @@ router.get("/:townName", async (req, res) =>
         var foundTown = await emc.getTown(townName).then(towns => { return towns }).catch(() => {})
     
         if (!foundTown || foundTown == "That town does not exist!") res.status(404).json(foundTown)
-        else res.status(200).json(foundTown).setTimeout(10000)
+        else res.status(200).json(foundTown).setTimeout(3000)
     }
 })
 
@@ -45,5 +47,9 @@ router.get("/:townName/joinable", async (req, res) =>
     if (invitableNationsRes == "That nation does not exist!") res.status(404).json(invitableNationsRes)
     else res.status(200).json(invitableNationsRes)
 })
+
+function sendError(res) {
+    res.status(500).json("An error occured fetching data, please try again.")
+}
 
 module.exports = router

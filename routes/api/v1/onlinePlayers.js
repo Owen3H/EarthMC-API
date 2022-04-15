@@ -6,6 +6,9 @@ router.get("/", async (req, res) =>
 {
     var onlinePlayers = await emc.getOnlinePlayers(true).then(players => { return players }).catch(() => {})
 
+    if (!onlinePlayers) 
+        return res.status(500).json("An error occured fetching data, please try again.")
+        
     res.status(200).json(onlinePlayers).setTimeout(5000)
 })
 

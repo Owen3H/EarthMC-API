@@ -10,14 +10,17 @@ router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) =>
     if (!xPos || !zPos) return res.status(400).json([])
 
     var xBlocks = Number(req.params.xBlocks), zBlocks = Number(req.params.zBlocks)
-
     if (!xBlocks) xBlocks = 500
     if (!zBlocks) zBlocks = 500
 
     var nearbyNations = await emc.getNearbyNations(xPos, zPos, xBlocks, zBlocks).then(nations => { return nations }).catch(() => {})
-    if (!nearbyNations) return res.status(200).json([])
+    if (!nearbyNations) return sendError(res)
     
     res.status(200).json(nearbyNations).setTimeout(timeout)
 })
+
+function sendError(res) {
+    res.status(500).json("An error occured fetching data, please try again.")
+}
 
 module.exports = router

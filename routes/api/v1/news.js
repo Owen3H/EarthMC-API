@@ -12,7 +12,7 @@ router.post("/", cors(), async (req, res) =>
         cache.put('news', latestNews)
         sendOk(res, latestNews)
     }
-    else res.status(401).send("POST request unauthorized!")
+    else res.status(401).json("POST request unauthorized!")
 })
 
 router.get("/", async (req, res) => 
@@ -22,15 +22,15 @@ router.get("/", async (req, res) =>
     if (cachedLatestNews) 
         return sendOk(res, cachedLatestNews)
         
-    send202(res)
+    send204(res)
 })
 
 function sendOk(res, data) {
     res.status(200).json(data).setTimeout(5000)
 }
 
-function send202(res) {
-    res.status(202).send("No news yet, try again later.")
+function send204(res) {
+    res.status(204).json("No news yet, try again later.")
 }
 
 module.exports = router
