@@ -1,32 +1,65 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>
-        EMC Stats Dynmap
-    </title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="./static/styles.css" type="text/css">
-    <script>
-        var iframe = document.getElementsByClassName("responsive-iframe")
-        var doc = iframe.contentWindow.document
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" lang="en">
 
-        const interval = setInterval(() => {
-        if (doc.getElementsByClassName('playerNameSm playerNameNoHealth').length > 0) 
-        {
-            doc.getElementsByClassName('compass compass_S compass_flat')[0].remove()
-            doc.getElementsByClassName('largeclock timeofday')[0].remove()
-            doc.getElementsByClassName('leaflet-bottom leaflet-right')[0].remove()
+        <title>EMC Stats Dynmap</title>
+        
+        <link rel="stylesheet" href="./static/map.css">
+        <script src="./js/leaflet.js"></script>
 
-            clearInterval(interval)
-        }
-    }, 1000)
-    </script>
-</head>
-<body style=" margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px;">
-    <div class="container">
-        <iframe class="responsive-iframe" src="http://earthmc.net/map/"
-            height="100%" width="100%" 
-            style="border-left-width: 0px; border-top-width: 0px;border-right-width: 0px; border-bottom-width: 0px;"></iframe>
-    </div>
-</body>
+        <linkrel="stylesheet"
+            href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+            integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+            crossorigin=""/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-latest.js"></script>
+    </head>
+    <body>
+        <div id="map">
+
+        </div>
+        <script> // Create leaflet map from tiles
+            var emcmap = L.map("map", {
+                crs: L.CRS.Simple,
+            }).setView([0, 0], -3)
+    
+            L.tileLayer("https://earthmc.net/map/tiles/earth/flat/0_0/zzzzz_{x1}_{y1}.png", {
+                maxZoom: -4,
+                minZoom: -4,
+                tileSize: 128,
+            }).addTo(emcmap)
+
+            L.tileLayer("https://earthmc.net/map/tiles/earth/flat/0_0/zzzz_{x2}_{y2}.png", {
+                maxZoom: -3,
+                minZoom: -3,
+                tileSize: 128,
+            } ).addTo(emcmap)
+
+            L.tileLayer("https://earthmc.net/map/tiles/earth/flat/0_0/zzz_{x3}_{y3}.png", {
+                maxZoom: -2,
+                minZoom: -2,
+                tileSize: 128,
+            }).addTo(emcmap)
+
+            L.tileLayer("https://earthmc.net/map/tiles/earth/flat/0_0/zz_{x4}_{y4}.png", {
+                maxZoom: -1,
+                minZoom: -1,
+                tileSize: 128,
+            }).addTo(emcmap)
+
+            L.tileLayer("https://earthmc.net/map/tiles/earth/flat/0_0/z_{x5}_{y5}.png", {
+                maxZoom: 0,
+                minZoom: 0,
+                tileSize: 128,
+            }).addTo(emcmap)
+
+            L.tileLayer("https://earthmc.net/map/tiles/earth/flat/0_0/{x}_{y6}.png", {
+                maxZoom: 2,
+                maxNativeZoom: 1,
+                minZoom: 1,
+                tileSize: 128,
+            }).addTo(emcmap)
+        </script>
+    </body>
 </html>

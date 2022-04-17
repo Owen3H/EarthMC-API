@@ -71,7 +71,7 @@ async function setupRoutes() {
       app.use("/", mainRoute)
       app.use("/invite", inviteRoute)
       app.use("/monitor", monitorRoute)
-      //app.use("/map", mapRoute)
+      app.use("/map", mapRoute)
 
       // Serve API routes.
       app.use("/api/v1/towns", townsRoute)
