@@ -11,7 +11,7 @@ router.get("/", async (req, res) =>
     if (cachedTownless) sendOk(res, cachedTownless)
     else {
         var townlessPlayers = await emc.getTownless().then(townless => { return townless }).catch(() => {})
-        if (!townlessPlayers || !canJSON(townlessPlayers)) return sendError(res)
+        if (!townlessPlayers) return sendError(res)
 
         cache.put('townless', townlessPlayers, cacheTimeout)
         sendOk(res, townlessPlayers)
@@ -24,15 +24,6 @@ function sendOk(res, data) {
 
 function sendError(res) {
     res.status(500).json("An error occured fetching data, please try again.")
-}
-
-function canJSON(value) {
-    try {
-        JSON.stringify(value)
-        return true
-    } catch (ex) {
-        return false
-    }
 }
 
 module.exports = router
