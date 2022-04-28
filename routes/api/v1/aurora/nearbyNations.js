@@ -13,7 +13,7 @@ router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) =>
     if (!xBlocks) xBlocks = 500
     if (!zBlocks) zBlocks = 500
 
-    var nearbyNations = await emc.getNearbyNations(xPos, zPos, xBlocks, zBlocks).then(nations => { return nations }).catch(() => {})
+    var nearbyNations = await emc.Aurora.getNearbyNations(xPos, zPos, xBlocks, zBlocks).then(nations => { return nations }).catch(() => {})
     if (!nearbyNations) return sendError(res)
     
     res.status(200).json(nearbyNations).setTimeout(timeout)

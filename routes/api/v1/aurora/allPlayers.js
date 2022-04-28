@@ -11,7 +11,7 @@ const mergeByName = (a1, a2) => a1.map(itm => ({...a2.find((item) => (item.name 
 router.put('/', cors(), async function (req, res) 
 {
     if (req.header('AUTH_KEY') == process.env.AUTH_KEY) {
-        var allPlayers = await emc.getAllPlayers().then(players => { return players }),
+        var allPlayers = await emc.AuroragetAllPlayers().then(players => { return players }),
             players = req.body
 
         if (!allPlayers) return sendError(res)

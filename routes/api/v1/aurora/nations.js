@@ -11,7 +11,7 @@ router.get("/", async (req, res) =>
 
     if (cachedNations) res.status(200).json(cachedNations)
     else {
-        var nations = await emc.getNations().then(nations => { return nations }).catch(() => {})
+        var nations = await emc.AuroragetNations().then(nations => { return nations }).catch(() => {})
         if (!nations) return sendError(res)
 
         cache.put('nations', nations, cacheTimeout)
@@ -31,7 +31,7 @@ router.get("/:nationName", async (req, res) =>
         else res.status(404).json("That nation does not exist!")
     }
     else {
-        var foundNation = await emc.getNation(nationName).then(nation => { return nation })
+        var foundNation = await emc.Nova.getNation(nationName).then(nation => { return nation })
     
         if (foundNation == "That nation does not exist!") res.status(404).json(foundNation)
         else res.status(200).json(foundNation).setTimeout(10000)
@@ -41,7 +41,7 @@ router.get("/:nationName", async (req, res) =>
 router.get("/:nationName/invitable", async (req, res) => 
 {
     var nationName = req.params.nationName,
-        invitableTownsRes = await emc.getInvitableTowns(nationName, false).then(towns => { return towns })
+        invitableTownsRes = await emc.Nova.getInvitableTowns(nationName, false).then(towns => { return towns })
 
     if (invitableTownsRes == "That nation does not exist!") res.status(404).json(invitableTownsRes)
     else res.status(200).json(invitableTownsRes).setTimeout(10000)

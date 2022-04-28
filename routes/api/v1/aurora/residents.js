@@ -11,7 +11,7 @@ router.get("/", async (req, res) =>
 
     if (cachedResidents) res.status(200).json(cachedResidents)
     else {
-        var residents = await emc.getResidents().then(residents => { return residents }).catch(() => {})
+        var residents = await emc.Nova.getResidents().then(residents => { return residents }).catch(() => {})
 
         if (!residents) return res.status(500).json("An error occured fetching data, please try again.")
        
@@ -32,7 +32,7 @@ router.get("/:residentName", async (req, res) =>
         else res.status(404).json("That resident does not exist!")
     }
     else {
-        var resident = await emc.getResident(residentName).then(resident => { return resident }).catch(invalidRes => { return invalidRes })
+        var resident = await emc.Nova.getResident(residentName).then(resident => { return resident }).catch(invalidRes => { return invalidRes })
 
         if (!resident) res.status(404).json("That resident does not exist!")
         else {

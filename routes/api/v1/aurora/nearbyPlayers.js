@@ -2,7 +2,7 @@ const express = require("express"),
       router = express.Router(),
       emc = require("earthmc")
 
-var timeout = 15000
+var timeout = 10000
 
 router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) => 
 {
@@ -13,11 +13,15 @@ router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) =>
     if (!xBlocks) xBlocks = 500
     if (!zBlocks) zBlocks = 500
 
-    var nearbyTowns = await emc.getNearbyTowns(xPos, zPos, xBlocks, zBlocks).then(towns => { return towns }).catch(() => {})
-    if (!nearbyTowns) return sendError(res)
-   
-    res.status(200).json(nearbyTowns).setTimeout(timeout)
+    var nearbyPlayers = await emc.Nova.getNearbyPlayers(xPos, zPos, xBlocks, zBlocks).then(players => { return players }).catch(() => {})      
+    if (!nearbyPlayers) return sendError(res)
+    
+    sendOk(res, nearbyPlayers)
 })
+
+function sendOk(res, data) {
+    res.status(200).json(data).setTimeout(timeout)
+}
 
 function sendError(res) {
     res.status(500).json("An error occured fetching data, please try again.")
