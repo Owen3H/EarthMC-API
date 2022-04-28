@@ -18,6 +18,7 @@ const auroraTownsRoute = require("./routes/api/v1/aurora/towns"),
       auroraNearbyPlayersRoute = require("./routes/api/v1/aurora/nearbyPlayers"),
       auroraNearbyTownsRoute = require("./routes/api/v1/aurora/nearbyTowns"),
       auroraNearbyNationsRoute = require("./routes/api/v1/aurora/nearbyNations"),
+      auroraAlliancesRoute = require("./routes/api/v1/aurora/alliances"),
       auroraNewsRoute = require("./routes/api/v1/aurora/news")
 
 const novaTownsRoute = require("./routes/api/v1/nova/towns"),
