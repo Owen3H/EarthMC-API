@@ -13,7 +13,7 @@ router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) =>
     if (!xBlocks) xBlocks = 500
     if (!zBlocks) zBlocks = 500
 
-    var nearbyPlayers = await emc.Nova.getNearbyPlayers(xPos, zPos, xBlocks, zBlocks).then(players => { return players }).catch(() => {})      
+    var nearbyPlayers = await emc.Aurora.getNearbyPlayers(xPos, zPos, xBlocks, zBlocks).then(players => { return players }).catch(() => {})      
     if (!nearbyPlayers) return sendError(res)
     
     sendOk(res, nearbyPlayers)

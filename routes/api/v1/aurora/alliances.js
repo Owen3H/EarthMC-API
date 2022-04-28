@@ -9,8 +9,7 @@ var timeout = 10 * 1000
 // POST = CREATE/OVERWRITE
 // GET = READ
 
-router.get('/', function (req, res) 
-{
+router.get('/', function (req, res) {
     var cachedAlliances = cache.get('alliances')
 
     if (cachedAlliances) send200(res, cachedAlliances)
