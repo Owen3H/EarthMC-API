@@ -11,7 +11,7 @@ router.get("/", async (req, res) =>
 
     if (cachedTowns) res.status(200).json(cachedTowns)
     else {
-        var towns = await emc.getTowns().then(towns => { return towns }).catch(() => {})
+        var towns = await emc.Nova.getTowns().then(towns => { return towns }).catch(() => {})
 
         if (!towns) return sendError(res)
 
@@ -32,7 +32,7 @@ router.get("/:townName", async (req, res) =>
         else res.status(404).json("That town does not exist!")
     }
     else {
-        var foundTown = await emc.getTown(townName).then(towns => { return towns }).catch(() => {})
+        var foundTown = await emc.Nova.getTown(townName).then(towns => { return towns }).catch(() => {})
     
         if (!foundTown || foundTown == "That town does not exist!") res.status(404).json(foundTown)
         else res.status(200).json(foundTown).setTimeout(3000)
@@ -42,7 +42,7 @@ router.get("/:townName", async (req, res) =>
 router.get("/:townName/joinable", async (req, res) => 
 {
     var townName = req.params.townName,
-        invitableNationsRes = await emc.getJoinableNations(townName).then(nations => { return nations }).catch(() => {})
+        invitableNationsRes = await emc.Nova.getJoinableNations(townName).then(nations => { return nations }).catch(() => {})
 
     if (invitableNationsRes == "That nation does not exist!") res.status(404).json(invitableNationsRes)
     else res.status(200).json(invitableNationsRes)

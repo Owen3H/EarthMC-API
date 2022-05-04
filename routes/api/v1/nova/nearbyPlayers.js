@@ -13,8 +13,8 @@ router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) =>
     if (!xBlocks) xBlocks = 500
     if (!zBlocks) zBlocks = 500
 
-    var nearbyPlayers = await emc.getNearbyPlayers(xPos, zPos, xBlocks, zBlocks).then(players => { return players }).catch(() => {})      
-    if (!nearbyPlayers || !canJSON(nearbyPlayers)) return sendError(res)
+    var nearbyPlayers = await emc.Nova.getNearbyPlayers(xPos, zPos, xBlocks, zBlocks).then(players => { return players }).catch(() => {})      
+    if (!nearbyPlayers) return sendError(res)
     
     sendOk(res, nearbyPlayers)
 })
@@ -25,15 +25,6 @@ function sendOk(res, data) {
 
 function sendError(res) {
     res.status(500).json("An error occured fetching data, please try again.")
-}
-
-function canJSON(value) {
-    try {
-        JSON.stringify(value)
-        return true
-    } catch (ex) {
-        return false
-    }
 }
 
 module.exports = router

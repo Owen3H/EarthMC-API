@@ -7,5 +7,6 @@ router.get('/', function(req, res)
 })
 
 router.use('/static', express.static(`${process.cwd()}/web/static`))
+router.use('/js', express.static(`${process.cwd()}/web/js`))
 
 module.exports = router

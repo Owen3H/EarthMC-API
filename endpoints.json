@@ -1,0 +1,10 @@
+{
+  "map": {
+    "nova": "https://earthmc.net/map/nova/tiles/_markers_/marker_earth.json",
+    "aurora": "https://earthmc.net/map/aurora/tiles/_markers_/marker_earth.json"
+  },
+  "players": {
+    "nova": "https://earthmc.net/map/nova/up/world/earth/",
+    "aurora": "https://earthmc.net/map/aurora/up/world/earth/"
+  }
+}

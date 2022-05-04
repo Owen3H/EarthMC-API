@@ -13,11 +13,15 @@ router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) =>
     if (!xBlocks) xBlocks = 500
     if (!zBlocks) zBlocks = 500
 
-    var nearbyNations = await emc.getNearbyNations(xPos, zPos, xBlocks, zBlocks).then(nations => { return nations }).catch(() => {})
-    if (!nearbyNations) return sendError(res)
+    var nearbyPlayers = await emc.Aurora.getNearbyPlayers(xPos, zPos, xBlocks, zBlocks).then(players => { return players }).catch(() => {})      
+    if (!nearbyPlayers) return sendError(res)
     
-    res.status(200).json(nearbyNations).setTimeout(timeout)
+    sendOk(res, nearbyPlayers)
 })
+
+function sendOk(res, data) {
+    res.status(200).json(data).setTimeout(timeout)
+}
 
 function sendError(res) {
     res.status(500).json("An error occured fetching data, please try again.")
