@@ -102,20 +102,20 @@ async function setupRoutes() {
       //#endregion
 
       //#region Serve Aurora routes
-      // app.use("/api/v1/aurora/towns", auroraTownsRoute)
-      // app.use("/api/v1/aurora/nations", auroraNationsRoute)
-      // app.use("/api/v1/aurora/residents", auroraResidentsRoute)
-      // app.use("/api/v1/aurora/onlineplayers", auroraOnlinePlayersRoute)
-      // app.use("/api/v1/aurora/townlessplayers", auroraTownlessPlayersRoute)
-      // app.use("/api/v1/aurora/nearby", auroraNearbyPlayersRoute)
-      // app.use("/api/v1/aurora/nearbyplayers", auroraNearbyPlayersRoute)
-      // app.use("/api/v1/aurora/nearbytowns", auroraNearbyTownsRoute)
-      // app.use("/api/v1/aurora/nearbynations", auroraNearbyNationsRoute)
+      app.use("/api/v1/aurora/towns", auroraTownsRoute)
+      app.use("/api/v1/aurora/nations", auroraNationsRoute)
+      app.use("/api/v1/aurora/residents", auroraResidentsRoute)
+      app.use("/api/v1/aurora/onlineplayers", auroraOnlinePlayersRoute)
+      app.use("/api/v1/aurora/townlessplayers", auroraTownlessPlayersRoute)
+      app.use("/api/v1/aurora/nearby", auroraNearbyPlayersRoute)
+      app.use("/api/v1/aurora/nearbyplayers", auroraNearbyPlayersRoute)
+      app.use("/api/v1/aurora/nearbytowns", auroraNearbyTownsRoute)
+      app.use("/api/v1/aurora/nearbynations", auroraNearbyNationsRoute)
 
       // // POST, PUT, DELETE restricted to EMC Stats.
-      // app.use("/api/v1/aurora/alliances", auroraAlliancesRoute)
-      // app.use("/api/v1/aurora/news", auroraNewsRoute)
-      // app.use("/api/v1/aurora/allplayers", auroraAllPlayersRoute)
+      app.use("/api/v1/aurora/alliances", auroraAlliancesRoute)
+      app.use("/api/v1/aurora/news", auroraNewsRoute)
+      app.use("/api/v1/aurora/allplayers", auroraAllPlayersRoute)
       //#endregion
 
       // Default not found response
