@@ -7,7 +7,7 @@ var cacheTimeout = 30000
 
 router.get("/", async (req, res) => 
 {
-    var cachedTowns = cache.get('towns')
+    var cachedTowns = cache.get('aurora_towns')
 
     if (cachedTowns) res.status(200).json(cachedTowns)
     else {
@@ -22,7 +22,7 @@ router.get("/", async (req, res) =>
 router.get("/:townName", async (req, res) => 
 {
     var townName = req.params.townName,
-        cachedTowns = cache.get('towns')
+        cachedTowns = cache.get('aurora_towns')
         
     if (cachedTowns) {
         var cachedTown = cachedTowns.find(t => t.name.toLowerCase() == townName.toLowerCase())

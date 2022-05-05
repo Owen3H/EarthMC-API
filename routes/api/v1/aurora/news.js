@@ -9,7 +9,7 @@ router.post("/", cors(), async (req, res) =>
     {
         var latestNews = req.body
 
-        cache.put('news', latestNews)
+        cache.put('aurora_news', latestNews)
         sendOk(res, latestNews)
     }
     else res.status(401).json("POST request unauthorized!")
@@ -17,7 +17,7 @@ router.post("/", cors(), async (req, res) =>
 
 router.get("/", async (req, res) => 
 {
-    var cachedLatestNews = cache.get('news')
+    var cachedLatestNews = cache.get('aurora_news')
 
     if (cachedLatestNews) 
         return sendOk(res, cachedLatestNews)

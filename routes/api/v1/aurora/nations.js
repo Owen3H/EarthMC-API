@@ -14,7 +14,7 @@ router.get("/", async (req, res) =>
         var nations = await emc.Aurora.getNations().then(nations => { return nations }).catch(() => {})
         if (!nations) return sendError(res)
 
-        cache.put('nations', nations, cacheTimeout)
+        cache.put('aurora_nations', nations, cacheTimeout)
         res.status(200).json(nations)
     }
 })

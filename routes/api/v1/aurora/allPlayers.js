@@ -18,7 +18,7 @@ router.put('/', cors(), async function (req, res)
 
         var output = mergeByName(allPlayers, players)
 
-        cache.put('players', output)
+        cache.put('aurora_players', output)
         res.status(200).json(output).setTimeout(timeout)
     }
     else res.status(401).send("PUT request unauthorized!")

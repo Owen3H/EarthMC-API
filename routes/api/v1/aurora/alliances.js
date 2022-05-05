@@ -10,7 +10,7 @@ var timeout = 10 * 1000
 // GET = READ
 
 router.get('/', function (req, res) {
-    var cachedAlliances = cache.get('alliances')
+    var cachedAlliances = cache.get('aurora_alliances')
 
     if (cachedAlliances) send200(res, cachedAlliances)
     else send204(res)
@@ -18,7 +18,7 @@ router.get('/', function (req, res) {
 
 router.get('/:allianceName', function (req, res) 
 {
-    var cachedAlliances = cache.get('alliances'),
+    var cachedAlliances = cache.get('aurora_alliances'),
         allianceName = req.params.allianceName
 
     if (cachedAlliances) {
@@ -53,7 +53,7 @@ router.put('/', cors(), function (req, res)
     if (req.header('AUTH_KEY') == process.env.AUTH_KEY) {
         var alliances = req.body
 
-        cache.put('alliances', alliances)
+        cache.put('aurora_alliances', alliances)
         send200(res, alliances)
     }
     else res.status(401).send("PUT request unauthorized!")

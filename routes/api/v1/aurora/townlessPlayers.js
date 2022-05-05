@@ -3,17 +3,17 @@ const express = require("express"),
       emc = require("earthmc"),
       cache = require("memory-cache")
 
-var cacheTimeout = 10000
+var cacheTimeout = 20000
 
 router.get("/", async (req, res) => 
 {
-    var cachedTownless = cache.get('townless')
+    var cachedTownless = cache.get('aurora_townless')
     if (cachedTownless) sendOk(res, cachedTownless)
     else {
         var townlessPlayers = await emc.Aurora.getTownless().then(townless => { return townless }).catch(() => {})
         if (!townlessPlayers) return sendError(res)
 
-        cache.put('townless', townlessPlayers, cacheTimeout)
+        cache.put('aurora_townless', townlessPlayers, cacheTimeout)
         sendOk(res, townlessPlayers)
     }
 })
