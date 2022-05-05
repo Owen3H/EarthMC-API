@@ -26,14 +26,14 @@ router.put('/', cors(), async function (req, res)
 
 router.get("/", async (req, res) => 
 {
-    var cachedPlayers = cache.get('players')
+    var cachedPlayers = cache.get('aurora_players')
     if (cachedPlayers) res.status(200).json(cachedPlayers)
     else res.status(204).json("Players have not been cached yet.")
 })
 
 router.get("/:playerName", async (req, res) => 
 {
-    var cachedPlayers = cache.get('players'),
+    var cachedPlayers = cache.get('aurora_players'),
         playerName = req.params.playerName.toLowerCase()
 
     if (cachedPlayers) {
