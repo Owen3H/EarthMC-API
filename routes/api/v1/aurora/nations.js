@@ -7,7 +7,7 @@ var cacheTimeout = 30000
 
 router.get("/", async (req, res) => 
 {
-    var cachedNations = cache.get('nations')
+    var cachedNations = cache.get('aurora_nations')
 
     if (cachedNations) res.status(200).json(cachedNations)
     else {
@@ -22,7 +22,7 @@ router.get("/", async (req, res) =>
 router.get("/:nationName", async (req, res) => 
 {
     var nationName = req.params.nationName,
-        cachedNations = cache.get('nations')
+        cachedNations = cache.get('aurora_nations')
         
     if (cachedNations) {
         var cachedNation = cachedNations.find(n => n.name.toLowerCase() == nationName.toLowerCase())
