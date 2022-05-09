@@ -5,8 +5,6 @@ const scout = require("@scout_apm/scout-apm"),
       rateLimit = require('express-rate-limit'),
       mainRoute = require("./routes/webpage/main"),
       inviteRoute = require("./routes/webpage/invite"),
-      monitorRoute = require("./routes/webpage/monitor"),
-      mapRoute = require("./routes/webpage/map"),
       serverInfoRoute = require("./routes/api/v1/serverInfo")
 
 const auroraTownsRoute = require("./routes/api/v1/aurora/towns"),
@@ -80,8 +78,6 @@ async function setupRoutes() {
       // Serve webpage routes.
       app.use("/", mainRoute)
       app.use("/invite", inviteRoute)
-      app.use("/monitor", monitorRoute)
-      app.use("/map", mapRoute)
       app.use("/api/v1/serverinfo", serverInfoRoute)
 
       //#region Serve Nova routes.
