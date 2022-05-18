@@ -1,10 +1,9 @@
-// @ts-nocheck
 const scout = require("@scout_apm/scout-apm"),
       express = require("express"),
       app = express(),
       rateLimit = require('express-rate-limit'),
-      mainRoute = require("./routes/webpage/main"),
-      inviteRoute = require("./routes/webpage/invite"),
+      webRoute = require("./routes/web/main"),
+      allPlayersRoute = require("./routes/api/v1/allPlayers"),
       serverInfoRoute = require("./routes/api/v1/serverInfo")
 
 const auroraTownsRoute = require("./routes/api/v1/aurora/towns"),
@@ -12,7 +11,6 @@ const auroraTownsRoute = require("./routes/api/v1/aurora/towns"),
       auroraResidentsRoute = require("./routes/api/v1/aurora/residents"),
       auroraOnlinePlayersRoute = require("./routes/api/v1/aurora/onlinePlayers"),
       auroraTownlessPlayersRoute = require("./routes/api/v1/aurora/townlessPlayers"),
-      auroraAllPlayersRoute = require("./routes/api/v1/aurora/allPlayers"),
       auroraNearbyPlayersRoute = require("./routes/api/v1/aurora/nearbyPlayers"),
       auroraNearbyTownsRoute = require("./routes/api/v1/aurora/nearbyTowns"),
       auroraNearbyNationsRoute = require("./routes/api/v1/aurora/nearbyNations"),
@@ -24,7 +22,6 @@ const novaTownsRoute = require("./routes/api/v1/nova/towns"),
       novaResidentsRoute = require("./routes/api/v1/nova/residents"),
       novaOnlinePlayersRoute = require("./routes/api/v1/nova/onlinePlayers"),
       novaTownlessPlayersRoute = require("./routes/api/v1/nova/townlessPlayers"),
-      novaAllPlayersRoute = require("./routes/api/v1/nova/allPlayers"),
       novaNearbyPlayersRoute = require("./routes/api/v1/nova/nearbyPlayers"),
       novaNearbyTownsRoute = require("./routes/api/v1/nova/nearbyTowns"),
       novaNearbyNationsRoute = require("./routes/api/v1/nova/nearbyNations"),
@@ -54,10 +51,10 @@ async function setupMonitoring() {
 }
 
 async function setupLimiter() {
-      var window = 5 * 1000
+      var window = 10 * 1000
       const limiter = rateLimit({
             windowMs: window, // Time (ms) until limit is reset
-            max: 10, // Limit each IP to x requests per `window`
+            max: 15, // Limit each IP to x requests per `window`
             message: 'You are currently rate-limited, try again in ' + window/1000 + ' seconds.',
             standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
             legacyHeaders: false, // Disable the `X-RateLimit-*` headers
@@ -75,10 +72,10 @@ async function setupRoutes() {
       app.use(bodyParser.json({ limit: '20mb' }))
       app.use(bodyParser.urlencoded({ limit: "20mb", extended: true, parameterLimit: 20000 }))
 
-      // Serve webpage routes.
-      app.use("/", mainRoute)
-      app.use("/invite", inviteRoute)
+      // Serve base routes.
+      app.use(webRoute)
       app.use("/api/v1/serverinfo", serverInfoRoute)
+      app.use("/api/v1/allplayers", allPlayersRoute)
 
       //#region Serve Nova routes.
       app.use("/api/v1/nova/towns", novaTownsRoute)
@@ -94,7 +91,6 @@ async function setupRoutes() {
       // POST, PUT, DELETE restricted to EMC Stats.
       app.use("/api/v1/nova/alliances", novaAlliancesRoute)
       app.use("/api/v1/nova/news", novaNewsRoute)
-      app.use("/api/v1/nova/allplayers", novaAllPlayersRoute)
       //#endregion
 
       //#region Serve Aurora routes
@@ -111,7 +107,6 @@ async function setupRoutes() {
       // // POST, PUT, DELETE restricted to EMC Stats.
       app.use("/api/v1/aurora/alliances", auroraAlliancesRoute)
       app.use("/api/v1/aurora/news", auroraNewsRoute)
-      app.use("/api/v1/aurora/allplayers", auroraAllPlayersRoute)
       //#endregion
 
       // Default not found response
