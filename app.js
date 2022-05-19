@@ -51,10 +51,10 @@ async function setupMonitoring() {
 }
 
 async function setupLimiter() {
-      var window = 10 * 1000
+      var window = 6 * 1000
       const limiter = rateLimit({
             windowMs: window, // Time (ms) until limit is reset
-            max: 15, // Limit each IP to x requests per `window`
+            max: 14, // Limit each IP to x requests per `window`
             message: 'You are currently rate-limited, try again in ' + window/1000 + ' seconds.',
             standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
             legacyHeaders: false, // Disable the `X-RateLimit-*` headers
