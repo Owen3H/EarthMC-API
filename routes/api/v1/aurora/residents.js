@@ -5,14 +5,12 @@ const express = require("express"),
 
 var cacheTimeout = 30000
 
-router.get("/", async (req, res) => 
-{
+router.get("/", async (req, res) => {
     var cachedResidents = cache.get('aurora_residents')
 
     if (cachedResidents) res.status(200).json(cachedResidents)
     else {
-        var residents = await emc.Aurora.getResidents().then(residents => { return residents }).catch(() => {})
-
+        var residents = await emc.Aurora.getResidents().catch(() => {})
         if (!residents) return res.status(500).json("An error occured fetching data, please try again.")
        
         cache.put('residents', residents, cacheTimeout)
@@ -20,8 +18,7 @@ router.get("/", async (req, res) =>
     }
 })
 
-router.get("/:residentName", async (req, res) => 
-{
+router.get("/:residentName", async (req, res) => {
     var residentName = req.params.residentName,
         cachedResidents = cache.get('aurora_residents')
         

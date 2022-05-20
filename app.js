@@ -105,7 +105,7 @@ async function setupRoutes() {
       app.use("/api/v1/aurora/nearbytowns", auroraNearbyTownsRoute)
       app.use("/api/v1/aurora/nearbynations", auroraNearbyNationsRoute)
 
-      // // POST, PUT, DELETE restricted to EMC Stats.
+      // POST, PUT, DELETE restricted to EMC Stats.
       app.use("/api/v1/aurora/alliances", auroraAlliancesRoute)
       app.use("/api/v1/aurora/news", auroraNewsRoute)
       app.use("/api/v1/aurora/allplayers", auroraAllPlayersRoute)
