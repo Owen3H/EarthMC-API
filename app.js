@@ -2,7 +2,7 @@ const scout = require("@scout_apm/scout-apm"),
       express = require("express"),
       app = express(),
       rateLimit = require('express-rate-limit'),
-      mainRoute = require("./routes/webpage/main"),
+      mainRoute = require("./routes/web/main"),
       serverInfoRoute = require("./routes/api/v1/serverInfo")
 
 const auroraTownsRoute = require("./routes/api/v1/aurora/towns"),
