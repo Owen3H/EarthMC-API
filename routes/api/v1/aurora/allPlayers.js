@@ -26,7 +26,7 @@ router.put('/', cors(), async function (req, res) {
 router.get("/", async (req, res) => {
     var cachedPlayers = cache.get('aurora_players')
     if (cachedPlayers) res.status(200).json(cachedPlayers)
-    else res.status(204).json("Players have not been cached yet.")
+    else res.status(503).json("Players have not been cached yet.")
 })
 
 router.get("/:playerName", async (req, res) => {
@@ -39,7 +39,7 @@ router.get("/:playerName", async (req, res) => {
         if (!player) res.status(404).json("That player does not exist!")
         else res.status(200).json(player).setTimeout(timeout)
     } 
-    else res.status(204).json("Players have not been cached yet.")
+    else res.status(503).json("Players have not been cached yet.")
 })
 
 function sendError(res) {
