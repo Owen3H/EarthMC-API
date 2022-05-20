@@ -31,7 +31,7 @@ const novaTownsRoute = require("./routes/api/v1/nova/towns"),
 
 // Leave these in this order.
 setupLimiter()
-setupMonitoring()
+//setupMonitoring()
 setupRoutes()
 setupGC()
 
