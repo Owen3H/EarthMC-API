@@ -38,7 +38,7 @@ setupGC()
 async function setupGC() {
       setInterval (() => {
             let mu = process.memoryUsage()
-            print('heapTotal:',  mu.heapTotal, 'heapUsed:', mu.heapUsed)
+            console.log('heapTotal:',  mu.heapTotal, 'heapUsed:', mu.heapUsed)
 
             if (mu.heapUsed > 460 * 1024 * 1024) {
                   print('Taking out the garbage')
