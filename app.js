@@ -2,8 +2,7 @@ const scout = require("@scout_apm/scout-apm"),
       express = require("express"),
       app = express(),
       rateLimit = require('express-rate-limit'),
-      webRoute = require("./routes/web/main"),
-      allPlayersRoute = require("./routes/api/v1/allPlayers"),
+      mainRoute = require("./routes/webpage/main"),
       serverInfoRoute = require("./routes/api/v1/serverInfo")
 
 const auroraTownsRoute = require("./routes/api/v1/aurora/towns"),
@@ -11,6 +10,7 @@ const auroraTownsRoute = require("./routes/api/v1/aurora/towns"),
       auroraResidentsRoute = require("./routes/api/v1/aurora/residents"),
       auroraOnlinePlayersRoute = require("./routes/api/v1/aurora/onlinePlayers"),
       auroraTownlessPlayersRoute = require("./routes/api/v1/aurora/townlessPlayers"),
+      auroraAllPlayersRoute = require("./routes/api/v1/aurora/allPlayers"),
       auroraNearbyPlayersRoute = require("./routes/api/v1/aurora/nearbyPlayers"),
       auroraNearbyTownsRoute = require("./routes/api/v1/aurora/nearbyTowns"),
       auroraNearbyNationsRoute = require("./routes/api/v1/aurora/nearbyNations"),
@@ -22,6 +22,7 @@ const novaTownsRoute = require("./routes/api/v1/nova/towns"),
       novaResidentsRoute = require("./routes/api/v1/nova/residents"),
       novaOnlinePlayersRoute = require("./routes/api/v1/nova/onlinePlayers"),
       novaTownlessPlayersRoute = require("./routes/api/v1/nova/townlessPlayers"),
+      novaAllPlayersRoute = require("./routes/api/v1/nova/allPlayers"),
       novaNearbyPlayersRoute = require("./routes/api/v1/nova/nearbyPlayers"),
       novaNearbyTownsRoute = require("./routes/api/v1/nova/nearbyTowns"),
       novaNearbyNationsRoute = require("./routes/api/v1/nova/nearbyNations"),
@@ -73,9 +74,8 @@ async function setupRoutes() {
       app.use(bodyParser.urlencoded({ limit: "20mb", extended: true, parameterLimit: 20000 }))
 
       // Serve base routes.
-      app.use(webRoute)
+      app.use(mainRoute)
       app.use("/api/v1/serverinfo", serverInfoRoute)
-      app.use("/api/v1/allplayers", allPlayersRoute)
 
       //#region Serve Nova routes.
       app.use("/api/v1/nova/towns", novaTownsRoute)
@@ -91,6 +91,7 @@ async function setupRoutes() {
       // POST, PUT, DELETE restricted to EMC Stats.
       app.use("/api/v1/nova/alliances", novaAlliancesRoute)
       app.use("/api/v1/nova/news", novaNewsRoute)
+      app.use("/api/v1/nova/allplayers", novaAllPlayersRoute)
       //#endregion
 
       //#region Serve Aurora routes
@@ -107,6 +108,7 @@ async function setupRoutes() {
       // // POST, PUT, DELETE restricted to EMC Stats.
       app.use("/api/v1/aurora/alliances", auroraAlliancesRoute)
       app.use("/api/v1/aurora/news", auroraNewsRoute)
+      app.use("/api/v1/aurora/allplayers", auroraAllPlayersRoute)
       //#endregion
 
       // Default not found response
