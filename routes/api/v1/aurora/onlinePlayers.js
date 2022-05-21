@@ -11,9 +11,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:playerName", async (req, res) => {
     var onlinePlayer = await emc.Aurora.getOnlinePlayer(req.params.playerName).catch(() => {})
-    if (!onlinePlayer) res.status(500).json("Error fetching player, please try again!")
-
-    if (onlinePlayer.name == "INVALID_PLAYER") res.status(404).json(onlinePlayer.message)
+    if (!onlinePlayer || onlinePlayer?.name == "INVALID_PLAYER") res.status(404).json(onlinePlayer.message)
     else res.status(200).json(onlinePlayer).setTimeout(5000)
 })
 
