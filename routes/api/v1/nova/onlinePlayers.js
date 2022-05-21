@@ -11,7 +11,9 @@ router.get("/", async (req, res) => {
 
 router.get("/:playerName", async (req, res) => {
     var onlinePlayer = await emc.Nova.getOnlinePlayer(req.params.playerName).catch(() => {})
-    if (!onlinePlayer || onlinePlayer?.name == "INVALID_PLAYER") res.status(404).json(onlinePlayer.message)
+    if (!onlinePlayer) return res.status(404).json("That player is offline or does not exist!")
+
+    if (onlinePlayer.name == "INVALID_PLAYER") res.status(404).json(onlinePlayer.message)
     else res.status(200).json(onlinePlayer).setTimeout(5000)
 })
 
