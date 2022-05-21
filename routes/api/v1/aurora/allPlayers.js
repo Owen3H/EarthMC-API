@@ -6,7 +6,7 @@ const express = require("express"),
       
 var timeout = 15000
 
-const mergeByName = (a1, a2) => a1.map(itm => ({...a2.find((item) => (item?.name === itm.name) && item), ...itm}))
+const mergeByName = (a1, a2) => a1.map(itm => ({...a2.find(item => !!item && (item?.name === itm.name)), ...itm}))
 
 router.put('/', cors(), async function (req, res) {
     if (req.header('AUTH_KEY') == process.env.AUTH_KEY) {
