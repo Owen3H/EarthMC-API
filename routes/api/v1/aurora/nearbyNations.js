@@ -4,8 +4,7 @@ const express = require("express"),
 
 var timeout = 10000
 
-router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) => 
-{
+router.get("/:xPos/:zPos/:xBlocks/:zBlocks", async (req, res) => {
     var xPos = Number(req.params.xPos), zPos = Number(req.params.zPos)
     if (!xPos || !zPos) return res.status(400).json([])
 

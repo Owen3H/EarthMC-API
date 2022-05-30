@@ -2,14 +2,13 @@
   "name": "earthmc-api",
   "version": "1.0.0",
   "description": "A REST API providing info on the EarthMC Minecraft server",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node --optimize_for_size server.js"
   },
   "author": "Owen77Stubbs",
   "license": "ISC",
   "dependencies": {
-    "@scout_apm/scout-apm": "^0.2.3",
     "body-parser": "^1.20.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",

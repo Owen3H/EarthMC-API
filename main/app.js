@@ -1,37 +1,35 @@
-const scout = require("@scout_apm/scout-apm"),
-      express = require("express"),
+const express = require("express"),
       app = express(),
       rateLimit = require('express-rate-limit'),
-      mainRoute = require("./routes/web/main"),
-      serverInfoRoute = require("./routes/api/v1/serverInfo")
+      redirectRoutes = require("../routes/web/redirects"),
+      serverInfoRoute = require("../routes/api/v1/serverInfo")
 
-const auroraTownsRoute = require("./routes/api/v1/aurora/towns"),
-      auroraNationsRoute = require("./routes/api/v1/aurora/nations"),
-      auroraResidentsRoute = require("./routes/api/v1/aurora/residents"),
-      auroraOnlinePlayersRoute = require("./routes/api/v1/aurora/onlinePlayers"),
-      auroraTownlessPlayersRoute = require("./routes/api/v1/aurora/townlessPlayers"),
-      auroraAllPlayersRoute = require("./routes/api/v1/aurora/allPlayers"),
-      auroraNearbyPlayersRoute = require("./routes/api/v1/aurora/nearbyPlayers"),
-      auroraNearbyTownsRoute = require("./routes/api/v1/aurora/nearbyTowns"),
-      auroraNearbyNationsRoute = require("./routes/api/v1/aurora/nearbyNations"),
-      auroraAlliancesRoute = require("./routes/api/v1/aurora/alliances"),
-      auroraNewsRoute = require("./routes/api/v1/aurora/news")
+const auroraTownsRoute = require("../routes/api/v1/aurora/towns"),
+      auroraNationsRoute = require("../routes/api/v1/aurora/nations"),
+      auroraResidentsRoute = require("../routes/api/v1/aurora/residents"),
+      auroraOnlinePlayersRoute = require("../routes/api/v1/aurora/onlinePlayers"),
+      auroraTownlessPlayersRoute = require("../routes/api/v1/aurora/townlessPlayers"),
+      auroraAllPlayersRoute = require("../routes/api/v1/aurora/allPlayers"),
+      auroraNearbyPlayersRoute = require("../routes/api/v1/aurora/nearbyPlayers"),
+      auroraNearbyTownsRoute = require("../routes/api/v1/aurora/nearbyTowns"),
+      auroraNearbyNationsRoute = require("../routes/api/v1/aurora/nearbyNations"),
+      auroraAlliancesRoute = require("../routes/api/v1/aurora/alliances"),
+      auroraNewsRoute = require("../routes/api/v1/aurora/news")
 
-const novaTownsRoute = require("./routes/api/v1/nova/towns"),
-      novaNationsRoute = require("./routes/api/v1/nova/nations"),
-      novaResidentsRoute = require("./routes/api/v1/nova/residents"),
-      novaOnlinePlayersRoute = require("./routes/api/v1/nova/onlinePlayers"),
-      novaTownlessPlayersRoute = require("./routes/api/v1/nova/townlessPlayers"),
-      novaAllPlayersRoute = require("./routes/api/v1/nova/allPlayers"),
-      novaNearbyPlayersRoute = require("./routes/api/v1/nova/nearbyPlayers"),
-      novaNearbyTownsRoute = require("./routes/api/v1/nova/nearbyTowns"),
-      novaNearbyNationsRoute = require("./routes/api/v1/nova/nearbyNations"),
-      novaAlliancesRoute = require("./routes/api/v1/nova/alliances"),
-      novaNewsRoute = require("./routes/api/v1/nova/news")
+const novaTownsRoute = require("../routes/api/v1/nova/towns"),
+      novaNationsRoute = require("../routes/api/v1/nova/nations"),
+      novaResidentsRoute = require("../routes/api/v1/nova/residents"),
+      novaOnlinePlayersRoute = require("../routes/api/v1/nova/onlinePlayers"),
+      novaTownlessPlayersRoute = require("../routes/api/v1/nova/townlessPlayers"),
+      novaAllPlayersRoute = require("../routes/api/v1/nova/allPlayers"),
+      novaNearbyPlayersRoute = require("../routes/api/v1/nova/nearbyPlayers"),
+      novaNearbyTownsRoute = require("../routes/api/v1/nova/nearbyTowns"),
+      novaNearbyNationsRoute = require("../routes/api/v1/nova/nearbyNations"),
+      novaAlliancesRoute = require("../routes/api/v1/nova/alliances"),
+      novaNewsRoute = require("../routes/api/v1/nova/news")
 
 // Leave these in this order.
 setupLimiter()
-//setupMonitoring()
 setupRoutes()
 setupGC()
 
@@ -45,10 +43,6 @@ async function setupGC() {
                   global.gc()
             }
       }, 1000 * 60)
-}
-
-async function setupMonitoring() {
-      app.use(scout.expressMiddleware())
 }
 
 async function setupLimiter() {
@@ -70,11 +64,11 @@ async function setupRoutes() {
       app.use(compression()) // Compress all routes
 
       var bodyParser = require("body-parser")
-      app.use(bodyParser.json({ limit: '20mb' }))
-      app.use(bodyParser.urlencoded({ limit: "20mb", extended: true, parameterLimit: 20000 }))
+      app.use(bodyParser.json({ limit: '15mb' }))
+      app.use(bodyParser.urlencoded({ limit: "15mb", extended: true, parameterLimit: 15000 }))
 
       // Serve base routes.
-      app.use(mainRoute)
+      app.use(redirectRoutes)
       app.use("/api/v1/serverinfo", serverInfoRoute)
 
       //#region Serve Nova routes.

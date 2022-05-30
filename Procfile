@@ -1,1 +1,1 @@
-web: node --optimize_for_size index.js
+web: npm run start

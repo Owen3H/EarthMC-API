@@ -5,8 +5,7 @@ const express = require("express"),
 
 var cacheTimeout = 20000
 
-router.get("/", async (req, res) => 
-{
+router.get("/", async (req, res) => {
     var cachedTownless = cache.get('aurora_townless')
     if (cachedTownless) sendOk(res, cachedTownless)
     else {

@@ -29,7 +29,7 @@ router.get("/:residentName", async (req, res) => {
         else res.status(404).json("That resident does not exist!")
     }
     else {
-        var resident = await emc.Aurora.getResident(residentName).then(resident => { return resident }).catch(invalidRes => { return invalidRes })
+        var resident = await emc.Aurora.getResident(residentName).catch(invalidRes => { return invalidRes })
 
         if (!resident) res.status(404).json("That resident does not exist!")
         else {

@@ -29,13 +29,11 @@ router.get("/:residentName", async (req, res) => {
         else res.status(404).json("That resident does not exist!")
     }
     else {
-        var resident = await emc.Nova.getResident(residentName).then(resident => { return resident }).catch(invalidRes => { return invalidRes })
-
-        if (!resident) res.status(404).json("That resident does not exist!")
-        else {
-            if (resident.name == "INVALID_PLAYER") res.status(404).json(resident.message)
-            else res.status(200).json(resident)
-        }
+        var resident = await emc.Nova.getResident(residentName).catch(() => {})
+        if (!resident) return res.status(404).json("That resident does not exist!")
+        
+        if (resident.name == "INVALID_PLAYER") res.status(404).json(resident.message)
+        else res.status(200).json(resident)
     }
 })
 

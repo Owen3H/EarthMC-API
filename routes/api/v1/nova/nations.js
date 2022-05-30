@@ -5,13 +5,12 @@ const express = require("express"),
 
 var cacheTimeout = 30000
 
-router.get("/", async (req, res) => 
-{
+router.get("/", async (req, res) => {
     var cachedNations = cache.get('nations')
 
     if (cachedNations) res.status(200).json(cachedNations)
     else {
-        var nations = await emc.Nova.getNations().then(nations => { return nations }).catch(() => {})
+        var nations = await emc.Nova.getNations().catch(() => {})
         if (!nations) return sendError(res)
 
         cache.put('nations', nations, cacheTimeout)
@@ -19,8 +18,7 @@ router.get("/", async (req, res) =>
     }
 })
 
-router.get("/:nationName", async (req, res) => 
-{
+router.get("/:nationName", async (req, res) => {
     var nationName = req.params.nationName,
         cachedNations = cache.get('nations')
         
@@ -31,15 +29,15 @@ router.get("/:nationName", async (req, res) =>
         else res.status(404).json("That nation does not exist!")
     }
     else {
-        var foundNation = await emc.Nova.getNation(nationName).then(nation => { return nation })
+        var foundNation = await emc.Nova.getNation(nationName).catch(() => {})
+        if (!foundNation) return sendError(res)
     
         if (foundNation == "That nation does not exist!") res.status(404).json(foundNation)
         else res.status(200).json(foundNation).setTimeout(10000)
     }
 })
 
-router.get("/:nationName/invitable", async (req, res) => 
-{
+router.get("/:nationName/invitable", async (req, res) => {
     var nationName = req.params.nationName,
         invitableTownsRes = await emc.Nova.getInvitableTowns(nationName, false).then(towns => { return towns })
 
