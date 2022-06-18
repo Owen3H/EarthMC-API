@@ -1,5 +1,6 @@
 const express = require("express"),
       app = express(),
+      cors = require('cors'),
       rateLimit = require('express-rate-limit'),
       redirectRoutes = require("../routes/web/redirects"),
       serverInfoRoute = require("../routes/api/v1/serverInfo")
@@ -66,6 +67,8 @@ async function setupRoutes() {
       var bodyParser = require("body-parser")
       app.use(bodyParser.json({ limit: '15mb' }))
       app.use(bodyParser.urlencoded({ limit: "15mb", extended: true, parameterLimit: 15000 }))
+
+      app.use(cors({ origin: '*' }))
 
       // Serve base routes.
       app.use(redirectRoutes)
