@@ -5,14 +5,14 @@ const express = require("express"),
 
 var timeout = 15 * 1000
 
-router.get('/', cors(), function (req, res) {
+router.get('/', function (req, res) {
     var cachedAlliances = cache.get('alliances')
 
     if (cachedAlliances) send200(res, cachedAlliances)
     else send204(res)
 })
 
-router.get('/:allianceName', cors(), function (req, res) {
+router.get('/:allianceName', function (req, res) {
     var cachedAlliances = cache.get('alliances'),
         allianceName = req.params.allianceName
 
