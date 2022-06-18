@@ -3,21 +3,16 @@ const express = require("express"),
       cache = require("memory-cache"),
       cors = require('cors')
 
-var timeout = 10 * 1000
+var timeout = 15 * 1000
 
-// PUT = CREATE/UPDATE
-// POST = CREATE/OVERWRITE
-// GET = READ
-
-router.get('/', function (req, res) {
+router.get('/', cors(), function (req, res) {
     var cachedAlliances = cache.get('alliances')
 
     if (cachedAlliances) send200(res, cachedAlliances)
     else send204(res)
 })
 
-router.get('/:allianceName', function (req, res) 
-{
+router.get('/:allianceName', cors(), function (req, res) {
     var cachedAlliances = cache.get('alliances'),
         allianceName = req.params.allianceName
 
@@ -48,8 +43,7 @@ router.get('/:allianceName', function (req, res)
     else send204(res)
 })
 
-router.put('/', cors(), function (req, res) 
-{
+router.put('/', cors(), function (req, res) {
     if (req.header('AUTH_KEY') == process.env.AUTH_KEY) {
         var alliances = req.body
 
