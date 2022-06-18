@@ -4,32 +4,32 @@ const express = require("express"),
       app.use(cors())
 
 const rateLimit = require('express-rate-limit'),
-      redirectRoutes = require("../routes/web/redirects"),
-      serverInfoRoute = require("../routes/api/v1/serverInfo")
+      redirectRoutes = require("./routes/web/redirects"),
+      serverInfoRoute = require("./routes/api/v1/serverInfo")
 
-const auroraTownsRoute = require("../routes/api/v1/aurora/towns"),
-      auroraNationsRoute = require("../routes/api/v1/aurora/nations"),
-      auroraResidentsRoute = require("../routes/api/v1/aurora/residents"),
-      auroraOnlinePlayersRoute = require("../routes/api/v1/aurora/onlinePlayers"),
-      auroraTownlessPlayersRoute = require("../routes/api/v1/aurora/townlessPlayers"),
-      auroraAllPlayersRoute = require("../routes/api/v1/aurora/allPlayers"),
-      auroraNearbyPlayersRoute = require("../routes/api/v1/aurora/nearbyPlayers"),
-      auroraNearbyTownsRoute = require("../routes/api/v1/aurora/nearbyTowns"),
-      auroraNearbyNationsRoute = require("../routes/api/v1/aurora/nearbyNations"),
-      auroraAlliancesRoute = require("../routes/api/v1/aurora/alliances"),
-      auroraNewsRoute = require("../routes/api/v1/aurora/news")
+const auroraTownsRoute = require("./routes/api/v1/aurora/towns"),
+      auroraNationsRoute = require("./routes/api/v1/aurora/nations"),
+      auroraResidentsRoute = require("./routes/api/v1/aurora/residents"),
+      auroraOnlinePlayersRoute = require("./routes/api/v1/aurora/onlinePlayers"),
+      auroraTownlessPlayersRoute = require("./routes/api/v1/aurora/townlessPlayers"),
+      auroraAllPlayersRoute = require("./routes/api/v1/aurora/allPlayers"),
+      auroraNearbyPlayersRoute = require("./routes/api/v1/aurora/nearbyPlayers"),
+      auroraNearbyTownsRoute = require("./routes/api/v1/aurora/nearbyTowns"),
+      auroraNearbyNationsRoute = require("./routes/api/v1/aurora/nearbyNations"),
+      auroraAlliancesRoute = require("./routes/api/v1/aurora/alliances"),
+      auroraNewsRoute = require("./routes/api/v1/aurora/news")
 
-const novaTownsRoute = require("../routes/api/v1/nova/towns"),
-      novaNationsRoute = require("../routes/api/v1/nova/nations"),
-      novaResidentsRoute = require("../routes/api/v1/nova/residents"),
-      novaOnlinePlayersRoute = require("../routes/api/v1/nova/onlinePlayers"),
-      novaTownlessPlayersRoute = require("../routes/api/v1/nova/townlessPlayers"),
-      novaAllPlayersRoute = require("../routes/api/v1/nova/allPlayers"),
-      novaNearbyPlayersRoute = require("../routes/api/v1/nova/nearbyPlayers"),
-      novaNearbyTownsRoute = require("../routes/api/v1/nova/nearbyTowns"),
-      novaNearbyNationsRoute = require("../routes/api/v1/nova/nearbyNations"),
-      novaAlliancesRoute = require("../routes/api/v1/nova/alliances"),
-      novaNewsRoute = require("../routes/api/v1/nova/news")
+const novaTownsRoute = require("./routes/api/v1/nova/towns"),
+      novaNationsRoute = require("./routes/api/v1/nova/nations"),
+      novaResidentsRoute = require("./routes/api/v1/nova/residents"),
+      novaOnlinePlayersRoute = require("./routes/api/v1/nova/onlinePlayers"),
+      novaTownlessPlayersRoute = require("./routes/api/v1/nova/townlessPlayers"),
+      novaAllPlayersRoute = require("./routes/api/v1/nova/allPlayers"),
+      novaNearbyPlayersRoute = require("./routes/api/v1/nova/nearbyPlayers"),
+      novaNearbyTownsRoute = require("./routes/api/v1/nova/nearbyTowns"),
+      novaNearbyNationsRoute = require("./routes/api/v1/nova/nearbyNations"),
+      novaAlliancesRoute = require("./routes/api/v1/nova/alliances"),
+      novaNewsRoute = require("./routes/api/v1/nova/news")
 
 // Leave these in this order.
 setupLimiter()
