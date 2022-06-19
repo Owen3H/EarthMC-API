@@ -5,8 +5,7 @@ const express = require("express"),
 
 var cacheTimeout = 30000
 
-router.get("/", async (req, res) => 
-{
+router.get("/", async (req, res) => {
     var cachedNations = cache.get('aurora_nations')
 
     if (cachedNations) res.status(200).json(cachedNations)
@@ -19,8 +18,7 @@ router.get("/", async (req, res) =>
     }
 })
 
-router.get("/:nationName", async (req, res) => 
-{
+router.get("/:nationName", async (req, res) => {
     var nationName = req.params.nationName,
         cachedNations = cache.get('aurora_nations')
         
@@ -38,8 +36,7 @@ router.get("/:nationName", async (req, res) =>
     }
 })
 
-router.get("/:nationName/invitable", async (req, res) => 
-{
+router.get("/:nationName/invitable", async (req, res) => {
     var nationName = req.params.nationName,
         invitableTownsRes = await emc.Aurora.getInvitableTowns(nationName, false).catch(() => {})
 
