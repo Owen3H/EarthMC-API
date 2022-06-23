@@ -17,5 +17,9 @@
     "express": "^4.18.0",
     "express-rate-limit": "^6.4.0",
     "memory-cache": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Owen3H/EarthMC-NPM.git"
   }
 }
