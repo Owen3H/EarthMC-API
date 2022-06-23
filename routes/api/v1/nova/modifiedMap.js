@@ -22,7 +22,7 @@ router.get("/", async (req, res) => {
 })
 
 async function modify(data) {
-    if (!data.sets) return
+    if (!data.sets) return []
     
     // Delete star icons.
     delete data.sets["townyPlugin.markerset"].markers;
