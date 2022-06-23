@@ -25,32 +25,37 @@ async function modify(data) {
     if (!data.sets) return []
     
     // Delete star icons.
-    delete data.sets["townyPlugin.markerset"].markers;
+    delete data.sets["townyPlugin.markerset"].markers
     let towns = Object.values(data.sets["townyPlugin.markerset"].areas)
 
-    // Iterating through every area drawn on the map.
-    towns.forEach(town => {
-        // Some variables.
+    let i = 0, len = towns.length
+    for (; i < len; i++) {
+        let town = towns[i]
+
         var townTitle = town.desc.split('<br \/>')[0]
-        townTitle = townTitle.replace(/\(Shop\)$/g, '').replaceAll(/[()]/g, '').split(' ')
-        const nation = townTitle[2].replace('</span>', '')
-        const area = calcArea(town.x, town.z, town.x.length)
-        const memberList = town.desc.split('Members <span style=\"font-weight:bold\">')[1].split('</span><br />Flags')[0]
-        const memberSize = (memberList.match(/,/g) || []).length + 1
+            .replace(/\(Shop\)$/g, '')
+            .replaceAll(/[()]/g, '')
+            .split(' ')
+
+        const nation = townTitle[2].replace('</span>', ''),
+              area = calcArea(town.x, town.z, town.x.length)
+
+        const memberList = town.desc.split('Members <span style=\"font-weight:bold\">')[1].split('</span><br />Flags')[0],
+              memberSize = (memberList.match(/,/g) || []).length + 1
 
         // Removing shop areas.
-        if (town.desc.includes('(Shop)')) town.fillopacity = town.opacity = 0
+        if (town.desc.includes('(Shop)')) towns.splice(i, 1)
 
         // Recreating town's description.
         town.desc = town.desc.replace('>hasUpkeep:', '>Has upkeep:')
-                             .replace('>pvp:', '>PVP allowed:')
-                             .replace('>mobs:', '>Mob spawning:')
-                             .replace('>public:', '>Public status:')
-                             .replace('>explosion:', '>Explosions:')
-                             .replace('>fire:', '>Fire spread:')
-                             .replace('>capital:', '>Is capital:')
+                            .replace('>pvp:', '>PVP allowed:')
+                            .replace('>mobs:', '>Mob spawning:')
+                            .replace('>public:', '>Public status:')
+                            .replace('>explosion:', '>Explosions:')
+                            .replace('>fire:', '>Fire spread:')
+                            .replace('>capital:', '>Is capital:')
 
-        town.desc = town.desc.replaceAll('true<', '\u2705<').replaceAll('false<', '\u26D4<')
+        town.desc = town.desc.replaceAll('true<', 'Yes').replaceAll('false<', 'No')
         town.desc = town.desc.replace('Members <span', 'Members <b>[' + memberSize + ']</b> <span')
         town.desc = town.desc.replace('</span><br /> Members', '</span><br />Size<span style=\"font-weight:bold\"> ' + area + ' </span><br /> Members')
 
@@ -60,7 +65,7 @@ async function modify(data) {
 
         if (town.color == "#3FB4FF" && town.fillcolor == "#3FB4FF") town.color = town.fillcolor = "#000000"
         if (nation.length < 1) return town.fillcolor = town.color = '#83003F'
-    })
+    }
 
     return towns
 }

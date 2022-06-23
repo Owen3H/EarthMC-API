@@ -64,10 +64,10 @@ async function setupLimiter() {
 }
 
 async function setupRoutes() {
-      app.use("/api/v1/nova/modified", novaModifiedRoute)
-
       const compression = require('compression')
       app.use(compression()) // Compress all routes
+
+      app.use("/api/v1/nova/modified", novaModifiedRoute)
 
       var bodyParser = require("body-parser")
       app.use(bodyParser.json({ limit: '30mb' }))
