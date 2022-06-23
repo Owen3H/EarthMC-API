@@ -56,7 +56,7 @@ async function modify(data) {
                             .replace('>fire:', '>Fire spread:')
                             .replace('>capital:', '>Is capital:')
 
-        town.desc = town.desc.replaceAll('true<', 'Yes').replaceAll('false<', 'No')
+        town.desc = town.desc.replaceAll('true<', 'Yes<').replaceAll('false<', 'No<')
         town.desc = town.desc.replace('Members <span', 'Members <b>[' + memberSize + ']</b> <span')
         town.desc = town.desc.replace('</span><br /> Members', '</span><br />Size<span style=\"font-weight:bold\"> ' + area + ' </span><br /> Members')
 
