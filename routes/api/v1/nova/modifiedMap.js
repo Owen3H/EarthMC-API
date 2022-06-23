@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
 
     if (cachedMapData) res.status(200).json(cachedMapData)
     else {
-        var mapData = await endpoint.mapData("nova")
+        var mapData = await endpoint.mapData("nova").catch(() => {})
         if (!mapData) return sendError(res)
 
         let modified = modify(mapData)
