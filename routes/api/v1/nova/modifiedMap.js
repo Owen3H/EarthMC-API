@@ -38,7 +38,7 @@ async function modify(data) {
             .split(' ')
 
         const nation = townTitle[2].replace('</span>', ''),
-              area = calcArea(town.x, town.z, town.x.length)
+              area = calcArea(town.x, town.z, town.x.length) / 256
 
         const memberList = town.desc.split('Members <span style=\"font-weight:bold\">')[1].split('</span><br />Flags')[0],
               memberSize = (memberList.match(/,/g) || []).length + 1
