@@ -1,14 +1,24 @@
 const express = require("express"),
       router = express.Router(),
-      testData = require("../../../../test.json")
+      cache = require("memory-cache"),
+      endpoint = require("earthmc/endpoint")
       // dynmapPlus = require("emc-dynmap+")
 
-router.get("/", async (req, res) => {
-    if (!testData) return sendError(res)
+var cacheTimeout = 30000
 
-    res.status(200).send(testData)
+router.get("/", async (req, res) => {
+    var cachedMapData = cache.get('nova_modified')
+
+    if (cachedMapData) res.status(200).json(cachedMapData)
+    else {
+        var mapData = await endpoint.mapData("nova")
+        if (!mapData) return sendError(res)
+
+        cache.put('nova_modified', mapData, cacheTimeout)
+        res.status(200).json(mapData)
+    }
 })
 
-function sendError(res) { res.status(500).json("Error fetching modified map data, please try again.") }
+const sendError = res => res.status(500).json("Error fetching modified map data, please try again.")
 
 module.exports = router
