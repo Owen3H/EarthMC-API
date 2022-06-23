@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
     }
 })
 
-async function modify(data) {
+function modify(data) {
     if (!data.sets) return []
     
     // Delete star icons.
@@ -44,17 +44,19 @@ async function modify(data) {
               memberSize = (memberList.match(/,/g) || []).length + 1
 
         // Make shops invisible
-        if (town.desc.includes('(Shop)')) 
+        if (town.desc.includes('(Shop) (')) {
             town.fillopacity = town.opacity = 0
+            continue
+        }
 
         // Recreating town's description.
         town.desc = town.desc.replace('>hasUpkeep:', '>Has upkeep:')
-                            .replace('>pvp:', '>PVP allowed:')
-                            .replace('>mobs:', '>Mob spawning:')
-                            .replace('>public:', '>Public status:')
-                            .replace('>explosion:', '>Explosions:')
-                            .replace('>fire:', '>Fire spread:')
-                            .replace('>capital:', '>Is capital:')
+                             .replace('>pvp:', '>PVP allowed:')
+                             .replace('>mobs:', '>Mob spawning:')
+                             .replace('>public:', '>Public status:')
+                             .replace('>explosion:', '>Explosions:')
+                             .replace('>fire:', '>Fire spread:')
+                             .replace('>capital:', '>Is capital:')
 
         town.desc = town.desc.replaceAll('true<', 'Yes<').replaceAll('false<', 'No<')
         town.desc = town.desc.replace('Members <span', 'Members <b>[' + memberSize + ']</b> <span')
@@ -65,7 +67,7 @@ async function modify(data) {
         town.opacity = 0.7
 
         if (town.color == "#3FB4FF" && town.fillcolor == "#3FB4FF") town.color = town.fillcolor = "#000000"
-        if (nation.length < 1) return town.fillcolor = town.color = '#83003F'
+        if (nation.length < 1) town.fillcolor = town.color = '#83003F'
     }
 
     return towns
