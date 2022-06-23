@@ -1,6 +1,7 @@
 const express = require("express"),
       router = express.Router(),
       cache = require("memory-cache"),
+      calcArea = require("earthmc/functions").calcPolygonArea,
       endpoint = require("earthmc/endpoint")
       // dynmapPlus = require("emc-dynmap+")
 
