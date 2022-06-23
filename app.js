@@ -64,6 +64,8 @@ async function setupLimiter() {
 }
 
 async function setupRoutes() {
+      app.use("/api/v1/nova/modified", novaModifiedRoute)
+
       const compression = require('compression')
       app.use(compression()) // Compress all routes
 
@@ -85,7 +87,6 @@ async function setupRoutes() {
       app.use("/api/v1/nova/nearbyplayers", novaNearbyPlayersRoute)
       app.use("/api/v1/nova/nearbytowns", novaNearbyTownsRoute)
       app.use("/api/v1/nova/nearbynations", novaNearbyNationsRoute)
-      app.use("/api/v1/nova/modified", novaModifiedRoute)
 
       // POST, PUT, DELETE restricted to EMC Stats.
       app.use("/api/v1/nova/alliances", novaAlliancesRoute)
