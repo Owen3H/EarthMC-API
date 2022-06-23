@@ -68,8 +68,8 @@ async function setupRoutes() {
       app.use(compression()) // Compress all routes
 
       var bodyParser = require("body-parser")
-      app.use(bodyParser.json({ limit: '15mb' }))
-      app.use(bodyParser.urlencoded({ limit: "15mb", extended: true, parameterLimit: 15000 }))
+      app.use(bodyParser.json({ limit: '30mb' }))
+      app.use(bodyParser.urlencoded({ limit: "30mb", extended: true, parameterLimit: 25000 }))
 
       // Serve base routes.
       app.use(redirectRoutes)
