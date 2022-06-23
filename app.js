@@ -29,7 +29,8 @@ const novaTownsRoute = require("./routes/api/v1/nova/towns"),
       novaNearbyTownsRoute = require("./routes/api/v1/nova/nearbyTowns"),
       novaNearbyNationsRoute = require("./routes/api/v1/nova/nearbyNations"),
       novaAlliancesRoute = require("./routes/api/v1/nova/alliances"),
-      novaNewsRoute = require("./routes/api/v1/nova/news")
+      novaNewsRoute = require("./routes/api/v1/nova/news"),
+      novaModifiedRoute = require("./routes/api/v1/nova/modifiedMap")
 
 // Leave these in this order.
 setupLimiter()
@@ -84,6 +85,7 @@ async function setupRoutes() {
       app.use("/api/v1/nova/nearbyplayers", novaNearbyPlayersRoute)
       app.use("/api/v1/nova/nearbytowns", novaNearbyTownsRoute)
       app.use("/api/v1/nova/nearbynations", novaNearbyNationsRoute)
+      app.use("/api/v1/nova/modified", novaModifiedRoute)
 
       // POST, PUT, DELETE restricted to EMC Stats.
       app.use("/api/v1/nova/alliances", novaAlliancesRoute)
