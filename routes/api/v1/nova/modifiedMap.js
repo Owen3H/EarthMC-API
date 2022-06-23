@@ -43,8 +43,9 @@ async function modify(data) {
         const memberList = town.desc.split('Members <span style=\"font-weight:bold\">')[1].split('</span><br />Flags')[0],
               memberSize = (memberList.match(/,/g) || []).length + 1
 
-        // Removing shop areas.
-        if (town.desc.includes('(Shop)')) towns.splice(i, 1)
+        // Make shops invisible
+        if (town.desc.includes('(Shop)')) 
+            town.fillopacity = town.opacity = 0
 
         // Recreating town's description.
         town.desc = town.desc.replace('>hasUpkeep:', '>Has upkeep:')
