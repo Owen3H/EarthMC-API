@@ -1,5 +1,6 @@
 const express = require("express"),
       router = express.Router(),
+      fetch = require("node-fetch"),
       cache = require("memory-cache")
       // dynmapPlus = require("emc-dynmap+")
 
