@@ -5,10 +5,10 @@ const express = require("express"),
 
 router.get("/", async (req, res) => {
     if (!testData) return sendError(res)
- 
-    res.status(200).json(testData).setTimeout(10000)
+
+    res.status(200).send(testData)
 })
 
-var sendError = res => res.status(500).json("Error fetching modified map data, please try again.")
+function sendError(res) { res.status(500).json("Error fetching modified map data, please try again.") }
 
 module.exports = router
