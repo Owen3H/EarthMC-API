@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
         var mapData = await endpoint.mapData('nova')
         if (!mapData) return sendError(res)
 
-        let modified = modify(mapData)
+        let modified = modify(mapData, 'nova', 'mega')
         cache.put('nova_modified', modified, cacheTimeout)
         res.status(200).json(mapData)
     }
