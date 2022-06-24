@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
 
         let modified = modify(mapData, 'nova', 'mega')
         cache.put('nova_modified', modified, cacheTimeout)
-        res.status(200).json(mapData)
+        res.status(200).json(modified)
     }
 })
 
