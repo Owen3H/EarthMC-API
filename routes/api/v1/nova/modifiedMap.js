@@ -20,7 +20,7 @@ async function sendModified(cacheKey, res) {
 }
 
 router.get("/mega", async (req, res) => sendModified('nova_mega', res))
-router.get("/pact", async (req, res) => sendModified('nova_pact', res))
+router.get("/pact", async (req, res) => sendModified('nova_normal', res))
 
 const sendError = res => res.status(500).json("Error fetching modified map data, please try again.")
 
