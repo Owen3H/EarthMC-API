@@ -17,7 +17,8 @@ const auroraTownsRoute = require("./routes/api/v1/aurora/towns"),
       auroraNearbyTownsRoute = require("./routes/api/v1/aurora/nearbyTowns"),
       auroraNearbyNationsRoute = require("./routes/api/v1/aurora/nearbyNations"),
       auroraAlliancesRoute = require("./routes/api/v1/aurora/alliances"),
-      auroraNewsRoute = require("./routes/api/v1/aurora/news")
+      auroraNewsRoute = require("./routes/api/v1/aurora/news"),
+      auroraModifiedRoute = require("./routes/api/v1/aurora/modifiedMap")
 
 const novaTownsRoute = require("./routes/api/v1/nova/towns"),
       novaNationsRoute = require("./routes/api/v1/nova/nations"),
@@ -67,7 +68,8 @@ async function setupRoutes() {
       const compression = require('compression')
       app.use(compression()) // Compress all routes
 
-      app.use("/api/v1/nova/mega", novaModifiedRoute)
+      app.use("/api/v1/nova/modified", novaModifiedRoute)
+      app.use("/api/v1/aurora/modified", auroraModifiedRoute)
 
       var bodyParser = require("body-parser")
       app.use(bodyParser.json({ limit: '30mb' }))

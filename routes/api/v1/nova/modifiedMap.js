@@ -6,19 +6,23 @@ const express = require("express"),
 
 var cacheTimeout = 30000
 
-router.get("/", async (req, res) => {
-    var cachedMapData = cache.get('nova_modified')
+async function sendModified(cacheKey, res) {
+    let cachedMapData = cache.get(cacheKey),
+        allianceType = cacheKey.replace('nova', '')
 
     if (cachedMapData) res.status(200).send(cachedMapData)
     else {
         var mapData = await endpoint.mapData('nova')
         if (!mapData) return sendError(res)
 
-        let modified = modify(mapData, 'nova', 'mega')
-        cache.put('nova_modified', modified, cacheTimeout)
+        let modified = modify(mapData, 'nova', allianceType)
+        cache.put(cacheKey, modified, cacheTimeout)
         res.status(200).send(modified)
     }
-})
+}
+
+router.get("/mega", async (req, res) => sendModified('nova_mega', res))
+router.get("/pact", async (req, res) => sendModified('nova_pact', res))
 
 const sendError = res => res.status(500).json("Error fetching modified map data, please try again.")
 
