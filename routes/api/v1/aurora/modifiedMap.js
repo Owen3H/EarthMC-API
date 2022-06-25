@@ -11,7 +11,7 @@ async function sendModified(cacheKey, res) {
 
     if (cachedMapData) res.status(200).send(cachedMapData)
     else {
-        let modified = modify('aurora', allianceType)
+        let modified = await modify('aurora', allianceType)
         if (!modified) return sendError(res)
 
         cache.put(cacheKey, modified, cacheTimeout)
