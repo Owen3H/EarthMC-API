@@ -68,9 +68,6 @@ async function setupRoutes() {
       const compression = require('compression')
       app.use(compression()) // Compress all routes
 
-      app.use("/api/v1/nova/modified", novaModifiedRoute)
-      app.use("/api/v1/aurora/modified", auroraModifiedRoute)
-
       var bodyParser = require("body-parser")
       app.use(bodyParser.json({ limit: '30mb' }))
       app.use(bodyParser.urlencoded({ limit: "30mb", extended: true, parameterLimit: 25000 }))
@@ -112,6 +109,10 @@ async function setupRoutes() {
       app.use("/api/v1/aurora/news", auroraNewsRoute)
       app.use("/api/v1/aurora/allplayers", auroraAllPlayersRoute)
       //#endregion
+
+      // Modified map data (for dynmap-plus extension)
+      app.use("/api/v1/nova/modified", novaModifiedRoute)
+      app.use("/api/v1/aurora/modified", auroraModifiedRoute)
 
       // Default not found response
       app.use((req, res) => {
