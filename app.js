@@ -18,7 +18,8 @@ const auroraTownsRoute = require("./routes/api/v1/aurora/towns"),
       auroraNearbyNationsRoute = require("./routes/api/v1/aurora/nearbyNations"),
       auroraAlliancesRoute = require("./routes/api/v1/aurora/alliances"),
       auroraNewsRoute = require("./routes/api/v1/aurora/news"),
-      auroraModifiedRoute = require("./routes/api/v1/aurora/modifiedMap")
+      auroraModifiedRoute = require("./routes/api/v1/aurora/modifiedMap"),
+      auroraUpdateRoute = require("./routes/api/v1/aurora/playerUpdate")
 
 const novaTownsRoute = require("./routes/api/v1/nova/towns"),
       novaNationsRoute = require("./routes/api/v1/nova/nations"),
@@ -31,7 +32,8 @@ const novaTownsRoute = require("./routes/api/v1/nova/towns"),
       novaNearbyNationsRoute = require("./routes/api/v1/nova/nearbyNations"),
       novaAlliancesRoute = require("./routes/api/v1/nova/alliances"),
       novaNewsRoute = require("./routes/api/v1/nova/news"),
-      novaModifiedRoute = require("./routes/api/v1/nova/modifiedMap")
+      novaModifiedRoute = require("./routes/api/v1/nova/modifiedMap"),
+      novaUpdateRoute = require("./routes/api/v1/nova/playerUpdate")
 
 // Leave these in this order.
 setupLimiter()
@@ -110,9 +112,15 @@ async function setupRoutes() {
       app.use("/api/v1/aurora/allplayers", auroraAllPlayersRoute)
       //#endregion
 
-      // Modified map data (for dynmap-plus extension)
-      app.use("/api/v1/nova/modified", novaModifiedRoute)
-      app.use("/api/v1/aurora/modified", auroraModifiedRoute)
+      //#region Dynmap-plus extension
+      // Modified markers
+      app.use("/api/v1/nova/markers", novaModifiedRoute)
+      app.use("/api/v1/aurora/markers", auroraModifiedRoute)
+
+      // Un-modified player data
+      app.use("/api/v1/nova/update", novaUpdateRoute)
+      app.use("/api/v1/aurora/update", auroraUpdateRoute)
+      //#endregion
 
       // Default not found response
       app.use((req, res) => {
