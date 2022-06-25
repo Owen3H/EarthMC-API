@@ -1,6 +1,5 @@
 const express = require("express"),
       router = express.Router(),
-      endpoint = require("earthmc/endpoint"),
       cache = require("memory-cache"),
       modify = require("earthmc-dynmap-plus")
 
@@ -12,10 +11,9 @@ async function sendModified(cacheKey, res) {
 
     if (cachedMapData) res.status(200).send(cachedMapData)
     else {
-        var mapData = await endpoint.mapData('nova').catch(e => console.log(e))
-        if (!mapData) return sendError(res)
+        let modified = modify('nova', allianceType)
+        if (!modified) return sendError(res)
 
-        let modified = modify(mapData, 'nova', allianceType)
         cache.put(cacheKey, modified, cacheTimeout)
         res.status(200).send(modified)
     }
