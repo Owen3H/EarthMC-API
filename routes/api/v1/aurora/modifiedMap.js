@@ -7,7 +7,7 @@ var cacheTimeout = 15000
 
 async function sendModified(cacheKey, res) {
     let cachedMapData = cache.get(cacheKey),
-        allianceType = cacheKey.replace('aurora', '')
+        allianceType = cacheKey.replace('aurora_', '')
 
     if (cachedMapData) res.status(200).send(cachedMapData)
     else {
