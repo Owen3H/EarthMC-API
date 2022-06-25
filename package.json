@@ -4,7 +4,7 @@
   "description": "A REST API providing info on the EarthMC Minecraft server",
   "main": "server.js",
   "scripts": {
-    "start": "node --optimize_for_size server.js"
+    "start": "npm i earthmc-dynmap-plus && node --optimize_for_size server.js"
   },
   "author": "Owen77Stubbs",
   "license": "ISC",
@@ -14,7 +14,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "earthmc": "^3.2.3",
-    "earthmc-dynmap-plus": "latest",
+    "earthmc-dynmap-plus": "^1.0.6",
     "express": "^4.18.0",
     "express-rate-limit": "^6.4.0",
     "memory-cache": "^0.2.0"
