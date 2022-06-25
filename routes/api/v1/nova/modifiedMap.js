@@ -9,14 +9,14 @@ var cacheTimeout = 30000
 router.get("/", async (req, res) => {
     var cachedMapData = cache.get('nova_modified')
 
-    if (cachedMapData) res.status(200).json(cachedMapData)
+    if (cachedMapData) res.status(200).send(cachedMapData)
     else {
         var mapData = await endpoint.mapData('nova')
         if (!mapData) return sendError(res)
 
         let modified = modify(mapData, 'nova', 'mega')
         cache.put('nova_modified', modified, cacheTimeout)
-        res.status(200).json(modified)
+        res.status(200).send(modified)
     }
 })
 
