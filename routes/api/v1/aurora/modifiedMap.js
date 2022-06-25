@@ -1,9 +1,10 @@
 const express = require("express"),
       router = express.Router(),
+      endpoint = require("earthmc/endpoint"),
       cache = require("memory-cache"),
       modify = require("earthmc-dynmap-plus")
 
-var cacheTimeout = 30000
+var cacheTimeout = 15000
 
 async function sendModified(cacheKey, res) {
     let cachedMapData = cache.get(cacheKey),
