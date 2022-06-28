@@ -8,7 +8,7 @@ async function filterUpdate(res) {
     let raw = await endpoint.playerData('nova')
     if (!raw) return sendError(res)
 
-    raw.updates = raw.updates?.filter(e => e.msg != "areaupdated")
+    raw.updates = raw.updates?.filter(e => e.msg != "areaupdated" && e.msg != "markerupdated")
     return raw
 }
 
