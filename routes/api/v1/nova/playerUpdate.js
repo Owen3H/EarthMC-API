@@ -3,13 +3,15 @@ const express = require("express"),
       endpoint = require("earthmc/endpoint")
 
 router.get("/", async (req, res) => {
-    let data = await filterUpdate(res)
+    let data = await fetchUpdates().catch(() => {})
+    if (!data) sendError(res)
+
     res.status(200).send(data)
 })
 
-async function filterUpdate(res) { 
+async function fetchUpdates() { 
     let raw = await endpoint.playerData('nova')
-    if (!raw || !raw.updates) return sendError(res)
+    if (!raw || !raw.updates) return null
 
     raw.updates = raw.updates.filter(e => e.msg != "areaupdated" && e.msg != "markerupdated")
     return raw
