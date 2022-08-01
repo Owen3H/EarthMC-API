@@ -1,0 +1,11 @@
+{
+    "files.exclude": {
+        ".gitattributes": true,
+        ".vscode": true,
+        "LICENSE": true,
+        "package-lock.json": true
+    },
+    "explorer.openEditors.sortOrder": "fullPath",
+    "explorer.sortOrder": "filesFirst",
+    "explorer.sortOrderLexicographicOptions": "default"
+}
